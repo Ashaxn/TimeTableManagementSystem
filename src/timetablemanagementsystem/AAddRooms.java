@@ -301,7 +301,7 @@ public class AAddRooms extends javax.swing.JFrame {
 
         jPanel6.add(jp_addRooms);
 
-        jp_manageRooms.setBackground(new java.awt.Color(0, 0, 204));
+        jp_manageRooms.setBackground(new java.awt.Color(0, 255, 204));
 
         javax.swing.GroupLayout jp_manageRoomsLayout = new javax.swing.GroupLayout(jp_manageRooms);
         jp_manageRooms.setLayout(jp_manageRoomsLayout);
