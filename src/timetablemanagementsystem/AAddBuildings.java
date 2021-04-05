@@ -5,9 +5,23 @@
  */
 package timetablemanagementsystem;
 
-import java.awt.Button;
 import java.awt.Color;
-import javax.swing.JPanel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -18,11 +32,87 @@ public class AAddBuildings extends javax.swing.JFrame {
     /**
      * Creates new form AAddBuildings
      */
+    
+    private Connection connection;
+    private Statement statement;
+    private PreparedStatement preparedStmt;
+    private String buildingNo_rowSelected;
+    private String building_no, building_name;
+    private int noOf_rooms;
+    
+    
     public AAddBuildings() {
         initComponents();
+        dbconnect();
+        show_buildingDetails();
         btn_addBuilding.setBackground(new java.awt.Color(8,142,88));
     }
 
+ 
+    public ArrayList<ABuildingModel> buildingList() {
+        
+        ArrayList<ABuildingModel> buildingList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM BUILDINGS";
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            
+            ABuildingModel abuildingmodel ;
+            
+            while(rs.next()){
+                abuildingmodel = new ABuildingModel ( rs.getString("building_no"), rs.getString("building_name"), rs.getInt("noOf_rooms"));
+                buildingList.add(abuildingmodel);
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex + "Exception occured in BuildingList method");
+            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);         
+        }
+        return buildingList;
+    }
+    
+    public void show_buildingDetails(){
+        ArrayList<ABuildingModel> buildingList = buildingList();
+        DefaultTableModel tableModel = (DefaultTableModel) table_displayBuildingDetails.getModel();
+        
+        Object[] row = new Object[3];
+        for (int i = 0; i < buildingList.size(); i++) {
+            row[0] = buildingList.get(i).getBuildingNumber();
+            row[1] = buildingList.get(i).getBuildingName();
+            row[2] = buildingList.get(i).getNoOfRooms();
+            
+            tableModel.addRow(row);
+        }
+    }
+    
+    private void dbconnect(){
+        final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+        final String JDBC_URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+        
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(JDBC_URL);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }  
+        
+    }
+    
+    private void clearFieldsManage(){
+        buildingNoManage.setText(null);
+        buildingNameManage.setText(null);
+        noRoomsManage.setText(null);
+    }
+    
+    private void clearFieldsAdd(){
+        buildingNo.setText(null);
+        buildingName.setText(null);
+        noRooms.setValue(10);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,15 +136,30 @@ public class AAddBuildings extends javax.swing.JFrame {
         addBuilding_backBtn = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jp_addBuildings = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jSpinner1 = new javax.swing.JSpinner();
+        buildingName = new javax.swing.JTextField();
+        buildingNo = new javax.swing.JTextField();
+        noRooms = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_add = new javax.swing.JButton();
         jp_manageBuildings = new javax.swing.JPanel();
+        btn_updateManage = new javax.swing.JButton();
+        btn_deleteManage = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table_displayBuildingDetails = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        buildingNoManage = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        buildingNameManage = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        searchTextFieldBuildings = new javax.swing.JTextField();
+        btn_refreshManage = new javax.swing.JButton();
+        btn_searchManage = new javax.swing.JButton();
+        btn_clearManage = new javax.swing.JButton();
+        noRoomsManage = new javax.swing.JTextField();
+        btn_viewBuildingTable = new javax.swing.JButton();
         JPanel7 = new javax.swing.JPanel();
         addBuilding_TopBar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -154,6 +259,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         SidePanel.add(btn_ManageBuilding, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 230, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/ABC Logo 150x150.png"))); // NOI18N
+        jLabel3.setToolTipText("ABC Institue");
         SidePanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 150, 110));
 
         addBuilding_backBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -170,47 +276,48 @@ public class AAddBuildings extends javax.swing.JFrame {
         SidePanel.add(addBuilding_backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 112, 31));
 
         jPanel6.setBackground(new java.awt.Color(247, 247, 247));
-        jPanel6.setPreferredSize(new java.awt.Dimension(625, 329));
-        jPanel6.setLayout(new javax.swing.OverlayLayout(jPanel6));
+        jPanel6.setMinimumSize(new java.awt.Dimension(630, 455));
+        jPanel6.setPreferredSize(new java.awt.Dimension(600, 600));
+        jPanel6.setLayout(new java.awt.CardLayout());
 
         jp_addBuildings.setBackground(new java.awt.Color(247, 247, 247));
+        jp_addBuildings.setMinimumSize(new java.awt.Dimension(630, 455));
+        jp_addBuildings.setPreferredSize(new java.awt.Dimension(625, 329));
 
-        jTextField1.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField1.setText("   Ex : Nelson Hall");
-        jTextField1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        buildingName.setForeground(new java.awt.Color(51, 51, 51));
+        buildingName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        buildingName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                buildingNameActionPerformed(evt);
             }
         });
 
-        jTextField3.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField3.setText("   Ex : 123");
-        jTextField3.setToolTipText("");
-        jTextField3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTextField3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTextField3.addFocusListener(new java.awt.event.FocusAdapter() {
+        buildingNo.setForeground(new java.awt.Color(51, 51, 51));
+        buildingNo.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        buildingNo.setToolTipText("");
+        buildingNo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        buildingNo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        buildingNo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField3FocusGained(evt);
+                buildingNoFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField3FocusLost(evt);
+                buildingNoFocusLost(evt);
             }
         });
-        jTextField3.addMouseListener(new java.awt.event.MouseAdapter() {
+        buildingNo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField3MouseClicked(evt);
+                buildingNoMouseClicked(evt);
             }
         });
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        buildingNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                buildingNoActionPerformed(evt);
             }
         });
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(10, 10, 2000, 1));
-        jSpinner1.setBorder(null);
+        noRooms.setModel(new javax.swing.SpinnerNumberModel(10, 10, 2000, 1));
+        noRooms.setBorder(null);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
@@ -236,15 +343,16 @@ public class AAddBuildings extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
-        jButton2.setText("ADD");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_add.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_add.setForeground(new java.awt.Color(255, 255, 255));
+        btn_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
+        btn_add.setText("ADD");
+        btn_add.setToolTipText("If you click this data will added to the database");
+        btn_add.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_add.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
+        btn_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_addActionPerformed(evt);
             }
         });
 
@@ -253,70 +361,292 @@ public class AAddBuildings extends javax.swing.JFrame {
         jp_addBuildingsLayout.setHorizontalGroup(
             jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_addBuildingsLayout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addContainerGap(103, Short.MAX_VALUE)
                 .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jp_addBuildingsLayout.createSequentialGroup()
-                            .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel8))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel9)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(72, 72, 72))
-                        .addGroup(jp_addBuildingsLayout.createSequentialGroup()
-                            .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel10)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(338, 338, 338)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addBuildingsLayout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buildingNo, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10)
+                            .addComponent(noRooms, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buildingName, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(65, 65, 65))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addBuildingsLayout.createSequentialGroup()
+                        .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(176, 176, 176))))
+                        .addGap(161, 161, 161))))
         );
         jp_addBuildingsLayout.setVerticalGroup(
             jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_addBuildingsLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(35, 35, 35)
+                .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                    .addComponent(buildingNo, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(buildingName, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_addBuildingsLayout.createSequentialGroup()
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(150, 150, 150))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addBuildingsLayout.createSequentialGroup()
-                        .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(54, 54, 54))))
+                .addComponent(noRooms, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(163, 163, 163))
         );
 
-        jPanel6.add(jp_addBuildings);
+        jPanel6.add(jp_addBuildings, "card2");
 
-        jp_manageBuildings.setBackground(new java.awt.Color(0, 0, 204));
+        jp_manageBuildings.setBackground(new java.awt.Color(247, 247, 247));
+        jp_manageBuildings.setMinimumSize(new java.awt.Dimension(630, 455));
+        jp_manageBuildings.setPreferredSize(new java.awt.Dimension(625, 329));
+
+        btn_updateManage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_updateManage.setForeground(new java.awt.Color(255, 255, 255));
+        btn_updateManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
+        btn_updateManage.setText("UPDATE");
+        btn_updateManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_updateManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
+        btn_updateManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_updateManageActionPerformed(evt);
+            }
+        });
+
+        btn_deleteManage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_deleteManage.setForeground(new java.awt.Color(255, 255, 255));
+        btn_deleteManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
+        btn_deleteManage.setText("DELETE");
+        btn_deleteManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_deleteManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
+        btn_deleteManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteManageActionPerformed(evt);
+            }
+        });
+
+        table_displayBuildingDetails.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Building Number", "Building Name", "No Of Rooms"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        table_displayBuildingDetails.getTableHeader().setReorderingAllowed(false);
+        table_displayBuildingDetails.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_displayBuildingDetailsMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table_displayBuildingDetails);
+        if (table_displayBuildingDetails.getColumnModel().getColumnCount() > 0) {
+            table_displayBuildingDetails.getColumnModel().getColumn(0).setResizable(false);
+            table_displayBuildingDetails.getColumnModel().getColumn(1).setResizable(false);
+            table_displayBuildingDetails.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel11.setText("Building Number (Cannot Edit) :");
+
+        buildingNoManage.setEditable(false);
+        buildingNoManage.setBackground(new java.awt.Color(214, 214, 214));
+        buildingNoManage.setForeground(new java.awt.Color(51, 51, 51));
+        buildingNoManage.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        buildingNoManage.setToolTipText("");
+        buildingNoManage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        buildingNoManage.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        buildingNoManage.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                buildingNoManageFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                buildingNoManageFocusLost(evt);
+            }
+        });
+        buildingNoManage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buildingNoManageMouseClicked(evt);
+            }
+        });
+        buildingNoManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buildingNoManageActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel12.setText("Building Name :");
+
+        buildingNameManage.setForeground(new java.awt.Color(51, 51, 51));
+        buildingNameManage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        buildingNameManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buildingNameManageActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel13.setText("No Of Rooms :");
+
+        searchTextFieldBuildings.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        searchTextFieldBuildings.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        searchTextFieldBuildings.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchTextFieldBuildingsKeyReleased(evt);
+            }
+        });
+
+        btn_refreshManage.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        btn_refreshManage.setForeground(new java.awt.Color(255, 255, 255));
+        btn_refreshManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
+        btn_refreshManage.setText("Refresh");
+        btn_refreshManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_refreshManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
+        btn_refreshManage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_refreshManageMouseClicked(evt);
+            }
+        });
+        btn_refreshManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_refreshManageActionPerformed(evt);
+            }
+        });
+
+        btn_searchManage.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        btn_searchManage.setForeground(new java.awt.Color(255, 255, 255));
+        btn_searchManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
+        btn_searchManage.setText("Search");
+        btn_searchManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_searchManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
+        btn_searchManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchManageActionPerformed(evt);
+            }
+        });
+
+        btn_clearManage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_clearManage.setForeground(new java.awt.Color(255, 255, 255));
+        btn_clearManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
+        btn_clearManage.setText("CLEAR");
+        btn_clearManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_clearManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
+        btn_clearManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearManageActionPerformed(evt);
+            }
+        });
+
+        noRoomsManage.setForeground(new java.awt.Color(51, 51, 51));
+        noRoomsManage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        noRoomsManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noRoomsManageActionPerformed(evt);
+            }
+        });
+
+        btn_viewBuildingTable.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        btn_viewBuildingTable.setForeground(new java.awt.Color(255, 255, 255));
+        btn_viewBuildingTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
+        btn_viewBuildingTable.setText("View Table");
+        btn_viewBuildingTable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_viewBuildingTable.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
+        btn_viewBuildingTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_viewBuildingTableActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jp_manageBuildingsLayout = new javax.swing.GroupLayout(jp_manageBuildings);
         jp_manageBuildings.setLayout(jp_manageBuildingsLayout);
         jp_manageBuildingsLayout.setHorizontalGroup(
             jp_manageBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 625, Short.MAX_VALUE)
+            .addGroup(jp_manageBuildingsLayout.createSequentialGroup()
+                .addContainerGap(83, Short.MAX_VALUE)
+                .addGroup(jp_manageBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_manageBuildingsLayout.createSequentialGroup()
+                        .addGroup(jp_manageBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_manageBuildingsLayout.createSequentialGroup()
+                                .addGroup(jp_manageBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel13)
+                                    .addComponent(buildingNoManage, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(noRoomsManage))
+                                .addGap(50, 50, 50)
+                                .addGroup(jp_manageBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(buildingNameManage, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(15, 15, 15))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_manageBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_manageBuildingsLayout.createSequentialGroup()
+                                    .addComponent(btn_viewBuildingTable, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(searchTextFieldBuildings, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btn_searchManage, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(10, 10, 10)
+                                    .addComponent(btn_refreshManage, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(52, 52, 52))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_manageBuildingsLayout.createSequentialGroup()
+                        .addComponent(btn_updateManage, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(btn_deleteManage, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_clearManage, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108))))
         );
         jp_manageBuildingsLayout.setVerticalGroup(
             jp_manageBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 329, Short.MAX_VALUE)
+            .addGroup(jp_manageBuildingsLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jp_manageBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchTextFieldBuildings, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_searchManage, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_refreshManage, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_viewBuildingTable, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jp_manageBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jp_manageBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buildingNameManage)
+                    .addComponent(buildingNoManage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(noRoomsManage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addGroup(jp_manageBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_deleteManage, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_updateManage, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_clearManage, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(77, 77, 77))
         );
 
-        jPanel6.add(jp_manageBuildings);
+        jPanel6.add(jp_manageBuildings, "card3");
 
         JPanel7.setBackground(new java.awt.Color(20, 181, 117));
         JPanel7.setLayout(new javax.swing.OverlayLayout(JPanel7));
@@ -346,7 +676,7 @@ public class AAddBuildings extends javax.swing.JFrame {
             .addGroup(addBuilding_TopBarLayout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
@@ -387,7 +717,7 @@ public class AAddBuildings extends javax.swing.JFrame {
             .addGroup(manageBuilding_TopbarLayout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
@@ -413,7 +743,7 @@ public class AAddBuildings extends javax.swing.JFrame {
                     .addGroup(Background_pnlLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(JPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
         Background_pnlLayout.setVerticalGroup(
             Background_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,7 +751,7 @@ public class AAddBuildings extends javax.swing.JFrame {
             .addGroup(Background_pnlLayout.createSequentialGroup()
                 .addComponent(JPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -436,6 +766,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_addBuildingMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addBuildingMousePressed
@@ -479,41 +810,90 @@ public class AAddBuildings extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_ManageBuildingMouseExited
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void buildingNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildingNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_buildingNameActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void buildingNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildingNoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_buildingNoActionPerformed
 
-    private void jTextField3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusGained
+    private void buildingNoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_buildingNoFocusGained
         // TODO add your handling code here:
-        if(jTextField3.getText().equals("   Ex : 123")){
-            jTextField3.setText("");
-            jTextField3.setForeground(new Color(153,153,153));
-        }
-    }//GEN-LAST:event_jTextField3FocusGained
+    }//GEN-LAST:event_buildingNoFocusGained
 
-    private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
+    private void buildingNoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_buildingNoFocusLost
         // TODO add your handling code here:
-        if(jTextField3.getText().equals("")){
-            jTextField3.setText("   Ex : 123");
-            jTextField3.setForeground(new Color(153,153,153));
-        }
-    }//GEN-LAST:event_jTextField3FocusLost
+    }//GEN-LAST:event_buildingNoFocusLost
 
-    private void jTextField3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField3MouseClicked
+    private void buildingNoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buildingNoMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3MouseClicked
+    }//GEN-LAST:event_buildingNoMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        clearFieldsAdd();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        //INSERT Building
+        this.building_no = buildingNo.getText();
+        this.building_name = buildingName.getText();
+        this.noOf_rooms = (int) noRooms.getValue();
+        
+        
+        if(buildingNo.getText().equals("") ||  buildingName.getText().equals("") || noRooms.getValue().equals("0") ) {
+                    JOptionPane.showMessageDialog(null, "Please Fill All Fields.");
+                
+        } else {
+            if ("" != buildingNo.getText()) {
+
+                try {
+                    String query_buildingexits = "select * from buildings where building_no='" + buildingNo.getText() + "' OR building_name='" + buildingName.getText() + "'";
+                    Statement st_buildings = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+                    ResultSet rs1 = st_buildings.executeQuery(query_buildingexits);
+                    if (rs1.first()) {
+                        JOptionPane.showMessageDialog(null, "This Building Already Exist");
+
+                    } else {
+                        try {
+                            String query = "insert into buildings(building_no, building_name, noOf_rooms) "
+                                    + "values ( ?, ?, ? )";
+
+                            preparedStmt = connection.prepareStatement(query);
+                            preparedStmt.setString(1, building_no);
+                            preparedStmt.setString(2, building_name);
+                            preparedStmt.setInt(3, noOf_rooms);
+
+                            preparedStmt.execute();
+
+                            JOptionPane.showMessageDialog(null, "Building Added Successfully. \n Thank You!");
+                            DefaultTableModel model = (DefaultTableModel) table_displayBuildingDetails.getModel();
+                            model.setRowCount(0);
+                            show_buildingDetails();
+
+
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+                            System.err.println("Got an exception!");
+                            System.err.println(e.getMessage());
+                            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, e);
+                        }
+
+                    }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+                    System.err.println("Got an exception!");
+                    System.err.println(e.getMessage());
+                    Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, e);
+                }
+
+            }
+
+        }
+    }//GEN-LAST:event_btn_addActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -529,6 +909,147 @@ public class AAddBuildings extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void btn_updateManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateManageActionPerformed
+        // TODO add your handling code here:        
+        String updated_buildingNo = buildingNoManage.getText();
+        String updated_buildingName = buildingNameManage.getText();
+        String updated_noOfRooms = noRoomsManage.getText();
+            
+        if (buildingNoManage.getText().equals("") || buildingNameManage.getText().equals("") || noRoomsManage.getText().equals("0")) {
+            JOptionPane.showMessageDialog(null, "Please Fill All Fields.");
+        
+        } else{  
+            
+             try {      
+                 String query = "update buildings " + "set building_no = ?, building_name = ?, noOf_rooms = ?"
+                                                    + "where building_no = ?";
+
+                preparedStmt = connection.prepareStatement(query);
+                preparedStmt.setString(1, updated_buildingNo);
+                preparedStmt.setString(2, updated_buildingName);
+                preparedStmt.setString(3, updated_noOfRooms);
+                preparedStmt.setString(4, buildingNo_rowSelected);
+                
+                preparedStmt.execute();
+                
+                DefaultTableModel model = (DefaultTableModel) table_displayBuildingDetails.getModel();
+                model.setRowCount(0);
+                show_buildingDetails();
+                JOptionPane.showMessageDialog(null, "Building details updated successfully");
+
+                
+            }catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+                System.err.println("Exception in Update operation : " + ex);
+                System.err.println(ex.getMessage());
+                Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+            }                
+        }
+    }//GEN-LAST:event_btn_updateManageActionPerformed
+
+    private void btn_deleteManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteManageActionPerformed
+        // TODO add your handling code here:
+        int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to Delete " + buildingNo_rowSelected + " - "
+                + building_name + " details ?", "Delete", JOptionPane.YES_NO_OPTION);
+        
+        if (opt == 0) {
+            try {                
+                String query = "DELETE FROM buildings WHERE building_no = ?";
+                preparedStmt = connection.prepareStatement(query);
+                preparedStmt.setString(1, buildingNo_rowSelected);                
+                
+                preparedStmt.execute();
+                
+                JOptionPane.showMessageDialog(null, "Building removed successfully from the Database");
+                DefaultTableModel model = (DefaultTableModel) table_displayBuildingDetails.getModel();
+                model.setRowCount(0);
+                show_buildingDetails();
+                
+            }catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+                System.err.println("Exception in delete operation : " + ex);
+                System.err.println(ex.getMessage());
+                Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }     
+    }//GEN-LAST:event_btn_deleteManageActionPerformed
+
+    private void buildingNoManageFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_buildingNoManageFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buildingNoManageFocusGained
+
+    private void buildingNoManageFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_buildingNoManageFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buildingNoManageFocusLost
+
+    private void buildingNoManageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buildingNoManageMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buildingNoManageMouseClicked
+
+    private void buildingNoManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildingNoManageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buildingNoManageActionPerformed
+
+    private void buildingNameManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildingNameManageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buildingNameManageActionPerformed
+
+    private void btn_refreshManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshManageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_refreshManageActionPerformed
+
+    private void btn_searchManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchManageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_searchManageActionPerformed
+
+    private void btn_clearManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearManageActionPerformed
+        // TODO add your handling code here:
+        clearFieldsManage();
+    }//GEN-LAST:event_btn_clearManageActionPerformed
+
+    private void table_displayBuildingDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_displayBuildingDetailsMouseClicked
+        // TODO add your handling code here:
+        int i = table_displayBuildingDetails.getSelectedRow();
+        TableModel model = table_displayBuildingDetails.getModel();    
+        buildingNoManage.setText(model.getValueAt(i, 0).toString());
+        buildingNameManage.setText(model.getValueAt(i, 1).toString());
+        noRoomsManage.setText(model.getValueAt(i, 2).toString());
+        
+        noOf_rooms = Integer.parseInt(model.getValueAt(i,2).toString()); 
+        buildingNo_rowSelected = model.getValueAt(i,0).toString();
+        building_name = model.getValueAt(i,1).toString();
+        
+        
+    }//GEN-LAST:event_table_displayBuildingDetailsMouseClicked
+
+    private void btn_refreshManageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_refreshManageMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) table_displayBuildingDetails.getModel();
+        model.setRowCount(0);
+        show_buildingDetails();
+        clearFieldsManage();
+    }//GEN-LAST:event_btn_refreshManageMouseClicked
+
+    private void noRoomsManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noRoomsManageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_noRoomsManageActionPerformed
+
+    private void searchTextFieldBuildingsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldBuildingsKeyReleased
+        // TODO add your handling code here:
+        DefaultTableModel table = (DefaultTableModel)table_displayBuildingDetails.getModel();
+        String search = searchTextFieldBuildings.getText();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
+        table_displayBuildingDetails.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(search));
+    }//GEN-LAST:event_searchTextFieldBuildingsKeyReleased
+
+    private void btn_viewBuildingTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viewBuildingTableActionPerformed
+        // TODO add your handling code here:
+        AViewBuildingTable aViewBuildingTable = new AViewBuildingTable();
+        aViewBuildingTable.setVisible(true);
+    }//GEN-LAST:event_btn_viewBuildingTableActionPerformed
  
 
     /**
@@ -573,13 +1094,26 @@ public class AAddBuildings extends javax.swing.JFrame {
     private javax.swing.JPanel addBuilding_TopBar;
     private javax.swing.JButton addBuilding_backBtn;
     private javax.swing.JPanel btn_ManageBuilding;
+    private javax.swing.JButton btn_add;
     private javax.swing.JPanel btn_addBuilding;
+    private javax.swing.JButton btn_clearManage;
+    private javax.swing.JButton btn_deleteManage;
+    private javax.swing.JButton btn_refreshManage;
+    private javax.swing.JButton btn_searchManage;
+    private javax.swing.JButton btn_updateManage;
+    private javax.swing.JButton btn_viewBuildingTable;
+    private javax.swing.JTextField buildingName;
+    private javax.swing.JTextField buildingNameManage;
+    private javax.swing.JTextField buildingNo;
+    private javax.swing.JTextField buildingNoManage;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -591,19 +1125,15 @@ public class AAddBuildings extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jp_addBuildings;
     private javax.swing.JPanel jp_manageBuildings;
     private javax.swing.JPanel manageBuilding_Topbar;
+    private javax.swing.JSpinner noRooms;
+    private javax.swing.JTextField noRoomsManage;
+    private javax.swing.JTextField searchTextFieldBuildings;
+    private javax.swing.JTable table_displayBuildingDetails;
     // End of variables declaration//GEN-END:variables
 
-    private static class Jpanel {
 
-        public Jpanel() {
-        }
-
-
-    }
 }

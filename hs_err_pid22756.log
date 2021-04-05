@@ -1,0 +1,21 @@
+
+[error occurred during error reporting (printing fatal error message), id 0xc00000fd, EXCEPTION_STACK_OVERFLOW (0xc00000fd) at pc=0x00007ffd46a9a7b8]
+
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x0000027e32c40b8b, pid=22756, tid=17348
+#
+# JRE version: Java(TM) SE Runtime Environment (14.0.2+12) (build 14.0.2+12-46)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (14.0.2+12-46, mixed mode, sharing, tiered, compressed oops, g1 gc, windows-amd64)
+# Problematic frame:
+# v  ~RuntimeStub::StackOverflowError throw_exception
+#
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   https://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dfile.encoding=UTF-8 -agentlib:jdwp=transport=dt_shmem,address=javadebug timetablemanagementsystem.AAddBuildings
+
