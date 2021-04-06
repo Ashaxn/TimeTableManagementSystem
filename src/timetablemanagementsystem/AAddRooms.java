@@ -326,7 +326,7 @@ public class AAddRooms extends javax.swing.JFrame {
         jp_addRooms.setBackground(new java.awt.Color(247, 247, 247));
         jp_addRooms.setPreferredSize(new java.awt.Dimension(625, 600));
 
-        roomNo.setForeground(new java.awt.Color(153, 153, 153));
+        roomNo.setForeground(new java.awt.Color(51, 51, 51));
         roomNo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         roomNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -370,7 +370,7 @@ public class AAddRooms extends javax.swing.JFrame {
             }
         });
 
-        roomName.setForeground(new java.awt.Color(153, 153, 153));
+        roomName.setForeground(new java.awt.Color(51, 51, 51));
         roomName.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         roomName.setToolTipText("");
         roomName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -394,7 +394,7 @@ public class AAddRooms extends javax.swing.JFrame {
             }
         });
 
-        roomCapacity.setForeground(new java.awt.Color(153, 153, 153));
+        roomCapacity.setForeground(new java.awt.Color(51, 51, 51));
         roomCapacity.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         roomCapacity.setToolTipText("");
         roomCapacity.setBorder(javax.swing.BorderFactory.createEtchedBorder());
