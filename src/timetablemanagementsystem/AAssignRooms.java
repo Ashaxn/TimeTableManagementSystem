@@ -29,6 +29,7 @@ public class AAssignRooms extends javax.swing.JFrame {
 
         HomeBackground_pnl = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        statistics_backBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -37,15 +38,34 @@ public class AAssignRooms extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(39, 156, 109));
 
+        statistics_backBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        statistics_backBtn.setForeground(new java.awt.Color(255, 255, 255));
+        statistics_backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
+        statistics_backBtn.setText("BACK");
+        statistics_backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        statistics_backBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        statistics_backBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
+        statistics_backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statistics_backBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 238, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(statistics_backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(statistics_backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(207, 207, 207))
         );
 
         jPanel2.setBackground(new java.awt.Color(20, 181, 117));
@@ -90,7 +110,15 @@ public class AAssignRooms extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void statistics_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statistics_backBtnActionPerformed
+        // TODO add your handling code here:
+        ALocationHome aLocationHome = new ALocationHome();
+        aLocationHome.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_statistics_backBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,5 +159,6 @@ public class AAssignRooms extends javax.swing.JFrame {
     private javax.swing.JPanel HomeBackground_pnl;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton statistics_backBtn;
     // End of variables declaration//GEN-END:variables
 }

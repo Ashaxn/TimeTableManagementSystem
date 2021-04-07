@@ -783,6 +783,9 @@ public class AStatistics extends javax.swing.JFrame {
 
     private void statistics_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statistics_backBtnActionPerformed
         // TODO add your handling code here:
+        HomePage homepage = new HomePage();
+        homepage.setVisible(true);
+        this.setVisible(false);          
     }//GEN-LAST:event_statistics_backBtnActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
