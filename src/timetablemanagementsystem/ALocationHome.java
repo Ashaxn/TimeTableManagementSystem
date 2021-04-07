@@ -117,6 +117,7 @@ public class ALocationHome extends javax.swing.JFrame {
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 880, 80));
 
         jPanel4.setBackground(new java.awt.Color(211, 211, 216));
+        jPanel4.setToolTipText("If you click this you can view add manage buildings pages");
         jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel4MouseEntered(evt);
@@ -162,6 +163,7 @@ public class ALocationHome extends javax.swing.JFrame {
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 200, 190));
 
         jPanel5.setBackground(new java.awt.Color(211, 211, 216));
+        jPanel5.setToolTipText("If you click this you can view add manage rooms pages");
         jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel5MouseEntered(evt);
@@ -204,6 +206,7 @@ public class ALocationHome extends javax.swing.JFrame {
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 340, 200, 190));
 
         jPanel6.setBackground(new java.awt.Color(211, 211, 216));
+        jPanel6.setToolTipText("If you click this you can view assign  rooms sub pages");
         jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel6MouseEntered(evt);

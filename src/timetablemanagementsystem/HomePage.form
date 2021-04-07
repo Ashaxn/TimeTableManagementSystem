@@ -376,6 +376,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d8" green="d3" red="d3" type="rgb"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="View, Manage, Assign, Update Location Details"/>
           </Properties>
           <Events>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel4MouseEntered"/>
@@ -549,6 +550,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d8" green="d3" red="d3" type="rgb"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="View Statistics and Graphs"/>
           </Properties>
           <Events>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel10MouseEntered"/>

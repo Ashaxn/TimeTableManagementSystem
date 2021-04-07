@@ -182,6 +182,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d8" green="d3" red="d3" type="rgb"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="If you click this you can view add manage buildings pages"/>
           </Properties>
           <Events>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel4MouseEntered"/>
@@ -250,6 +251,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d8" green="d3" red="d3" type="rgb"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="If you click this you can view add manage rooms pages"/>
           </Properties>
           <Events>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel5MouseEntered"/>
@@ -313,6 +315,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d8" green="d3" red="d3" type="rgb"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="If you click this you can view assign  rooms sub pages"/>
           </Properties>
           <Events>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel6MouseEntered"/>

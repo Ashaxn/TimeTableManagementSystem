@@ -221,6 +221,7 @@ public class AAddRooms extends javax.swing.JFrame {
         SidePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_addRooms.setBackground(new java.awt.Color(39, 156, 109));
+        btn_addRooms.setToolTipText("If you click this you can view add room page");
         btn_addRooms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_addRoomsMouseClicked(evt);
@@ -264,6 +265,7 @@ public class AAddRooms extends javax.swing.JFrame {
         SidePanel.add(btn_addRooms, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 230, 60));
 
         btn_ManageRooms.setBackground(new java.awt.Color(39, 156, 109));
+        btn_ManageRooms.setToolTipText("If you click this you can view manage rooms page");
         btn_ManageRooms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_ManageRoomsMouseClicked(evt);
@@ -310,6 +312,7 @@ public class AAddRooms extends javax.swing.JFrame {
         addRoom_backBtn.setForeground(new java.awt.Color(255, 255, 255));
         addRoom_backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         addRoom_backBtn.setText("BACK");
+        addRoom_backBtn.setToolTipText("Go Back");
         addRoom_backBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         addRoom_backBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         addRoom_backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -350,6 +353,7 @@ public class AAddRooms extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         jButton1.setText("CLEAR");
+        jButton1.setToolTipText("If you click this you clear all fields");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -362,6 +366,7 @@ public class AAddRooms extends javax.swing.JFrame {
         btn_roomAdd.setForeground(new java.awt.Color(255, 255, 255));
         btn_roomAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_roomAdd.setText("ADD");
+        btn_roomAdd.setToolTipText("If you click this iserted data goes to database");
         btn_roomAdd.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_roomAdd.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_roomAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -630,6 +635,7 @@ public class AAddRooms extends javax.swing.JFrame {
         btn_updateManageRoom.setForeground(new java.awt.Color(255, 255, 255));
         btn_updateManageRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_updateManageRoom.setText("UPDATE");
+        btn_updateManageRoom.setToolTipText("If click this record will be update");
         btn_updateManageRoom.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_updateManageRoom.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_updateManageRoom.addActionListener(new java.awt.event.ActionListener() {
@@ -642,6 +648,7 @@ public class AAddRooms extends javax.swing.JFrame {
         btn_deleteManageRoom.setForeground(new java.awt.Color(255, 255, 255));
         btn_deleteManageRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         btn_deleteManageRoom.setText("DELETE");
+        btn_deleteManageRoom.setToolTipText("if you click this you can delete selected item from the database");
         btn_deleteManageRoom.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_deleteManageRoom.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         btn_deleteManageRoom.addActionListener(new java.awt.event.ActionListener() {
@@ -654,6 +661,7 @@ public class AAddRooms extends javax.swing.JFrame {
         btn_clearManage.setForeground(new java.awt.Color(255, 255, 255));
         btn_clearManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         btn_clearManage.setText("CLEAR");
+        btn_clearManage.setToolTipText("If you click this all fields will be empy");
         btn_clearManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_clearManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         btn_clearManage.addActionListener(new java.awt.event.ActionListener() {
@@ -674,6 +682,7 @@ public class AAddRooms extends javax.swing.JFrame {
         btn_searchManageRoom.setForeground(new java.awt.Color(255, 255, 255));
         btn_searchManageRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_searchManageRoom.setText("Search");
+        btn_searchManageRoom.setToolTipText("If you clcik this you can search all details of rooms");
         btn_searchManageRoom.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_searchManageRoom.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_searchManageRoom.addActionListener(new java.awt.event.ActionListener() {
@@ -686,6 +695,7 @@ public class AAddRooms extends javax.swing.JFrame {
         btn_refreshManageRoom.setForeground(new java.awt.Color(255, 255, 255));
         btn_refreshManageRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_refreshManageRoom.setText("Refresh");
+        btn_refreshManageRoom.setToolTipText("If you click this you refresh page");
         btn_refreshManageRoom.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_refreshManageRoom.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_refreshManageRoom.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -703,6 +713,7 @@ public class AAddRooms extends javax.swing.JFrame {
         btn_viewRoomsTable.setForeground(new java.awt.Color(255, 255, 255));
         btn_viewRoomsTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_viewRoomsTable.setText("View Table");
+        btn_viewRoomsTable.setToolTipText("If you click this you can view only datatable");
         btn_viewRoomsTable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_viewRoomsTable.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_viewRoomsTable.addActionListener(new java.awt.event.ActionListener() {
@@ -823,6 +834,7 @@ public class AAddRooms extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         jButton3.setText("LOGOUT");
+        jButton3.setToolTipText("Logout from the system");
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -1054,8 +1066,8 @@ public class AAddRooms extends javax.swing.JFrame {
 
     private void addRoom_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRoom_backBtnActionPerformed
         // TODO add your handling code here:
-        ALocationHome aLocationHome = new ALocationHome();
-        aLocationHome.setVisible(true);
+        ALocationHome aaLocationHome = new ALocationHome();
+        aaLocationHome.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_addRoom_backBtnActionPerformed
 

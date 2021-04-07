@@ -18,12 +18,15 @@ import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
+import org.jfree.ui.TextAnchor;
 
 /**
  *
@@ -300,6 +303,7 @@ public class AStatistics extends javax.swing.JFrame {
         statistics_backBtn.setForeground(new java.awt.Color(255, 255, 255));
         statistics_backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         statistics_backBtn.setText("BACK");
+        statistics_backBtn.setToolTipText("Go back ");
         statistics_backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         statistics_backBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         statistics_backBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
@@ -322,6 +326,7 @@ public class AStatistics extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         jButton3.setText("LOGOUT");
+        jButton3.setToolTipText("Logout from the system");
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -531,6 +536,7 @@ public class AStatistics extends javax.swing.JFrame {
         location_stat.setForeground(new java.awt.Color(102, 102, 102));
         location_stat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/btn_sta_loc.png"))); // NOI18N
         location_stat.setText("                   Locations Graph");
+        location_stat.setToolTipText("View total buildings & rooms graph");
         location_stat.setActionCommand("Locations Graph");
         location_stat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         location_stat.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/sat_hover_loc.png"))); // NOI18N
@@ -544,6 +550,7 @@ public class AStatistics extends javax.swing.JFrame {
         lecturer_stat.setForeground(new java.awt.Color(102, 102, 102));
         lecturer_stat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/stat_lec_btn.png"))); // NOI18N
         lecturer_stat.setText("                  Lecturers Graph");
+        lecturer_stat.setToolTipText("View total lecturers in faculites");
         lecturer_stat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lecturer_stat.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/stat_lec_hover.png"))); // NOI18N
         lecturer_stat.addActionListener(new java.awt.event.ActionListener() {
@@ -556,6 +563,7 @@ public class AStatistics extends javax.swing.JFrame {
         groups_stat.setForeground(new java.awt.Color(102, 102, 102));
         groups_stat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/stat_student_btn.png"))); // NOI18N
         groups_stat.setText("               Groups Graph");
+        groups_stat.setToolTipText("View total student groups in faculites");
         groups_stat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         groups_stat.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/stat_student_hover.png"))); // NOI18N
         groups_stat.addActionListener(new java.awt.event.ActionListener() {
@@ -568,6 +576,7 @@ public class AStatistics extends javax.swing.JFrame {
         subjects_stat.setForeground(new java.awt.Color(102, 102, 102));
         subjects_stat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/stat_subject_btn.png"))); // NOI18N
         subjects_stat.setText("                 Subjects Graph");
+        subjects_stat.setToolTipText("View total subjects and years");
         subjects_stat.setActionCommand("        Subjects Graph");
         subjects_stat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         subjects_stat.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/stat_subject_hover.png"))); // NOI18N
@@ -783,8 +792,8 @@ public class AStatistics extends javax.swing.JFrame {
 
     private void statistics_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statistics_backBtnActionPerformed
         // TODO add your handling code here:
-        HomePage homepage = new HomePage();
-        homepage.setVisible(true);
+        HomePage homeepage = new HomePage();
+        homeepage.setVisible(true);
         this.setVisible(false);          
     }//GEN-LAST:event_statistics_backBtnActionPerformed
 

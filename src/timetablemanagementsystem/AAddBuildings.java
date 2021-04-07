@@ -176,6 +176,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         SidePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_addBuilding.setBackground(new java.awt.Color(39, 156, 109));
+        btn_addBuilding.setToolTipText("If you click this you can view add buildings page");
         btn_addBuilding.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_addBuildingMouseClicked(evt);
@@ -219,6 +220,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         SidePanel.add(btn_addBuilding, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 230, 60));
 
         btn_ManageBuilding.setBackground(new java.awt.Color(39, 156, 109));
+        btn_ManageBuilding.setToolTipText("If you click this you can view manage buildings page");
         btn_ManageBuilding.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_ManageBuildingMouseClicked(evt);
@@ -266,6 +268,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         addBuilding_backBtn.setForeground(new java.awt.Color(255, 255, 255));
         addBuilding_backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         addBuilding_backBtn.setText("BACK");
+        addBuilding_backBtn.setToolTipText("Go Back");
         addBuilding_backBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         addBuilding_backBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         addBuilding_backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -335,6 +338,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         jButton1.setText("CLEAR");
+        jButton1.setToolTipText("If you click this you clear all fields");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -361,7 +365,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         jp_addBuildingsLayout.setHorizontalGroup(
             jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_addBuildingsLayout.createSequentialGroup()
-                .addContainerGap(103, Short.MAX_VALUE)
+                .addContainerGap(73, Short.MAX_VALUE)
                 .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addBuildingsLayout.createSequentialGroup()
                         .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,6 +416,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         btn_updateManage.setForeground(new java.awt.Color(255, 255, 255));
         btn_updateManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_updateManage.setText("UPDATE");
+        btn_updateManage.setToolTipText("If click this record will be update");
         btn_updateManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_updateManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_updateManage.addActionListener(new java.awt.event.ActionListener() {
@@ -424,6 +429,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         btn_deleteManage.setForeground(new java.awt.Color(255, 255, 255));
         btn_deleteManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         btn_deleteManage.setText("DELETE");
+        btn_deleteManage.setToolTipText("If you click this you can delete selected item from the database");
         btn_deleteManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_deleteManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         btn_deleteManage.addActionListener(new java.awt.event.ActionListener() {
@@ -519,6 +525,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         btn_refreshManage.setForeground(new java.awt.Color(255, 255, 255));
         btn_refreshManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_refreshManage.setText("Refresh");
+        btn_refreshManage.setToolTipText("If you click this you refresh page");
         btn_refreshManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_refreshManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_refreshManage.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -536,6 +543,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         btn_searchManage.setForeground(new java.awt.Color(255, 255, 255));
         btn_searchManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_searchManage.setText("Search");
+        btn_searchManage.setToolTipText("If you clcik this you can search all details of buildings");
         btn_searchManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_searchManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_searchManage.addActionListener(new java.awt.event.ActionListener() {
@@ -548,6 +556,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         btn_clearManage.setForeground(new java.awt.Color(255, 255, 255));
         btn_clearManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         btn_clearManage.setText("CLEAR");
+        btn_clearManage.setToolTipText("If you click this all fields will be empy");
         btn_clearManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_clearManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         btn_clearManage.addActionListener(new java.awt.event.ActionListener() {
@@ -568,6 +577,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         btn_viewBuildingTable.setForeground(new java.awt.Color(255, 255, 255));
         btn_viewBuildingTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_viewBuildingTable.setText("View Table");
+        btn_viewBuildingTable.setToolTipText("If you click this you can view only datatable");
         btn_viewBuildingTable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_viewBuildingTable.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_viewBuildingTable.addActionListener(new java.awt.event.ActionListener() {
@@ -661,6 +671,7 @@ public class AAddBuildings extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         jButton3.setText("LOGOUT");
+        jButton3.setToolTipText("Logout from the system");
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -743,7 +754,7 @@ public class AAddBuildings extends javax.swing.JFrame {
                     .addGroup(Background_pnlLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(JPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)))
         );
         Background_pnlLayout.setVerticalGroup(
             Background_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

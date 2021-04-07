@@ -238,6 +238,7 @@ public class HomePage extends javax.swing.JFrame {
         );
 
         jPanel4.setBackground(new java.awt.Color(211, 211, 216));
+        jPanel4.setToolTipText("View, Manage, Assign, Update Location Details");
         jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel4MouseEntered(evt);
@@ -354,6 +355,7 @@ public class HomePage extends javax.swing.JFrame {
         );
 
         jPanel10.setBackground(new java.awt.Color(211, 211, 216));
+        jPanel10.setToolTipText("View Statistics and Graphs");
         jPanel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel10MouseEntered(evt);
@@ -585,13 +587,13 @@ public class HomePage extends javax.swing.JFrame {
     private void jPanel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MousePressed
         // TODO add your handling code here:
         new ALocationHome().setVisible(true);
-        this.setVisible(false);        
+        this.setVisible(false);
     }//GEN-LAST:event_jPanel4MousePressed
 
     private void jPanel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MousePressed
         // TODO add your handling code here:
         new AStatistics().setVisible(true);
-        this.setVisible(false);        
+        this.setVisible(false);
     }//GEN-LAST:event_jPanel10MousePressed
 
 public void setColor(JPanel panel){
