@@ -117,6 +117,7 @@ public class AViewRoomsTable extends javax.swing.JFrame {
         btn_refreshviewRoomsTable = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         onlyRooms_table = new javax.swing.JTable();
+        viewRoomsTable_exitBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -217,6 +218,24 @@ public class AViewRoomsTable extends javax.swing.JFrame {
         onlyRooms_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(onlyRooms_table);
 
+        viewRoomsTable_exitBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        viewRoomsTable_exitBtn.setForeground(new java.awt.Color(255, 255, 255));
+        viewRoomsTable_exitBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
+        viewRoomsTable_exitBtn.setText("Exit");
+        viewRoomsTable_exitBtn.setToolTipText("If You click this you can close this window only");
+        viewRoomsTable_exitBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        viewRoomsTable_exitBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
+        viewRoomsTable_exitBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewRoomsTable_exitBtnMouseClicked(evt);
+            }
+        });
+        viewRoomsTable_exitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewRoomsTable_exitBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -224,14 +243,16 @@ public class AViewRoomsTable extends javax.swing.JFrame {
             .addComponent(viewRoomsTable_TopBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(searchTextFieldRoomsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_searchviewRoomsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_refreshviewRoomsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 783, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viewRoomsTable_exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(searchTextFieldRoomsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btn_searchviewRoomsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btn_refreshviewRoomsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 783, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
@@ -245,7 +266,9 @@ public class AViewRoomsTable extends javax.swing.JFrame {
                     .addComponent(searchTextFieldRoomsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(viewRoomsTable_exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -290,6 +313,16 @@ public class AViewRoomsTable extends javax.swing.JFrame {
     private void btn_refreshviewRoomsTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshviewRoomsTableActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_refreshviewRoomsTableActionPerformed
+
+    private void viewRoomsTable_exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRoomsTable_exitBtnActionPerformed
+        // TODO add your handling code here:
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.dispose();
+    }//GEN-LAST:event_viewRoomsTable_exitBtnActionPerformed
+
+    private void viewRoomsTable_exitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewRoomsTable_exitBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewRoomsTable_exitBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -336,5 +369,6 @@ public class AViewRoomsTable extends javax.swing.JFrame {
     private javax.swing.JTable onlyRooms_table;
     private javax.swing.JTextField searchTextFieldRoomsTable;
     private javax.swing.JPanel viewRoomsTable_TopBar;
+    private javax.swing.JButton viewRoomsTable_exitBtn;
     // End of variables declaration//GEN-END:variables
 }
