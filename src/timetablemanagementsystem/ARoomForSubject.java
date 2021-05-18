@@ -34,7 +34,7 @@ public class ARoomForSubject extends javax.swing.JFrame {
     private PreparedStatement preparedStmt;
     private String roomNo_rowSelected;
     private String  subject_name, subject_lecturer, subject_tag, subject_building, subject_room;
-    private int  subject_code;
+    private String  subject_code;
     
     
     public ARoomForSubject() {
@@ -848,8 +848,8 @@ public class ARoomForSubject extends javax.swing.JFrame {
 
     private void addRoomSubject_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRoomSubject_backBtnActionPerformed
         // TODO add your handling code here:
-        ALocationHome aaLocationHome = new ALocationHome();
-        aaLocationHome.setVisible(true);
+        AAssignRooms aAssignRooms = new AAssignRooms();
+        aAssignRooms.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_addRoomSubject_backBtnActionPerformed
 
@@ -860,7 +860,7 @@ public class ARoomForSubject extends javax.swing.JFrame {
 
     private void btn_roomAddSubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_roomAddSubjectActionPerformed
         // TODO add your handling code here:
-        this.subject_code = Integer.valueOf((String)roomSubjectCode.getSelectedItem());
+        this.subject_code = roomSubjectCode.getSelectedItem().toString();
         this.subject_name = subjectNameForRoom.getSelectedItem().toString();
         this.subject_lecturer = subjectRoomLecturerName.getSelectedItem().toString();
         this.subject_tag = subjectRoomTagName.getSelectedItem().toString();
@@ -888,7 +888,7 @@ public class ARoomForSubject extends javax.swing.JFrame {
                             + "values ( ?, ?, ?, ?, ?, ? )";
 
                             preparedStmt = connection.prepareStatement(query);
-                            preparedStmt.setInt(1, subject_code);
+                            preparedStmt.setString(1, subject_code);
                             preparedStmt.setString(2, subject_name);
                             preparedStmt.setString(3, subject_lecturer);
                             preparedStmt.setString(4, subject_tag);

@@ -789,8 +789,8 @@ public class ARoomForConsecutiveSession extends javax.swing.JFrame {
 
     private void addRoomConSession_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRoomConSession_backBtnActionPerformed
         // TODO add your handling code here:
-        ALocationHome aaLocationHome = new ALocationHome();
-        aaLocationHome.setVisible(true);
+        AAssignRooms aAssignRooms = new AAssignRooms();
+        aAssignRooms.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_addRoomConSession_backBtnActionPerformed
 

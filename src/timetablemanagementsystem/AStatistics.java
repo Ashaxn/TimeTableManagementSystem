@@ -989,10 +989,10 @@ public class AStatistics extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
 
-            String query1 = "SELECT COUNT(*) FROM subjects WHERE offered_year='Year 01'";
-            String query2 = "SELECT COUNT(*) FROM subjects WHERE offered_year='Year 02'";
-            String query3 = "SELECT COUNT(*) FROM subjects WHERE offered_year='Year 03'";
-            String query4 = "SELECT COUNT(*) FROM subjects WHERE offered_year='Year 04'";
+            String query1 = "SELECT COUNT(*) FROM subjects WHERE subject_offered_year='Year 01'";
+            String query2 = "SELECT COUNT(*) FROM subjects WHERE subject_offered_year='Year 02'";
+            String query3 = "SELECT COUNT(*) FROM subjects WHERE subject_offered_year='Year 03'";
+            String query4 = "SELECT COUNT(*) FROM subjects WHERE subject_offered_year='Year 04'";
             
             int year1 = 0, year2 = 0, year3 = 0, year4 = 0;
 
