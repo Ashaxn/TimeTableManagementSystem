@@ -779,6 +779,7 @@ public class ARoomForLecturer extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_addRoomsLecturerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addRoomsLecturerMouseClicked
