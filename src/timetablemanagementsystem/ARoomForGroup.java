@@ -33,6 +33,8 @@ public class ARoomForGroup extends javax.swing.JFrame {
     private String group_name, group_subgrpname, group_tag, group_building, group_room;
     private int group_roomid;
 
+    
+    
     /**
      * Creates new form ARoomForGroup
      */
