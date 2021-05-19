@@ -880,7 +880,7 @@ public class HAddStudentGroups extends javax.swing.JFrame {
 
                             preparedStmt.execute();
 
-                            JOptionPane.showMessageDialog(null, "Tag Added Successfully. \n Thank You!");
+                            JOptionPane.showMessageDialog(null, "Student Groups Added Successfully. \n Thank You!");
                             DefaultTableModel model = (DefaultTableModel) display_sgroupstable.getModel();
                             model.setRowCount(0);
                             show_SGroupDetails();
