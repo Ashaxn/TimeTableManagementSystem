@@ -23,7 +23,7 @@ public class dbConnect {
         //DB Driver
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         
-        String URL = "jdbc:derby:F:/Derby/TTMS;create=true";
+        String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
         con = DriverManager.getConnection(URL);
         Statement stmt = con.createStatement();
         

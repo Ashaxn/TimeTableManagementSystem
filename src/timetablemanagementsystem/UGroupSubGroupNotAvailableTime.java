@@ -5,6 +5,13 @@
  */
 package timetablemanagementsystem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author umesha
@@ -16,7 +23,28 @@ public class UGroupSubGroupNotAvailableTime extends javax.swing.JFrame {
      */
     public UGroupSubGroupNotAvailableTime() {
         initComponents();
+        dbconnection();
+ 
     }
+    
+     private void dbconnection() {
+        final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+        final String JDBC_URL = "jdbc:derby:C:/Users/TEMP.DESKTOP-5DLDP8B.015/Downloads/db-derby-10.14.2.0-bin/lib/TTMS;create=true";
+        
+        try {
+            Class.forName(DRIVER);
+            Connection connection = DriverManager.getConnection(JDBC_URL);
+            System.out.println("DB connected");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }  
+    }
+ 
+     
 
     /**
      * This method is called from within the constructor to initialize the form.

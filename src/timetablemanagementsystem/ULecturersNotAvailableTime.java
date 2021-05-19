@@ -5,6 +5,13 @@
  */
 package timetablemanagementsystem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author umesha
@@ -16,8 +23,26 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
      */
     public ULecturersNotAvailableTime() {
         initComponents();
+         dbconnection();
     }
 
+    
+    private void dbconnection() {
+        final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+        final String JDBC_URL = "jdbc:derby:C:/Users/TEMP.DESKTOP-5DLDP8B.015/Downloads/db-derby-10.14.2.0-bin/lib/TTMS;create=true";
+        
+        try {
+            Class.forName(DRIVER);
+            Connection connection = DriverManager.getConnection(JDBC_URL);
+            System.out.println("DB connected");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }  
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,7 +91,7 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
         addNotAvailableTime_TopBar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        manageWorkingDays_Topbar = new javax.swing.JPanel();
+        manageNotAvailabeLectures_Topbar = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
 
@@ -225,7 +250,7 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel8.setText("Select Lecturer :");
 
-        NoOfWorkingDays.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Day", "2 Days", "3 Days", "4 Days", "5 Days", "6 Days", "7 Days" }));
+        NoOfWorkingDays.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecturer" }));
         NoOfWorkingDays.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NoOfWorkingDaysActionPerformed(evt);
@@ -264,24 +289,24 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "group" }));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "StartTime" }));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel11.setText("Select Session ID :");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID" }));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel12.setText("Select Sub Group :");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "sub-Group" }));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel13.setText("End Time :");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EndTime" }));
 
         javax.swing.GroupLayout jp_addNotAvilableTimeLayout = new javax.swing.GroupLayout(jp_addNotAvilableTime);
         jp_addNotAvilableTime.setLayout(jp_addNotAvilableTimeLayout);
@@ -504,27 +529,27 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
             .addGroup(addNotAvailableTime_TopBarLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
+                .addGap(70, 70, 70))
         );
         addNotAvailableTime_TopBarLayout.setVerticalGroup(
             addNotAvailableTime_TopBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(addNotAvailableTime_TopBarLayout.createSequentialGroup()
                 .addGap(63, 63, 63)
-                .addGroup(addNotAvailableTime_TopBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addNotAvailableTime_TopBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         JPanel7.add(addNotAvailableTime_TopBar, "card2");
 
-        manageWorkingDays_Topbar.setBackground(new java.awt.Color(20, 181, 117));
+        manageNotAvailabeLectures_Topbar.setBackground(new java.awt.Color(20, 181, 117));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("MANAGE WORKING DAYS AND HOURS");
+        jLabel4.setText("MANAGE LECTURES NOT AVAILABLE TIME");
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
@@ -538,28 +563,28 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout manageWorkingDays_TopbarLayout = new javax.swing.GroupLayout(manageWorkingDays_Topbar);
-        manageWorkingDays_Topbar.setLayout(manageWorkingDays_TopbarLayout);
-        manageWorkingDays_TopbarLayout.setHorizontalGroup(
-            manageWorkingDays_TopbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(manageWorkingDays_TopbarLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+        javax.swing.GroupLayout manageNotAvailabeLectures_TopbarLayout = new javax.swing.GroupLayout(manageNotAvailabeLectures_Topbar);
+        manageNotAvailabeLectures_Topbar.setLayout(manageNotAvailabeLectures_TopbarLayout);
+        manageNotAvailabeLectures_TopbarLayout.setHorizontalGroup(
+            manageNotAvailabeLectures_TopbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(manageNotAvailabeLectures_TopbarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addGap(21, 21, 21))
         );
-        manageWorkingDays_TopbarLayout.setVerticalGroup(
-            manageWorkingDays_TopbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(manageWorkingDays_TopbarLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(manageWorkingDays_TopbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        manageNotAvailabeLectures_TopbarLayout.setVerticalGroup(
+            manageNotAvailabeLectures_TopbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(manageNotAvailabeLectures_TopbarLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(manageNotAvailabeLectures_TopbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
-        JPanel7.add(manageWorkingDays_Topbar, "card3");
+        JPanel7.add(manageNotAvailabeLectures_Topbar, "card3");
 
         javax.swing.GroupLayout Background_pnlLayout = new javax.swing.GroupLayout(Background_pnl);
         Background_pnl.setLayout(Background_pnlLayout);
@@ -572,7 +597,7 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
                     .addGroup(Background_pnlLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)))
+                    .addComponent(JPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         Background_pnlLayout.setVerticalGroup(
             Background_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -602,7 +627,7 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
         jp_manageNotAvailableTime.setVisible(true);
         jp_manageNotAvailableTime.setVisible(false);
         addNotAvailableTime_TopBar.setVisible(true);
-        manageWorkingDays_Topbar.setVisible(false);
+        manageNotAvailabeLectures_Topbar.setVisible(false);
         btn_addWorkingDays.setBackground(new java.awt.Color(8,142,88));
         btn_ManageWorkingDays.setBackground(new java.awt.Color(39,156,109));
     }//GEN-LAST:event_btn_addWorkingDaysMouseClicked
@@ -632,7 +657,7 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
         jp_manageNotAvailableTime.setVisible(true);
         jp_manageNotAvailableTime.setVisible(false);
         addNotAvailableTime_TopBar.setVisible(false);
-        manageWorkingDays_Topbar.setVisible(true);
+        manageNotAvailabeLectures_Topbar.setVisible(true);
         jPanel3.setBackground(new java.awt.Color(8,142,88));
         btn_addWorkingDays.setBackground(new java.awt.Color(39,156,109));
     }//GEN-LAST:event_jPanel3MousePressed
@@ -642,7 +667,7 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
         jp_manageNotAvailableTime.setVisible(true);
         jp_manageNotAvailableTime.setVisible(false);
         addNotAvailableTime_TopBar.setVisible(false);
-        manageWorkingDays_Topbar.setVisible(true);
+        manageNotAvailabeLectures_Topbar.setVisible(true);
         btn_ManageWorkingDays.setBackground(new java.awt.Color(8,142,88));
         btn_addWorkingDays.setBackground(new java.awt.Color(39,156,109));
     }//GEN-LAST:event_btn_ManageWorkingDaysMouseClicked
@@ -799,7 +824,7 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jp_addNotAvilableTime;
     private javax.swing.JPanel jp_manageNotAvailableTime;
-    private javax.swing.JPanel manageWorkingDays_Topbar;
+    private javax.swing.JPanel manageNotAvailabeLectures_Topbar;
     private javax.swing.JScrollPane tableScrollPane;
     // End of variables declaration//GEN-END:variables
 }

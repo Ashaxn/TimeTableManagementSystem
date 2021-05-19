@@ -5,19 +5,86 @@
  */
 package timetablemanagementsystem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author umesha
  */
 public class URoomCannotBeReserved extends javax.swing.JFrame {
+    
+    
+    private RoomCannotReservedModel roomcannotReservemodel;
+    private Connection connection;
+    private int start_Time,End_Time,Roomid;
+    private String RoomNumber;
+    private Statement statement;
+    private PreparedStatement preparedStatement;
+    private boolean mondayV,tuesdayV,wednsdayV,thrusdayV,fridayV,saterdayV,sundayV;
 
     /**
      * Creates new form URoomCannotBeReserved
      */
     public URoomCannotBeReserved() {
         initComponents();
+        dbconnection();
+        btn_addWorkingDays.setBackground(new java.awt.Color(8,142,88));
     }
-
+    
+    
+     private void dbconnection() {
+        final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+        final String JDBC_URL = "jdbc:derby:C:/Users/TEMP.DESKTOP-5DLDP8B.015/Downloads/db-derby-10.14.2.0-bin/lib/TTMS;create=true";
+        
+        try {
+            Class.forName(DRIVER);
+            Connection connection = DriverManager.getConnection(JDBC_URL);
+            System.out.println("DB connected");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }  
+    }
+    
+    public ArrayList getRoomList() {
+        
+        ArrayList<RoomCannotReservedModel> roomcannotReservemodel = new ArrayList<>();
+        
+        String query = "select * from Room";
+        
+        try {
+            statement = connection.createStatement();
+            ResultSet res = statement.executeQuery(query);
+            
+             //String query = "insert into workingdays(workinghours,workingminiutes,noofworkingdays, monday, tuesday, wednesday, thrusday, friday, saterday, sunday) values(?,?,?,?,?,?,?,?,?,?)";
+            
+            while(res.next()) {
+                roomcannotReservemodel= new RoomCannotReservedModel(res.getString("RoomNumber"), res.getInt("starttime") , res.getInt("endtime"), res.getBoolean("monday"), res.getBoolean("tuesday"), res.getBoolean("wednesday"), res.getBoolean("thrusday"), res.getBoolean("friday"), res.getBoolean("saterday"), res.getBoolean("sunday"));
+                workingDaysModel.setId(res.getInt("workingdaysid"));
+                workingDayList.add(workingDaysModel);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UAddWorkingDays.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return workingDayList;
+        
+    }
+     
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -313,10 +380,14 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
                 .addGroup(jp_RoomCannotbeReservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NoOfWorkingDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
                 .addGroup(jp_RoomCannotbeReservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jp_RoomCannotbeReservedLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_RoomCannotbeReservedLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jp_RoomCannotbeReservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -693,6 +764,37 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(UNotAvailableTimeAllocation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(UNotAvailableTimeAllocation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(UNotAvailableTimeAllocation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(UNotAvailableTimeAllocation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new URoomCannotBeReserved().setVisible(true);
+            }
+        });
+    }
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
