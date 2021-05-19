@@ -23,21 +23,15 @@ import javax.swing.JOptionPane;
 public class URoomCannotBeReserved extends javax.swing.JFrame {
     
     
-    private RoomCannotReservedModel roomcannotReservemodel;
-    private Connection connection;
-    private int start_Time,End_Time,Roomid;
-    private String RoomNumber;
-    private Statement statement;
-    private PreparedStatement preparedStatement;
-    private boolean mondayV,tuesdayV,wednsdayV,thrusdayV,fridayV,saterdayV,sundayV;
+    
+ 
 
     /**
      * Creates new form URoomCannotBeReserved
      */
     public URoomCannotBeReserved() {
         initComponents();
-        dbconnection();
-        btn_addWorkingDays.setBackground(new java.awt.Color(8,142,88));
+      
     }
     
     
@@ -58,32 +52,9 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
         }  
     }
     
-    public ArrayList getRoomList() {
         
-        ArrayList<RoomCannotReservedModel> roomcannotReservemodel = new ArrayList<>();
-        
-        String query = "select * from Room";
-        
-        try {
-            statement = connection.createStatement();
-            ResultSet res = statement.executeQuery(query);
-            
-             //String query = "insert into workingdays(workinghours,workingminiutes,noofworkingdays, monday, tuesday, wednesday, thrusday, friday, saterday, sunday) values(?,?,?,?,?,?,?,?,?,?)";
-            
-            while(res.next()) {
-                roomcannotReservemodel= new RoomCannotReservedModel(res.getString("RoomNumber"), res.getInt("starttime") , res.getInt("endtime"), res.getBoolean("monday"), res.getBoolean("tuesday"), res.getBoolean("wednesday"), res.getBoolean("thrusday"), res.getBoolean("friday"), res.getBoolean("saterday"), res.getBoolean("sunday"));
-                workingDaysModel.setId(res.getInt("workingdaysid"));
-                workingDayList.add(workingDaysModel);
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(UAddWorkingDays.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return workingDayList;
-        
-    }
      
+      
      
     /**
      * This method is called from within the constructor to initialize the form.
