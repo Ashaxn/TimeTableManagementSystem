@@ -132,6 +132,9 @@ public class HomePage extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jPanel1MouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel1MousePressed(evt);
+            }
         });
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/lecturers_main_btn_icon.png"))); // NOI18N
@@ -286,6 +289,9 @@ public class HomePage extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jPanel5MouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel5MousePressed(evt);
+            }
         });
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/subjects_main_btn_icon.png"))); // NOI18N
@@ -323,6 +329,9 @@ public class HomePage extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jPanel6MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel6MousePressed(evt);
             }
         });
 
@@ -595,6 +604,24 @@ public class HomePage extends javax.swing.JFrame {
         new AStatistics().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jPanel10MousePressed
+
+    private void jPanel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MousePressed
+        // TODO add your handling code here:
+        new VsessionHome().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jPanel6MousePressed
+
+    private void jPanel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MousePressed
+        // TODO add your handling code here:
+        new VsubHome().setVisible(true);
+        this.setVisible(false);        
+    }//GEN-LAST:event_jPanel5MousePressed
+
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        // TODO add your handling code here:
+        new VLecHome().setVisible(true);
+        this.setVisible(false); 
+    }//GEN-LAST:event_jPanel1MousePressed
 
 public void setColor(JPanel panel){
     panel.setBackground(new java.awt.Color(181, 181, 181));

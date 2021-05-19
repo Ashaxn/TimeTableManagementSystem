@@ -29,12 +29,11 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
     
     private void dbconnection() {
         final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-        final String JDBC_URL = "jdbc:derby:C:/Users/TEMP.DESKTOP-5DLDP8B.015/Downloads/db-derby-10.14.2.0-bin/lib/TTMS;create=true";
+        final String JDBC_URL = "jdbc:derby:C:/Derby/TTMS;create=true";
         
         try {
             Class.forName(DRIVER);
             Connection connection = DriverManager.getConnection(JDBC_URL);
-            System.out.println("DB connected");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -297,6 +296,11 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
         jLabel11.setText("Select Session ID :");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel12.setText("Select Sub Group :");
@@ -747,6 +751,10 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
     private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox6ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments

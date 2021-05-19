@@ -29,12 +29,11 @@ public class UGroupSubGroupNotAvailableTime extends javax.swing.JFrame {
     
      private void dbconnection() {
         final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-        final String JDBC_URL = "jdbc:derby:C:/Users/TEMP.DESKTOP-5DLDP8B.015/Downloads/db-derby-10.14.2.0-bin/lib/TTMS;create=true";
+        final String JDBC_URL = "jdbc:derby:C:/Derby/TTMS;create=true";
         
         try {
             Class.forName(DRIVER);
             Connection connection = DriverManager.getConnection(JDBC_URL);
-            System.out.println("DB connected");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

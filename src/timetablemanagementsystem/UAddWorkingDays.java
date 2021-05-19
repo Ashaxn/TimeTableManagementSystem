@@ -53,7 +53,7 @@ public class UAddWorkingDays extends javax.swing.JFrame {
     //sad
     private void dbconnection() {
         final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-        final String JDBC_URL = "jdbc:derby:F:/Derby/TTMS;create=true";
+        final String JDBC_URL = "jdbc:derby:C:/Derby/TTMS;create=true";
         
         try {
             Class.forName(DRIVER);
