@@ -5,6 +5,21 @@
  */
 package timetablemanagementsystem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import timetablemanagementsystem.dbConnect;
+import timetablemanagementsystem.UHome;
+
 /**
  *
  * @author umesha
@@ -14,10 +29,153 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
     /**
      * Creates new form UGenerateTimeSlots
      */
+    
+    private TimeSlotModel timeSlotModel;
+    private Connection connection;
+    private Statement statement;
+    private PreparedStatement preparedStatement;
+    private int time_id;
+            
     public UGenerateTimeSlots() {
+        dbconnection();
         initComponents();
+        initTImeSolts();
+        btn_GenerateTimeSlots.setBackground(new java.awt.Color(8,142,88));
+        initTable();
     }
 
+      private void dbconnection() {
+       final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+        final String JDBC_URL = "jdbc:derby:F:/Derby/TTMS;create=true";
+       
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(JDBC_URL);
+            System.out.println("DB connected");
+        } catch (ClassNotFoundException ex) {
+           
+          Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+        
+        Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+           JOptionPane.showMessageDialog(null, ex);
+       }  
+         
+    }
+    
+    public void initTImeSolts() {
+        this.timeSolts.addItem("08.30 - 9.30");
+        this.timeSolts.addItem("9.30  - 10.30");
+        this.timeSolts.addItem("10.30 - 11.30");
+        this.timeSolts.addItem("11.30-12.00        Break");
+        this.timeSolts.addItem("12.00  - 1.00");
+        this.timeSolts.addItem("1.00   -  2.00");
+        this.timeSolts.addItem("3.00   -  4.00");
+        this.timeSolts.addItem("4.00   -  5.00");
+    }
+    
+    public ArrayList getTimeTableVal() {
+        
+        ArrayList<TimeSlotModel> timeTableSlots = new ArrayList<>();
+        
+        String query = "select * from timeslots";
+        
+        try {
+           statement = connection.createStatement();
+           ResultSet res = statement.executeQuery(query);
+            
+            while(res.next()) {
+                timeSlotModel = new TimeSlotModel(res.getInt("slotid"),res.getString("slot"));
+                timeTableSlots.add(timeSlotModel);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UGenerateTimeSlots.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return timeTableSlots;
+    }
+    
+    public void initTable() {
+        ArrayList<TimeSlotModel> list = getTimeTableVal();
+        DefaultTableModel table_model = (DefaultTableModel) display_table.getModel();
+        table_model.setRowCount(0);
+        Object[] row = new Object[2];
+        
+        for(int i = 0;i<list.size();i++) {
+            row[0] = list.get(i).getSlotid();
+            row[1] = list.get(i).getSlot();
+             table_model.addRow(row);
+        }
+        
+    }
+  
+    public void addTImeSlot() {
+        
+        String slotVal = this.timeSolts.getSelectedItem().toString();
+        
+        String query = "insert into timeslots(slot) values(?)";
+        
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, slotVal);
+            preparedStatement.execute();
+            
+            DefaultTableModel model = (DefaultTableModel) display_table.getModel();
+            model.setRowCount(0);
+            initTable();
+            
+            JOptionPane.showMessageDialog(null, "Time Slot Added Successfully. \n Thank You!");
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+            Logger.getLogger(UGenerateTimeSlots.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public void deleteSlot() {
+        
+        String query = "delete from timeslots where slotid=?";
+        
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, time_id);
+            preparedStatement.execute();
+            JOptionPane.showMessageDialog(null, "Time Slot Deleted Successfully. \n Thank You!");
+            
+            DefaultTableModel model = (DefaultTableModel) display_table.getModel();
+            model.setRowCount(0);
+            initTable();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+            Logger.getLogger(UGenerateTimeSlots.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public void refreshSlots() {
+        
+        String query = "delete from timeslots";
+        
+        try {
+            preparedStatement = connection.prepareCall(query);
+            preparedStatement.execute();
+            
+            JOptionPane.showMessageDialog(null, "Refresh Time Slots Successfully. \n Thank You!");
+            
+            DefaultTableModel model = (DefaultTableModel) display_table.getModel();
+            model.setRowCount(0);
+            initTable();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+            Logger.getLogger(UGenerateTimeSlots.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+  
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,15 +198,14 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        timeSolts = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        display_table = new javax.swing.JTable();
         JPanel7 = new javax.swing.JPanel();
         GenarateTimeSlots_TopBar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        GenerateTimeSlots_Topbar = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,6 +215,7 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
         SidePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_GenerateTimeSlots.setBackground(new java.awt.Color(39, 156, 109));
+        btn_GenerateTimeSlots.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_GenerateTimeSlots.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_GenerateTimeSlotsMouseClicked(evt);
@@ -107,6 +265,7 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
         GenerateTimeSlots_backBtn.setForeground(new java.awt.Color(255, 255, 255));
         GenerateTimeSlots_backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn.png"))); // NOI18N
         GenerateTimeSlots_backBtn.setText("BACK");
+        GenerateTimeSlots_backBtn.setToolTipText("Returns  to a previously shown window ");
         GenerateTimeSlots_backBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GenerateTimeSlots_backBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn hover.png"))); // NOI18N
         GenerateTimeSlots_backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +277,7 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(247, 247, 247));
         jPanel6.setPreferredSize(new java.awt.Dimension(625, 329));
-        jPanel6.setLayout(new javax.swing.OverlayLayout(jPanel6));
+        jPanel6.setLayout(new java.awt.CardLayout());
 
         jp_GenerateTimeSlots.setBackground(new java.awt.Color(247, 247, 247));
 
@@ -130,7 +289,7 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn.png"))); // NOI18N
         jButton1.setText("DELETE");
-        jButton1.setActionCommand("DELETE");
+        jButton1.setToolTipText("Click The Delete Button To Delete The Details");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn hover.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -143,6 +302,7 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
         jButton2.setText("GENERATE");
+        jButton2.setToolTipText("Generate Time Slots");
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn hover.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -151,12 +311,18 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Time" }));
+        timeSolts.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Time" }));
+        timeSolts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeSoltsActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
         jButton4.setText("REFRESH");
+        jButton4.setToolTipText("Click The Refresh Button To Refresh The Detailes");
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn hover.png"))); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -165,25 +331,63 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
             }
         });
 
+        display_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Solt ID", "Time Slot", "Monday", "Tusday", "WednesDay", "Thrusday", "Friday", "SaterDay", "Sunday"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        display_table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                display_tableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(display_table);
+        if (display_table.getColumnModel().getColumnCount() > 0) {
+            display_table.getColumnModel().getColumn(1).setPreferredWidth(300);
+        }
+
         javax.swing.GroupLayout jp_GenerateTimeSlotsLayout = new javax.swing.GroupLayout(jp_GenerateTimeSlots);
         jp_GenerateTimeSlots.setLayout(jp_GenerateTimeSlotsLayout);
         jp_GenerateTimeSlotsLayout.setHorizontalGroup(
             jp_GenerateTimeSlotsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_GenerateTimeSlotsLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jp_GenerateTimeSlotsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(140, 140, 140)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jp_GenerateTimeSlotsLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jp_GenerateTimeSlotsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jp_GenerateTimeSlotsLayout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(208, 208, 208))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jp_GenerateTimeSlotsLayout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(timeSolts, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(85, 85, 85))))
         );
         jp_GenerateTimeSlotsLayout.setVerticalGroup(
             jp_GenerateTimeSlotsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,19 +395,21 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(jp_GenerateTimeSlotsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timeSolts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 286, Short.MAX_VALUE)
+                .addGap(47, 47, 47)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addGroup(jp_GenerateTimeSlotsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(75, 75, 75))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
 
-        jPanel6.add(jp_GenerateTimeSlots);
+        jPanel6.add(jp_GenerateTimeSlots, "card2");
 
         JPanel7.setBackground(new java.awt.Color(20, 181, 117));
-        JPanel7.setLayout(new javax.swing.OverlayLayout(JPanel7));
+        JPanel7.setLayout(new java.awt.CardLayout());
 
         GenarateTimeSlots_TopBar.setBackground(new java.awt.Color(20, 181, 117));
 
@@ -215,6 +421,7 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn.png"))); // NOI18N
         jButton3.setText("LOGOUT");
+        jButton3.setToolTipText("Logout From The System");
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn hover.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -230,7 +437,7 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
             .addGroup(GenarateTimeSlots_TopBarLayout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
         );
@@ -244,48 +451,7 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
-        JPanel7.add(GenarateTimeSlots_TopBar);
-
-        GenerateTimeSlots_Topbar.setBackground(new java.awt.Color(20, 181, 117));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("MANAGE ROOMS");
-
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
-        jButton5.setText("LOGOUT");
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout GenerateTimeSlots_TopbarLayout = new javax.swing.GroupLayout(GenerateTimeSlots_Topbar);
-        GenerateTimeSlots_Topbar.setLayout(GenerateTimeSlots_TopbarLayout);
-        GenerateTimeSlots_TopbarLayout.setHorizontalGroup(
-            GenerateTimeSlots_TopbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GenerateTimeSlots_TopbarLayout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
-        );
-        GenerateTimeSlots_TopbarLayout.setVerticalGroup(
-            GenerateTimeSlots_TopbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GenerateTimeSlots_TopbarLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(GenerateTimeSlots_TopbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addContainerGap(70, Short.MAX_VALUE))
-        );
-
-        JPanel7.add(GenerateTimeSlots_Topbar);
+        JPanel7.add(GenarateTimeSlots_TopBar, "card2");
 
         javax.swing.GroupLayout Background_pnlLayout = new javax.swing.GroupLayout(Background_pnl);
         Background_pnl.setLayout(Background_pnlLayout);
@@ -305,7 +471,7 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
             .addGroup(Background_pnlLayout.createSequentialGroup()
                 .addComponent(JPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -324,12 +490,6 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
 
     private void btn_GenerateTimeSlotsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_GenerateTimeSlotsMouseClicked
         // TODO add your handling code here:
-        jp_GenerateTimeSlots.setVisible(true);
-        jp_GenerateTimeSlots.setVisible(false);
-        GenarateTimeSlots_TopBar.setVisible(true);
-        GenerateTimeSlots_Topbar.setVisible(false);
-        btn_GenerateTimeSlots.setBackground(new java.awt.Color(8,142,88));
-        btn_GenerateTimeSlots.setBackground(new java.awt.Color(39,156,109));
     }//GEN-LAST:event_btn_GenerateTimeSlotsMouseClicked
 
     private void btn_GenerateTimeSlotsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_GenerateTimeSlotsMouseEntered
@@ -346,28 +506,43 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
 
     private void GenerateTimeSlots_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerateTimeSlots_backBtnActionPerformed
         // TODO add your handling code here:
-
+            new UHome().setVisible(true);
+            this.setVisible(false);
     }//GEN-LAST:event_GenerateTimeSlots_backBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        deleteSlot();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        addTImeSlot();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        refreshSlots();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void timeSoltsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeSoltsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeSoltsActionPerformed
+
+    private void display_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_display_tableMouseClicked
+        // TODO add your handling code here:
+        
+        int i = display_table.getSelectedRow();
+        
+        TableModel model = display_table.getModel();
+        
+        time_id = (int) model.getValueAt(i, 0);
+        
+    }//GEN-LAST:event_display_tableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -407,25 +582,24 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background_pnl;
     private javax.swing.JPanel GenarateTimeSlots_TopBar;
-    private javax.swing.JPanel GenerateTimeSlots_Topbar;
     private javax.swing.JButton GenerateTimeSlots_backBtn;
     private javax.swing.JPanel JPanel7;
     private javax.swing.JPanel SidePanel;
     private javax.swing.JPanel btn_GenerateTimeSlots;
+    private javax.swing.JTable display_table;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jp_GenerateTimeSlots;
+    private javax.swing.JComboBox<String> timeSolts;
     // End of variables declaration//GEN-END:variables
 }

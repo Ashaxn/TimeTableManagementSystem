@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
+<<<<<<< HEAD
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+=======
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -47,7 +51,11 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="53" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD
+                      <Component id="viewBuildingTable_backBtn" min="-2" pref="112" max="-2" attributes="0"/>
+=======
                       <Component id="viewBuildingTable_exitBtn" min="-2" pref="112" max="-2" attributes="0"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="searchTextFieldBuildingsTable" min="-2" pref="194" max="-2" attributes="0"/>
@@ -79,7 +87,11 @@
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="184" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+<<<<<<< HEAD
+                  <Component id="viewBuildingTable_backBtn" min="-2" pref="31" max="-2" attributes="0"/>
+=======
                   <Component id="viewBuildingTable_exitBtn" min="-2" pref="31" max="-2" attributes="0"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                   <EmptySpace pref="31" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -142,7 +154,10 @@
                   <Image iconType="3" name="/timetablemanagementsystem/AImages/clear btn.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="LOGOUT"/>
+<<<<<<< HEAD
+=======
                 <Property name="toolTipText" type="java.lang.String" value="If you click this this you can sign out from the system"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/timetablemanagementsystem/AImages/clear btn hover.png"/>
@@ -223,7 +238,10 @@
               <Image iconType="3" name="/timetablemanagementsystem/AImages/add btn.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Search"/>
+<<<<<<< HEAD
+=======
             <Property name="toolTipText" type="java.lang.String" value="If you click this you can search Buildngs"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/timetablemanagementsystem/AImages/add btn hover.png"/>
@@ -246,7 +264,10 @@
               <Image iconType="3" name="/timetablemanagementsystem/AImages/add btn.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Refresh"/>
+<<<<<<< HEAD
+=======
             <Property name="toolTipText" type="java.lang.String" value="If you click this you can refresh the table"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/timetablemanagementsystem/AImages/add btn hover.png"/>
@@ -257,7 +278,11 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_refreshviewBuildingsTableActionPerformed"/>
           </Events>
         </Component>
+<<<<<<< HEAD
+        <Component class="javax.swing.JButton" name="viewBuildingTable_backBtn">
+=======
         <Component class="javax.swing.JButton" name="viewBuildingTable_exitBtn">
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="12" style="1"/>
@@ -268,15 +293,23 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/timetablemanagementsystem/AImages/clear btn.png"/>
             </Property>
+<<<<<<< HEAD
+            <Property name="text" type="java.lang.String" value="BACK"/>
+=======
             <Property name="text" type="java.lang.String" value="Exit"/>
             <Property name="toolTipText" type="java.lang.String" value="If You click this you can close this window only"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/timetablemanagementsystem/AImages/clear btn hover.png"/>
             </Property>
           </Properties>
           <Events>
+<<<<<<< HEAD
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewBuildingTable_backBtnActionPerformed"/>
+=======
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewBuildingTable_exitBtnActionPerformed"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
           </Events>
         </Component>
       </SubComponents>

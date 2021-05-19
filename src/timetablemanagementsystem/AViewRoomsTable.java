@@ -117,7 +117,10 @@ public class AViewRoomsTable extends javax.swing.JFrame {
         btn_refreshviewRoomsTable = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         onlyRooms_table = new javax.swing.JTable();
+<<<<<<< HEAD
+=======
         viewRoomsTable_exitBtn = new javax.swing.JButton();
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -218,6 +221,8 @@ public class AViewRoomsTable extends javax.swing.JFrame {
         onlyRooms_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(onlyRooms_table);
 
+<<<<<<< HEAD
+=======
         viewRoomsTable_exitBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         viewRoomsTable_exitBtn.setForeground(new java.awt.Color(255, 255, 255));
         viewRoomsTable_exitBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
@@ -236,6 +241,7 @@ public class AViewRoomsTable extends javax.swing.JFrame {
             }
         });
 
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -243,6 +249,16 @@ public class AViewRoomsTable extends javax.swing.JFrame {
             .addComponent(viewRoomsTable_TopBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+<<<<<<< HEAD
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(searchTextFieldRoomsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_searchviewRoomsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_refreshviewRoomsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 783, javax.swing.GroupLayout.PREFERRED_SIZE))
+=======
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(viewRoomsTable_exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -253,6 +269,7 @@ public class AViewRoomsTable extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btn_refreshviewRoomsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 783, javax.swing.GroupLayout.PREFERRED_SIZE)))
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                 .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
@@ -266,9 +283,13 @@ public class AViewRoomsTable extends javax.swing.JFrame {
                     .addComponent(searchTextFieldRoomsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
+                .addContainerGap(83, Short.MAX_VALUE))
+=======
                 .addGap(28, 28, 28)
                 .addComponent(viewRoomsTable_exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(46, Short.MAX_VALUE))
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -314,6 +335,8 @@ public class AViewRoomsTable extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_refreshviewRoomsTableActionPerformed
 
+<<<<<<< HEAD
+=======
     private void viewRoomsTable_exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRoomsTable_exitBtnActionPerformed
         // TODO add your handling code here:
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -324,6 +347,7 @@ public class AViewRoomsTable extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_viewRoomsTable_exitBtnMouseClicked
 
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
     /**
      * @param args the command line arguments
      */
@@ -369,6 +393,9 @@ public class AViewRoomsTable extends javax.swing.JFrame {
     private javax.swing.JTable onlyRooms_table;
     private javax.swing.JTextField searchTextFieldRoomsTable;
     private javax.swing.JPanel viewRoomsTable_TopBar;
+<<<<<<< HEAD
+=======
     private javax.swing.JButton viewRoomsTable_exitBtn;
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
     // End of variables declaration//GEN-END:variables
 }

@@ -310,7 +310,11 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+<<<<<<< HEAD
+                          <EmptySpace pref="103" max="32767" attributes="0"/>
+=======
                           <EmptySpace pref="73" max="32767" attributes="0"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -608,7 +612,10 @@
                       <Image iconType="3" name="/timetablemanagementsystem/AImages/add btn.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="UPDATE"/>
+<<<<<<< HEAD
+=======
                     <Property name="toolTipText" type="java.lang.String" value="If click this record will be update"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/timetablemanagementsystem/AImages/add btn hover.png"/>
@@ -630,7 +637,10 @@
                       <Image iconType="3" name="/timetablemanagementsystem/AImages/clear btn.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="DELETE"/>
+<<<<<<< HEAD
+=======
                     <Property name="toolTipText" type="java.lang.String" value="If you click this you can delete selected item from the database"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/timetablemanagementsystem/AImages/clear btn hover.png"/>
@@ -787,7 +797,10 @@
                       <Image iconType="3" name="/timetablemanagementsystem/AImages/add btn.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Refresh"/>
+<<<<<<< HEAD
+=======
                     <Property name="toolTipText" type="java.lang.String" value="If you click this you refresh page"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/timetablemanagementsystem/AImages/add btn hover.png"/>
@@ -810,7 +823,10 @@
                       <Image iconType="3" name="/timetablemanagementsystem/AImages/add btn.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Search"/>
+<<<<<<< HEAD
+=======
                     <Property name="toolTipText" type="java.lang.String" value="If you clcik this you can search all details of buildings"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/timetablemanagementsystem/AImages/add btn hover.png"/>
@@ -832,7 +848,10 @@
                       <Image iconType="3" name="/timetablemanagementsystem/AImages/clear btn.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="CLEAR"/>
+<<<<<<< HEAD
+=======
                     <Property name="toolTipText" type="java.lang.String" value="If you click this all fields will be empy"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/timetablemanagementsystem/AImages/clear btn hover.png"/>
@@ -869,7 +888,10 @@
                       <Image iconType="3" name="/timetablemanagementsystem/AImages/add btn.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="View Table"/>
+<<<<<<< HEAD
+=======
                     <Property name="toolTipText" type="java.lang.String" value="If you click this you can view only datatable"/>
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/timetablemanagementsystem/AImages/add btn hover.png"/>

@@ -115,7 +115,11 @@ public class AViewBuildingTable extends javax.swing.JFrame {
         searchTextFieldBuildingsTable = new javax.swing.JTextField();
         btn_searchviewBuildingsTable = new javax.swing.JButton();
         btn_refreshviewBuildingsTable = new javax.swing.JButton();
+<<<<<<< HEAD
+        viewBuildingTable_backBtn = new javax.swing.JButton();
+=======
         viewBuildingTable_exitBtn = new javax.swing.JButton();
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,7 +135,10 @@ public class AViewBuildingTable extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         jButton3.setText("LOGOUT");
+<<<<<<< HEAD
+=======
         jButton3.setToolTipText("If you click this this you can sign out from the system");
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +203,10 @@ public class AViewBuildingTable extends javax.swing.JFrame {
         btn_searchviewBuildingsTable.setForeground(new java.awt.Color(255, 255, 255));
         btn_searchviewBuildingsTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_searchviewBuildingsTable.setText("Search");
+<<<<<<< HEAD
+=======
         btn_searchviewBuildingsTable.setToolTipText("If you click this you can search Buildngs");
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         btn_searchviewBuildingsTable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_searchviewBuildingsTable.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_searchviewBuildingsTable.addActionListener(new java.awt.event.ActionListener() {
@@ -214,7 +224,10 @@ public class AViewBuildingTable extends javax.swing.JFrame {
         btn_refreshviewBuildingsTable.setForeground(new java.awt.Color(255, 255, 255));
         btn_refreshviewBuildingsTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_refreshviewBuildingsTable.setText("Refresh");
+<<<<<<< HEAD
+=======
         btn_refreshviewBuildingsTable.setToolTipText("If you click this you can refresh the table");
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         btn_refreshviewBuildingsTable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_refreshviewBuildingsTable.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_refreshviewBuildingsTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -228,6 +241,17 @@ public class AViewBuildingTable extends javax.swing.JFrame {
             }
         });
 
+<<<<<<< HEAD
+        viewBuildingTable_backBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        viewBuildingTable_backBtn.setForeground(new java.awt.Color(255, 255, 255));
+        viewBuildingTable_backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
+        viewBuildingTable_backBtn.setText("BACK");
+        viewBuildingTable_backBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        viewBuildingTable_backBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
+        viewBuildingTable_backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewBuildingTable_backBtnActionPerformed(evt);
+=======
         viewBuildingTable_exitBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         viewBuildingTable_exitBtn.setForeground(new java.awt.Color(255, 255, 255));
         viewBuildingTable_exitBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
@@ -238,6 +262,7 @@ public class AViewBuildingTable extends javax.swing.JFrame {
         viewBuildingTable_exitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewBuildingTable_exitBtnActionPerformed(evt);
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
             }
         });
 
@@ -249,7 +274,11 @@ public class AViewBuildingTable extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Background_pnlLayout.createSequentialGroup()
                 .addContainerGap(53, Short.MAX_VALUE)
                 .addGroup(Background_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
+                    .addComponent(viewBuildingTable_backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+=======
                     .addComponent(viewBuildingTable_exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                     .addGroup(Background_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(Background_pnlLayout.createSequentialGroup()
                             .addComponent(searchTextFieldBuildingsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,7 +303,11 @@ public class AViewBuildingTable extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
+<<<<<<< HEAD
+                .addComponent(viewBuildingTable_backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+=======
                 .addComponent(viewBuildingTable_exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -325,11 +358,17 @@ public class AViewBuildingTable extends javax.swing.JFrame {
         // TODO add your handling code here:      
     }//GEN-LAST:event_btn_searchviewBuildingsTableKeyReleased
 
+<<<<<<< HEAD
+    private void viewBuildingTable_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBuildingTable_backBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewBuildingTable_backBtnActionPerformed
+=======
     private void viewBuildingTable_exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBuildingTable_exitBtnActionPerformed
         // TODO add your handling code here:
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_viewBuildingTable_exitBtnActionPerformed
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
 
     /**
      * @param args the command line arguments
@@ -375,7 +414,11 @@ public class AViewBuildingTable extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable onlyBuildings_table;
     private javax.swing.JTextField searchTextFieldBuildingsTable;
+<<<<<<< HEAD
+    private javax.swing.JButton viewBuildingTable_backBtn;
+=======
     private javax.swing.JButton viewBuildingTable_exitBtn;
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
     private javax.swing.JPanel viewBuildingsTable_TopBar;
     // End of variables declaration//GEN-END:variables
 }

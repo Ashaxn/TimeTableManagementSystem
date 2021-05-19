@@ -92,6 +92,10 @@ public class AAddBuildings extends javax.swing.JFrame {
         try {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(JDBC_URL);
+<<<<<<< HEAD
+            System.out.println("DB COnnected");
+=======
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -365,7 +369,11 @@ public class AAddBuildings extends javax.swing.JFrame {
         jp_addBuildingsLayout.setHorizontalGroup(
             jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_addBuildingsLayout.createSequentialGroup()
+<<<<<<< HEAD
+                .addContainerGap(103, Short.MAX_VALUE)
+=======
                 .addContainerGap(73, Short.MAX_VALUE)
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
                 .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addBuildingsLayout.createSequentialGroup()
                         .addGroup(jp_addBuildingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,7 +424,10 @@ public class AAddBuildings extends javax.swing.JFrame {
         btn_updateManage.setForeground(new java.awt.Color(255, 255, 255));
         btn_updateManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_updateManage.setText("UPDATE");
+<<<<<<< HEAD
+=======
         btn_updateManage.setToolTipText("If click this record will be update");
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         btn_updateManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_updateManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_updateManage.addActionListener(new java.awt.event.ActionListener() {
@@ -429,7 +440,10 @@ public class AAddBuildings extends javax.swing.JFrame {
         btn_deleteManage.setForeground(new java.awt.Color(255, 255, 255));
         btn_deleteManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         btn_deleteManage.setText("DELETE");
+<<<<<<< HEAD
+=======
         btn_deleteManage.setToolTipText("If you click this you can delete selected item from the database");
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         btn_deleteManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_deleteManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         btn_deleteManage.addActionListener(new java.awt.event.ActionListener() {
@@ -525,7 +539,10 @@ public class AAddBuildings extends javax.swing.JFrame {
         btn_refreshManage.setForeground(new java.awt.Color(255, 255, 255));
         btn_refreshManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_refreshManage.setText("Refresh");
+<<<<<<< HEAD
+=======
         btn_refreshManage.setToolTipText("If you click this you refresh page");
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         btn_refreshManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_refreshManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_refreshManage.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -543,7 +560,10 @@ public class AAddBuildings extends javax.swing.JFrame {
         btn_searchManage.setForeground(new java.awt.Color(255, 255, 255));
         btn_searchManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_searchManage.setText("Search");
+<<<<<<< HEAD
+=======
         btn_searchManage.setToolTipText("If you clcik this you can search all details of buildings");
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         btn_searchManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_searchManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_searchManage.addActionListener(new java.awt.event.ActionListener() {
@@ -556,7 +576,10 @@ public class AAddBuildings extends javax.swing.JFrame {
         btn_clearManage.setForeground(new java.awt.Color(255, 255, 255));
         btn_clearManage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn.png"))); // NOI18N
         btn_clearManage.setText("CLEAR");
+<<<<<<< HEAD
+=======
         btn_clearManage.setToolTipText("If you click this all fields will be empy");
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         btn_clearManage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_clearManage.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/clear btn hover.png"))); // NOI18N
         btn_clearManage.addActionListener(new java.awt.event.ActionListener() {
@@ -577,7 +600,10 @@ public class AAddBuildings extends javax.swing.JFrame {
         btn_viewBuildingTable.setForeground(new java.awt.Color(255, 255, 255));
         btn_viewBuildingTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn.png"))); // NOI18N
         btn_viewBuildingTable.setText("View Table");
+<<<<<<< HEAD
+=======
         btn_viewBuildingTable.setToolTipText("If you click this you can view only datatable");
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         btn_viewBuildingTable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_viewBuildingTable.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_viewBuildingTable.addActionListener(new java.awt.event.ActionListener() {
@@ -754,7 +780,11 @@ public class AAddBuildings extends javax.swing.JFrame {
                     .addGroup(Background_pnlLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+<<<<<<< HEAD
+                    .addComponent(JPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+=======
                     .addComponent(JPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)))
+>>>>>>> a2a2f3591b0f88043da8f9fcb36d4459fc4388a5
         );
         Background_pnlLayout.setVerticalGroup(
             Background_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

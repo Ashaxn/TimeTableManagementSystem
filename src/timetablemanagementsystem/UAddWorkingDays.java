@@ -6,6 +6,24 @@
 package timetablemanagementsystem;
 
 import java.awt.Color;
+import static java.lang.Boolean.getBoolean;
+import static java.lang.Integer.getInteger;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import timetablemanagementsystem.UHome;
 
 /**
  *
@@ -16,11 +34,121 @@ public class UAddWorkingDays extends javax.swing.JFrame {
     /**
      * Creates new form UAddWorkingDays
      */
+    private WorkingDaysModel workingDaysModel;
+    private Connection connection;
+    private int numof_hours,numof_miniutes,workingDayID;
+    private String numof_workingdays;
+    private Statement statement;
+    private PreparedStatement preparedStatement;
+    private boolean mondayV,tuesdayV,wednsdayV,thrusdayV,fridayV,saterdayV,sundayV;
+    
+    
     public UAddWorkingDays() {
         initComponents();
+        dbconnection();
+        ShowWorkingDayTable();
         btn_addWorkingDays.setBackground(new java.awt.Color(8,142,88));
     }
 
+    //sad
+    private void dbconnection() {
+        final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+        final String JDBC_URL = "jdbc:derby:F:/Derby/TTMS;create=true";
+        
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(JDBC_URL);
+            System.out.println("DB connected");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }  
+    }
+    
+    
+    public ArrayList getWorkingDayList() {
+        
+        ArrayList<WorkingDaysModel> workingDayList = new ArrayList<>();
+        
+        String query = "select * from workingdays";
+        
+        try {
+            statement = connection.createStatement();
+            ResultSet res = statement.executeQuery(query);
+            
+             //String query = "insert into workingdays(workinghours,workingminiutes,noofworkingdays, monday, tuesday, wednesday, thrusday, friday, saterday, sunday) values(?,?,?,?,?,?,?,?,?,?)";
+            
+            while(res.next()) {
+                workingDaysModel = new WorkingDaysModel(res.getString("noofworkingdays"), res.getInt("workingminiutes") , res.getInt("workinghours"), res.getBoolean("monday"), res.getBoolean("tuesday"), res.getBoolean("wednesday"), res.getBoolean("thrusday"), res.getBoolean("friday"), res.getBoolean("saterday"), res.getBoolean("sunday"));
+                workingDaysModel.setId(res.getInt("workingdaysid"));
+                workingDayList.add(workingDaysModel);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UAddWorkingDays.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return workingDayList;
+    }
+    
+    public void ShowWorkingDayTable() {
+        
+        ArrayList<WorkingDaysModel> dayList = getWorkingDayList();
+        DefaultTableModel table_model = (DefaultTableModel) display_table.getModel();
+        //DefaultTableModel model = (DefaultTableModel) display_table.getModel();
+        table_model.setRowCount(0);
+        Object[] row = new Object[4];
+        String temp = "";
+        
+        int hr_count=0;
+        
+        for(int i=0;i<dayList.size();i++) {
+            
+            if(dayList.get(i).isMonday()) {
+                temp = temp + "Monday, ";
+                hr_count++;
+            } if (dayList.get(i).isTuesday()) {
+                temp = temp + "Tuesday, ";
+                hr_count++;
+            }
+             if (dayList.get(i).isWednesday()) {
+                 temp = temp + "Wednesday, ";
+                hr_count++;
+            }
+             if (dayList.get(i).isThrusday()) {
+                 temp = temp + "Thursday, ";
+                hr_count++;
+            }
+             if (dayList.get(i).isFriday()) {
+                 temp = temp + "Friday, ";
+                hr_count++;
+            }
+             if (dayList.get(i).isSaterday()) {
+                 temp = temp + "Saturday, ";
+                hr_count++;
+            }
+             if (dayList.get(i).isSunday()) {
+                 temp = temp + "Sunday, ";
+                hr_count++;
+            }
+            
+            row[0] = temp;
+            row[1] = dayList.get(i).getNumof_workingdays();
+            row[2] = dayList.get(i).getNumof_hours()*hr_count;
+            row[3] = dayList.get(i).getId();
+            temp = "";
+            table_model.addRow(row);
+        }
+        
+       hr_count = 0;
+        
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,52 +166,52 @@ public class UAddWorkingDays extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btn_ManageWorkingDays = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         addWorkingDays_backBtn = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jp_addWorkingDays = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        NoOfWorkingDays = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        checkbox1 = new java.awt.Checkbox();
-        checkbox2 = new java.awt.Checkbox();
-        checkbox3 = new java.awt.Checkbox();
-        checkbox4 = new java.awt.Checkbox();
-        checkbox5 = new java.awt.Checkbox();
-        checkbox6 = new java.awt.Checkbox();
-        checkbox7 = new java.awt.Checkbox();
-        jSpinner1 = new javax.swing.JSpinner();
+        btn_clearworkingdays = new javax.swing.JButton();
+        addWorkingDays = new javax.swing.JButton();
+        monday = new java.awt.Checkbox();
+        tuesday = new java.awt.Checkbox();
+        wednsday = new java.awt.Checkbox();
+        thrusday = new java.awt.Checkbox();
+        friday = new java.awt.Checkbox();
+        saterday = new java.awt.Checkbox();
+        sunday = new java.awt.Checkbox();
+        hours = new javax.swing.JSpinner();
         label1 = new java.awt.Label();
         label2 = new java.awt.Label();
-        jSpinner2 = new javax.swing.JSpinner();
+        miniutes = new javax.swing.JSpinner();
         jp_manageWorkingDays = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton8 = new javax.swing.JButton();
+        tableScrollPane = new javax.swing.JScrollPane();
+        display_table = new javax.swing.JTable();
         label3 = new java.awt.Label();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        update_workingdays = new javax.swing.JComboBox<>();
+        btnupdate = new javax.swing.JButton();
+        btnclearupdate = new javax.swing.JButton();
+        btndelete = new javax.swing.JButton();
+        btnsearch = new javax.swing.JButton();
         label4 = new java.awt.Label();
         label5 = new java.awt.Label();
-        jSpinner3 = new javax.swing.JSpinner();
+        update_hours = new javax.swing.JSpinner();
         label6 = new java.awt.Label();
-        jSpinner4 = new javax.swing.JSpinner();
+        update_miniutes = new javax.swing.JSpinner();
         label7 = new java.awt.Label();
-        checkbox8 = new java.awt.Checkbox();
-        checkbox9 = new java.awt.Checkbox();
-        checkbox10 = new java.awt.Checkbox();
-        checkbox11 = new java.awt.Checkbox();
-        checkbox12 = new java.awt.Checkbox();
-        checkbox13 = new java.awt.Checkbox();
-        checkbox14 = new java.awt.Checkbox();
+        update_monday = new java.awt.Checkbox();
+        update_tuesday = new java.awt.Checkbox();
+        update_wednesday = new java.awt.Checkbox();
+        update_thrusday = new java.awt.Checkbox();
+        update_friday = new java.awt.Checkbox();
+        update_saterday = new java.awt.Checkbox();
+        update_sunday = new java.awt.Checkbox();
+        searchBox = new javax.swing.JTextField();
         JPanel7 = new javax.swing.JPanel();
         addWorkingDays_TopBar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -118,12 +246,12 @@ public class UAddWorkingDays extends javax.swing.JFrame {
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/Add_Icon.png"))); // NOI18N
-        btn_addWorkingDays.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 11, 37, 38));
+        btn_addWorkingDays.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 37, 38));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(240, 240, 240));
         jLabel1.setText("Add Working Days");
-        btn_addWorkingDays.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 20, 140, -1));
+        btn_addWorkingDays.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 140, -1));
 
         jPanel1.setOpaque(false);
 
@@ -154,33 +282,72 @@ public class UAddWorkingDays extends javax.swing.JFrame {
                 btn_ManageWorkingDaysMouseExited(evt);
             }
         });
-        btn_ManageWorkingDays.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/Manage_Icon.png"))); // NOI18N
-        btn_ManageWorkingDays.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 11, 37, 38));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel6.setText("Manage Working Days");
-        btn_ManageWorkingDays.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 160, -1));
 
         jPanel3.setOpaque(false);
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel3MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel3MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 11, Short.MAX_VALUE)
+            .addGap(0, 10, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        btn_ManageWorkingDays.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel6.setText("Manage Working Days");
 
-        SidePanel.add(btn_ManageWorkingDays, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 230, -1));
+        javax.swing.GroupLayout btn_ManageWorkingDaysLayout = new javax.swing.GroupLayout(btn_ManageWorkingDays);
+        btn_ManageWorkingDays.setLayout(btn_ManageWorkingDaysLayout);
+        btn_ManageWorkingDaysLayout.setHorizontalGroup(
+            btn_ManageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_ManageWorkingDaysLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(btn_ManageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btn_ManageWorkingDaysLayout.createSequentialGroup()
+                    .addGap(0, 6, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 214, Short.MAX_VALUE)))
+        );
+        btn_ManageWorkingDaysLayout.setVerticalGroup(
+            btn_ManageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_ManageWorkingDaysLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
+            .addGroup(btn_ManageWorkingDaysLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(btn_ManageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btn_ManageWorkingDaysLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        SidePanel.add(btn_ManageWorkingDays, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 230, 60));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/ABC Logo 150x150.png"))); // NOI18N
         SidePanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 150, 110));
@@ -189,6 +356,7 @@ public class UAddWorkingDays extends javax.swing.JFrame {
         addWorkingDays_backBtn.setForeground(new java.awt.Color(255, 255, 255));
         addWorkingDays_backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn.png"))); // NOI18N
         addWorkingDays_backBtn.setText("BACK");
+        addWorkingDays_backBtn.setToolTipText("Returns Previously Shown Window ");
         addWorkingDays_backBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         addWorkingDays_backBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn hover.png"))); // NOI18N
         addWorkingDays_backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -200,13 +368,20 @@ public class UAddWorkingDays extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(247, 247, 247));
         jPanel6.setPreferredSize(new java.awt.Dimension(625, 329));
-        jPanel6.setLayout(new javax.swing.OverlayLayout(jPanel6));
+        jPanel6.setLayout(new java.awt.CardLayout());
 
         jp_addWorkingDays.setBackground(new java.awt.Color(247, 247, 247));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
         jLabel8.setText("No Of Working Days :");
+
+        NoOfWorkingDays.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Day", "2 Days", "3 Days", "4 Days", "5 Days", "6 Days", "7 Days" }));
+        NoOfWorkingDays.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NoOfWorkingDaysActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
@@ -216,52 +391,52 @@ public class UAddWorkingDays extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
         jLabel10.setText("Working Days :");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn.png"))); // NOI18N
-        jButton1.setText("CLEAR");
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn hover.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_clearworkingdays.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_clearworkingdays.setForeground(new java.awt.Color(255, 255, 255));
+        btn_clearworkingdays.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn.png"))); // NOI18N
+        btn_clearworkingdays.setText("CLEAR");
+        btn_clearworkingdays.setToolTipText("Click The Clear Button To Clear the data");
+        btn_clearworkingdays.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_clearworkingdays.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn hover.png"))); // NOI18N
+        btn_clearworkingdays.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_clearworkingdaysActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
-        jButton2.setText("ADD");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn hover.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        addWorkingDays.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addWorkingDays.setForeground(new java.awt.Color(255, 255, 255));
+        addWorkingDays.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
+        addWorkingDays.setText("ADD");
+        addWorkingDays.setToolTipText("Click The Add Button To Add The Data");
+        addWorkingDays.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        addWorkingDays.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn hover.png"))); // NOI18N
+        addWorkingDays.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                addWorkingDaysActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Day", "2 Days", "3 Days", "4 Days", "5 Days", "6 Days", "7 Days" }));
+        monday.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        monday.setLabel("  Monday");
 
-        checkbox1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        checkbox1.setLabel("  Monday");
+        tuesday.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        tuesday.setLabel("  Tuesday");
 
-        checkbox2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        checkbox2.setLabel("  Tuesday");
+        wednsday.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        wednsday.setLabel(" Wednesday");
 
-        checkbox3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        checkbox3.setLabel(" Wednesday");
+        thrusday.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        thrusday.setLabel(" Thursday");
 
-        checkbox4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        checkbox4.setLabel(" Thursday");
+        friday.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        friday.setLabel("  Friday");
 
-        checkbox5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        checkbox5.setLabel("  Friday");
+        saterday.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        saterday.setLabel("  Saturday");
 
-        checkbox6.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        checkbox6.setLabel("  Saturday");
-
-        checkbox7.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        checkbox7.setLabel("  Sunday");
+        sunday.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        sunday.setLabel("  Sunday");
 
         label1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         label1.setText("Hours :");
@@ -278,44 +453,48 @@ public class UAddWorkingDays extends javax.swing.JFrame {
                 .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
                         .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10)
-                            .addComponent(checkbox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkbox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(saterday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NoOfWorkingDays, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 318, Short.MAX_VALUE))
                     .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
                         .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
-                                .addGap(93, 93, 93)
-                                .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkbox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
-                                        .addComponent(checkbox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkbox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkbox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkbox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
                                 .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
                                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
-                                        .addGap(141, 141, 141)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(34, 34, 34)
-                                .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(hours, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addWorkingDaysLayout.createSequentialGroup()
+                                        .addComponent(addWorkingDays, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(9, 9, 9)))
+                                .addGap(50, 50, 50)
+                                .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
                                         .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(2, 2, 2)
-                                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap(80, Short.MAX_VALUE))))
+                                        .addComponent(miniutes, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addComponent(btn_clearworkingdays, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
+                                .addComponent(monday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25)
+                                .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
+                                        .addComponent(tuesday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(24, 24, 24)
+                                        .addComponent(wednsday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(thrusday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(50, 50, 50)
+                                        .addComponent(friday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(sunday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jp_addWorkingDaysLayout.setVerticalGroup(
             jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,252 +502,273 @@ public class UAddWorkingDays extends javax.swing.JFrame {
                 .addGap(69, 69, 69)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(NoOfWorkingDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
-                        .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(checkbox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkbox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkbox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkbox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkbox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22)
-                        .addComponent(checkbox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(checkbox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tuesday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(monday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wednsday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(thrusday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(friday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
                 .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(saterday, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sunday, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(89, 89, 89))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(hours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jp_addWorkingDaysLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(miniutes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addWorkingDaysLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jp_addWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addWorkingDays, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_clearworkingdays, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(66, 66, 66))))
         );
 
-        jPanel6.add(jp_addWorkingDays);
+        jPanel6.add(jp_addWorkingDays, "card2");
 
         jp_manageWorkingDays.setBackground(new java.awt.Color(247, 247, 247));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        display_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "       No Of  Working Days", "       Working Days", "      Time For Per Week"
+                "            Working Days", "       No of Working Days", "      Time For Per Week", "ID"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
-        jButton4.setText("UPDATE");
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn hover.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn.png"))); // NOI18N
-        jButton6.setText("CLEAR");
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn hover.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+        display_table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                display_tableMouseClicked(evt);
             }
         });
+        tableScrollPane.setViewportView(display_table);
+        if (display_table.getColumnModel().getColumnCount() > 0) {
+            display_table.getColumnModel().getColumn(0).setMinWidth(300);
+            display_table.getColumnModel().getColumn(0).setMaxWidth(500);
+        }
 
-        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn.png"))); // NOI18N
-        jButton7.setText("DELETE");
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn hover.png"))); // NOI18N
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Search" }));
-
-        jButton8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
-        jButton8.setText("SEARCH");
-        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton8.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn hover.png"))); // NOI18N
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-
-        label3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        label3.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         label3.setText("No Of  Working Days :");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Day", "2 Days", "3 Days", "4 Days", "5 Days", "6 Days", "7 Days" }));
+        update_workingdays.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Day", "2 Days", "3 Days", "4 Days", "5 Days", "6 Days", "7 Days" }));
+        update_workingdays.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                update_workingdaysActionPerformed(evt);
+            }
+        });
 
-        label4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnupdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnupdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnupdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
+        btnupdate.setText("UPDATE");
+        btnupdate.setToolTipText("Click Update Button To Update Details");
+        btnupdate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnupdate.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn hover.png"))); // NOI18N
+        btnupdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnupdateActionPerformed(evt);
+            }
+        });
+
+        btnclearupdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnclearupdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnclearupdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn.png"))); // NOI18N
+        btnclearupdate.setText("CLEAR");
+        btnclearupdate.setToolTipText("Click Clear Button To Clear the Details");
+        btnclearupdate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnclearupdate.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn hover.png"))); // NOI18N
+        btnclearupdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnclearupdateActionPerformed(evt);
+            }
+        });
+
+        btndelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btndelete.setForeground(new java.awt.Color(255, 255, 255));
+        btndelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn.png"))); // NOI18N
+        btndelete.setText("DELETE");
+        btndelete.setToolTipText("Click Delete Button To Delete Details");
+        btndelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btndelete.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn hover.png"))); // NOI18N
+        btndelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndeleteActionPerformed(evt);
+            }
+        });
+
+        btnsearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnsearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnsearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
+        btnsearch.setText("SEARCH");
+        btnsearch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnsearch.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn hover.png"))); // NOI18N
+        btnsearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsearchActionPerformed(evt);
+            }
+        });
+
+        label4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         label4.setText("Working Time Per Day :");
 
         label5.setText("Hours :");
 
         label6.setText("Minutes :");
 
+        label7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         label7.setText("Working Days :");
 
-        checkbox8.setLabel("  Monday");
+        update_monday.setLabel("  Monday");
 
-        checkbox9.setLabel("  Tuseday");
+        update_tuesday.setLabel("  Tuseday");
 
-        checkbox10.setLabel("  Wednesday");
+        update_wednesday.setLabel("  Wednesday");
 
-        checkbox11.setLabel("  Thursday");
+        update_thrusday.setLabel("  Thursday");
 
-        checkbox12.setLabel("  Friday");
+        update_friday.setLabel("  Friday");
 
-        checkbox13.setLabel("  Saturday");
+        update_saterday.setLabel("  Saturday");
 
-        checkbox14.setLabel("  Sunday");
+        update_sunday.setLabel("  Sunday");
+
+        searchBox.setText("Search");
+        searchBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jp_manageWorkingDaysLayout = new javax.swing.GroupLayout(jp_manageWorkingDays);
         jp_manageWorkingDays.setLayout(jp_manageWorkingDaysLayout);
         jp_manageWorkingDaysLayout.setHorizontalGroup(
             jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 28, Short.MAX_VALUE))
-            .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
-                .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
                         .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(77, 77, 77)
+                            .addComponent(update_workingdays, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
                         .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
                                 .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(update_hours, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(19, 19, 19)
-                                .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2)
+                                .addComponent(update_miniutes, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(update_thrusday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
                         .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkbox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkbox13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(update_monday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(update_saterday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkbox14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(update_sunday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
-                                .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
-                                        .addComponent(checkbox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkbox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkbox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkbox12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
-                                        .addGap(50, 50, 50)
-                                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(update_tuesday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(update_wednesday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(128, 128, 128)
+                                .addComponent(update_friday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
+                                .addGap(314, 314, 314)
+                                .addComponent(btnclearupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
+            .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
+                .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(74, 74, 74)
+                        .addComponent(btnsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jp_manageWorkingDaysLayout.setVerticalGroup(
             jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                    .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
-                        .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
-                        .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
-                        .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jp_manageWorkingDaysLayout.createSequentialGroup()
-                                .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkbox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(checkbox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(checkbox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(checkbox12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(24, 24, 24)
-                                .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkbox13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(checkbox14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(checkbox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                        .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(58, 58, 58))))
+                    .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update_hours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update_miniutes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update_workingdays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(update_tuesday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update_monday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update_wednesday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update_thrusday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update_friday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(update_saterday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(update_sunday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jp_manageWorkingDaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnclearupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
-        jPanel6.add(jp_manageWorkingDays);
+        jPanel6.add(jp_manageWorkingDays, "card3");
 
         JPanel7.setBackground(new java.awt.Color(20, 181, 117));
-        JPanel7.setLayout(new javax.swing.OverlayLayout(JPanel7));
+        JPanel7.setLayout(new java.awt.CardLayout());
 
         addWorkingDays_TopBar.setBackground(new java.awt.Color(20, 181, 117));
 
@@ -580,6 +780,7 @@ public class UAddWorkingDays extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn.png"))); // NOI18N
         jButton3.setText("LOGOUT");
+        jButton3.setToolTipText("Logout From The System");
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/clear btn hover.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -593,11 +794,11 @@ public class UAddWorkingDays extends javax.swing.JFrame {
         addWorkingDays_TopBarLayout.setHorizontalGroup(
             addWorkingDays_TopBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(addWorkingDays_TopBarLayout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel7)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(57, 57, 57))
         );
         addWorkingDays_TopBarLayout.setVerticalGroup(
             addWorkingDays_TopBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -606,16 +807,16 @@ public class UAddWorkingDays extends javax.swing.JFrame {
                 .addGroup(addWorkingDays_TopBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        JPanel7.add(addWorkingDays_TopBar);
+        JPanel7.add(addWorkingDays_TopBar, "card2");
 
         manageWorkingDays_Topbar.setBackground(new java.awt.Color(20, 181, 117));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("MANAGE ROOMS");
+        jLabel4.setText("MANAGE WORKING DAYS AND HOURS");
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
@@ -634,9 +835,9 @@ public class UAddWorkingDays extends javax.swing.JFrame {
         manageWorkingDays_TopbarLayout.setHorizontalGroup(
             manageWorkingDays_TopbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(manageWorkingDays_TopbarLayout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 246, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
@@ -647,22 +848,23 @@ public class UAddWorkingDays extends javax.swing.JFrame {
                 .addGroup(manageWorkingDays_TopbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
-        JPanel7.add(manageWorkingDays_Topbar);
+        JPanel7.add(manageWorkingDays_Topbar, "card3");
 
         javax.swing.GroupLayout Background_pnlLayout = new javax.swing.GroupLayout(Background_pnl);
         Background_pnl.setLayout(Background_pnlLayout);
         Background_pnlLayout.setHorizontalGroup(
             Background_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Background_pnlLayout.createSequentialGroup()
-                .addComponent(SidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addGroup(Background_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Background_pnlLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(JPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)))
         );
         Background_pnlLayout.setVerticalGroup(
             Background_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -670,7 +872,7 @@ public class UAddWorkingDays extends javax.swing.JFrame {
             .addGroup(Background_pnlLayout.createSequentialGroup()
                 .addComponent(JPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE))
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -729,7 +931,8 @@ public class UAddWorkingDays extends javax.swing.JFrame {
 
     private void addWorkingDays_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addWorkingDays_backBtnActionPerformed
         // TODO add your handling code here:
-        
+        new UHome().setVisible(true);
+        this.setVisible(false); 
     }//GEN-LAST:event_addWorkingDays_backBtnActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -740,29 +943,329 @@ public class UAddWorkingDays extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        
+        String updated_workingdays = update_workingdays.getSelectedItem().toString();
+        int updated_hours = (int) update_hours.getValue();
+        int updated_miniutes = (int) update_miniutes.getValue();
+        boolean updated_monday = update_monday.getState();
+        boolean updated_tuestday = update_tuesday.getState();
+        boolean updated_wednesday = update_wednesday.getState();
+        boolean updated_thrusday = update_thrusday.getState();
+        boolean updated_friday = update_friday.getState();
+        boolean updated_saterday = update_saterday.getState();
+        boolean updated_sunday = update_sunday.getState();
+        
+        int u_day_count = 0;
+        int u_working_day_count = Integer.parseInt(updated_workingdays.split(" ")[0]);
+        
+        if(updated_monday) {
+            u_day_count++;
+        }
+        if(updated_tuestday) {
+            u_day_count++;
+        }
+        if(updated_wednesday) {
+            u_day_count++;
+        }
+        if(updated_thrusday) {
+            u_day_count++;
+        }
+        if(updated_friday) {
+            u_day_count++;
+        }
+        if(updated_saterday) {
+            u_day_count++;
+        }
+        if(updated_saterday) {
+            u_day_count++;
+        }
+        if(updated_sunday) {
+            u_day_count++;
+        }
+        
+        if(u_working_day_count==u_day_count) {
+              try {
+                String query = "update workingdays "+"set workinghours = ?, workingminiutes = ?, noofworkingdays = ?, monday = ?, tuesday = ?, wednesday = ?, thrusday = ?, friday = ?, saterday = ?, sunday = ? " + "where workingdaysid = ?";
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, updated_hours);
+                preparedStatement.setInt(2, updated_miniutes);
+                preparedStatement.setString(3, updated_workingdays);
+                preparedStatement.setBoolean(4, updated_monday);
+                preparedStatement.setBoolean(5, updated_tuestday);
+                preparedStatement.setBoolean(6, updated_wednesday);
+                preparedStatement.setBoolean(7, updated_thrusday);
+                preparedStatement.setBoolean(8, updated_friday);
+                preparedStatement.setBoolean(9, updated_saterday);
+                preparedStatement.setBoolean(10, updated_sunday);
+                preparedStatement.setInt(11, workingDayID);
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+                preparedStatement.execute();
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+                JOptionPane.showMessageDialog(null, "Working Days updated successfully");
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+                DefaultTableModel model = (DefaultTableModel) display_table.getModel();
+                model.setRowCount(0);
+                ShowWorkingDayTable();
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+                Logger.getLogger(UAddWorkingDays.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+             JOptionPane.showMessageDialog(null, "Selected number of working days must equal number of working days!");
+        }
+        
+        //  String query = "insert into workingdays(workinghours,workingminiutes,noofworkingdays, monday, tuesday, wednesday, thrusday, friday, saterday, sunday) values(?,?,?,?,?,?,?,?,?,?)";
+        
+        
+    }//GEN-LAST:event_btnupdateActionPerformed
+
+    private void btnclearupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearupdateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+        update_monday.setState(false);
+        update_tuesday.setState(false);
+        update_wednesday.setState(false);
+        update_thrusday.setState(false);
+        update_friday.setState(false);
+        update_saterday.setState(false);
+        update_sunday.setState(false);
+        update_hours.setValue(0);
+        update_miniutes.setValue(0);
+        update_workingdays.setSelectedIndex(0);
+        
+    }//GEN-LAST:event_btnclearupdateActionPerformed
+
+    private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
+        // TODO add your handling code here:
+        
+        int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to Delete","Delete", JOptionPane.YES_NO_OPTION);
+        
+        String query = "delete from workingdays where workingdaysid = ?";
+        
+        if(opt==0) {
+            try {
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, workingDayID);
+
+                preparedStatement.execute();
+
+                DefaultTableModel model = (DefaultTableModel) display_table.getModel();
+                model.setRowCount(0);
+                ShowWorkingDayTable();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+                Logger.getLogger(UAddWorkingDays.class.getName()).log(Level.SEVERE, null, ex);
+            }    
+        }
+        
+        
+        
+    }//GEN-LAST:event_btndeleteActionPerformed
+
+    private void btnsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel table_model = (DefaultTableModel) display_table.getModel();
+        String searchTxt = searchBox.getText().toString();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table_model);
+        display_table.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(searchTxt));
+        
+        
+    }//GEN-LAST:event_btnsearchActionPerformed
+
+    private void btn_clearworkingdaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearworkingdaysActionPerformed
+            // TODO add your handling code here:
+        this.numof_workingdays = NoOfWorkingDays.getSelectedItem().toString();
+        this.numof_miniutes = (int) miniutes.getValue();
+        this.numof_hours = (int) hours.getValue();
+        
+       this.mondayV = monday.getState();
+       this.tuesdayV = tuesday.getState();
+       this.wednsdayV = wednsday.getState();
+       this.thrusdayV = thrusday.getState();
+       this.fridayV = friday.getState();
+       this.saterdayV = saterday.getState();
+       this.sundayV = sunday.getState();
+           
+        NoOfWorkingDays.setSelectedItem("1 Day");
+        miniutes.setValue(0);
+        hours.setValue(0);
+        monday.setState(false);
+        tuesday.setState(false);
+        wednsday.setState(false);
+        thrusday.setState(false);
+        friday.setState(false);
+        saterday.setState(false);
+        sunday.setState(false);
+        
+        
+        
+        
+    }//GEN-LAST:event_btn_clearworkingdaysActionPerformed
+
+    private void addWorkingDaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addWorkingDaysActionPerformed
+
+        this.numof_workingdays = NoOfWorkingDays.getSelectedItem().toString();
+        this.numof_miniutes = (int) miniutes.getValue();
+        this.numof_hours = (int) hours.getValue();
+        
+       this.mondayV = monday.getState();
+       this.tuesdayV = tuesday.getState();
+       this.wednsdayV = wednsday.getState();
+       this.thrusdayV = thrusday.getState();
+       this.fridayV = friday.getState();
+       this.saterdayV = saterday.getState();
+       this.sundayV = sunday.getState();
+       
+       int day_count = 0;
+    
+       
+       if(mondayV) {
+          day_count++;
+       }
+       if(tuesdayV) {
+           day_count++;
+       }if(wednsdayV) {
+           day_count++;
+       }if(thrusdayV) {
+           day_count++;
+       }if(fridayV) {
+           day_count++;
+       }if(saterdayV) {
+           day_count++;
+       }if(sundayV) {
+           day_count++;
+       }
+       
+
+       
+       
+       int working_day_count = Integer.parseInt(numof_workingdays.split(" ")[0]);
+       
+       if(working_day_count==day_count) {
+          
+        System.out.println(numof_workingdays);
+        System.out.println(numof_miniutes);
+        System.out.println(mondayV);
+        
+        workingDaysModel = new WorkingDaysModel(numof_workingdays, numof_miniutes, numof_hours, mondayV, tuesdayV, wednsdayV, thrusdayV, fridayV, saterdayV, sundayV);
+        
+        String query = "insert into workingdays(workinghours,workingminiutes,noofworkingdays, monday, tuesday, wednesday, thrusday, friday, saterday, sunday) values(?,?,?,?,?,?,?,?,?,?)";
+        
+        try {
+            preparedStatement = connection.prepareStatement(query);
+           
+            preparedStatement.setInt(1, numof_hours);
+            preparedStatement.setInt(2, numof_miniutes);
+            preparedStatement.setString(3, numof_workingdays);
+            preparedStatement.setBoolean(4, mondayV);
+            preparedStatement.setBoolean(5, tuesdayV);
+            preparedStatement.setBoolean(6, wednsdayV);
+            preparedStatement.setBoolean(7, thrusdayV);
+            preparedStatement.setBoolean(8, fridayV);
+            preparedStatement.setBoolean(9, saterdayV);
+            preparedStatement.setBoolean(10, sundayV);
+            
+            boolean res = preparedStatement.execute();
+            
+       
+            JOptionPane.showMessageDialog(null, "Working Days And Hours Added Successfully. \n Thank You!");
+           
+            
+             DefaultTableModel model = (DefaultTableModel) display_table.getModel();
+            model.setRowCount(0);
+            ShowWorkingDayTable();
+            
+           
+            
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+            Logger.getLogger(UAddWorkingDays.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+       } else {
+           
+           JOptionPane.showMessageDialog(null, "Selected days must equal to number of days!");
+       }
+       
+        
+    }//GEN-LAST:event_addWorkingDaysActionPerformed
+
+    private void NoOfWorkingDaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoOfWorkingDaysActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NoOfWorkingDaysActionPerformed
+
+    private void display_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_display_tableMouseClicked
+        // TODO add your handling code here:
+        System.out.println("jjerh");
+        int i = display_table.getSelectedRow();
+        TableModel model = display_table.getModel();
+        
+        System.out.println(i);
+       // System.out.println(model.getValueAt(i, 2).toString());
+        
+        update_workingdays.setSelectedItem(model.getValueAt(i, 1).toString());
+       // update_hours.setValue(model.getValueAt(i, 2));
+        workingDayID =  (int) model.getValueAt(i, 3); 
+        
+        String query = "select * from workingdays where workingdaysid= ?";
+        
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, (int) model.getValueAt(i, 3));    
+            ResultSet res = preparedStatement.executeQuery();
+            
+            while(res.next()) {
+                
+                update_hours.setValue(res.getInt("workinghours"));
+                update_monday.setState(res.getBoolean("monday"));
+                update_tuesday.setState(res.getBoolean("tuesday"));
+                update_wednesday.setState(res.getBoolean("wednesday"));
+                update_thrusday.setState(res.getBoolean("thrusday"));
+                update_friday.setState(res.getBoolean("friday"));
+                update_saterday.setState(res.getBoolean("saterday"));
+                update_sunday.setState(res.getBoolean("sunday"));
+              
+            }
+            
+            // update_workingdays.setSelectedItem(model.getValueAt(i, 2).toString());
+            // update_hours.add(2)
+        } catch (SQLException ex) {
+            Logger.getLogger(UAddWorkingDays.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_display_tableMouseClicked
+
+    private void searchBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchBoxActionPerformed
+
+    private void update_workingdaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_workingdaysActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_update_workingdaysActionPerformed
+
+    private void jPanel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MousePressed
+        // TODO add your handling code here:
+        jp_manageWorkingDays.setVisible(true);
+        jp_addWorkingDays.setVisible(false);
+        addWorkingDays_TopBar.setVisible(false);
+        manageWorkingDays_Topbar.setVisible(true);
+        jPanel3.setBackground(new java.awt.Color(8,142,88));
+        btn_addWorkingDays.setBackground(new java.awt.Color(39,156,109));
+    }//GEN-LAST:event_jPanel3MousePressed
+
+    private void jPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel3MouseExited
+
+    private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel3MouseEntered
 
     /**
      * @param args the command line arguments
@@ -802,36 +1305,23 @@ public class UAddWorkingDays extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background_pnl;
     private javax.swing.JPanel JPanel7;
+    private javax.swing.JComboBox<String> NoOfWorkingDays;
     private javax.swing.JPanel SidePanel;
+    private javax.swing.JButton addWorkingDays;
     private javax.swing.JPanel addWorkingDays_TopBar;
     private javax.swing.JButton addWorkingDays_backBtn;
     private javax.swing.JPanel btn_ManageWorkingDays;
     private javax.swing.JPanel btn_addWorkingDays;
-    private java.awt.Checkbox checkbox1;
-    private java.awt.Checkbox checkbox10;
-    private java.awt.Checkbox checkbox11;
-    private java.awt.Checkbox checkbox12;
-    private java.awt.Checkbox checkbox13;
-    private java.awt.Checkbox checkbox14;
-    private java.awt.Checkbox checkbox2;
-    private java.awt.Checkbox checkbox3;
-    private java.awt.Checkbox checkbox4;
-    private java.awt.Checkbox checkbox5;
-    private java.awt.Checkbox checkbox6;
-    private java.awt.Checkbox checkbox7;
-    private java.awt.Checkbox checkbox8;
-    private java.awt.Checkbox checkbox9;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btn_clearworkingdays;
+    private javax.swing.JButton btnclearupdate;
+    private javax.swing.JButton btndelete;
+    private javax.swing.JButton btnsearch;
+    private javax.swing.JButton btnupdate;
+    private javax.swing.JTable display_table;
+    private java.awt.Checkbox friday;
+    private javax.swing.JSpinner hours;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -845,12 +1335,6 @@ public class UAddWorkingDays extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
-    private javax.swing.JSpinner jSpinner4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel jp_addWorkingDays;
     private javax.swing.JPanel jp_manageWorkingDays;
     private java.awt.Label label1;
@@ -861,5 +1345,24 @@ public class UAddWorkingDays extends javax.swing.JFrame {
     private java.awt.Label label6;
     private java.awt.Label label7;
     private javax.swing.JPanel manageWorkingDays_Topbar;
+    private javax.swing.JSpinner miniutes;
+    private java.awt.Checkbox monday;
+    private java.awt.Checkbox saterday;
+    private javax.swing.JTextField searchBox;
+    private java.awt.Checkbox sunday;
+    private javax.swing.JScrollPane tableScrollPane;
+    private java.awt.Checkbox thrusday;
+    private java.awt.Checkbox tuesday;
+    private java.awt.Checkbox update_friday;
+    private javax.swing.JSpinner update_hours;
+    private javax.swing.JSpinner update_miniutes;
+    private java.awt.Checkbox update_monday;
+    private java.awt.Checkbox update_saterday;
+    private java.awt.Checkbox update_sunday;
+    private java.awt.Checkbox update_thrusday;
+    private java.awt.Checkbox update_tuesday;
+    private java.awt.Checkbox update_wednesday;
+    private javax.swing.JComboBox<String> update_workingdays;
+    private java.awt.Checkbox wednsday;
     // End of variables declaration//GEN-END:variables
 }
