@@ -19,14 +19,14 @@ public class dbConnect {
     private static Connection con;
     private static dbConnect dbc;
 
-    private dbConnect() throws ClassNotFoundException, SQLException {
+    dbConnect() throws ClassNotFoundException, SQLException {
         //DB Driver
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         
         String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
         con = DriverManager.getConnection(URL);
         Statement stmt = con.createStatement();
-        
+        System.out.println("Connection Created");
         
     }
     
