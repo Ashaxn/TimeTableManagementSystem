@@ -117,13 +117,13 @@ public class ARoomForSubject extends javax.swing.JFrame {
     
     private void FillComboSubjects(){
         try {
-            String bcomboquery = "SELECT * FROM subjects";
+            String bcomboquery = "SELECT * FROM subject";
             preparedStmt = connection.prepareStatement(bcomboquery);
             ResultSet rst = preparedStmt.executeQuery();
             
             while(rst.next()){
-                String scodes = rst.getString("subject_code");
-                String snames = rst.getString("subject_name");
+                String scodes = rst.getString("subcode");
+                String snames = rst.getString("sname");
                 roomSubjectCode.addItem(scodes);
                 subjectNameForRoom.addItem(snames);
             }
@@ -135,12 +135,12 @@ public class ARoomForSubject extends javax.swing.JFrame {
 
     private void FillComboLecturer(){
         try {
-            String bcomboquery = "SELECT * FROM lecturers";
+            String bcomboquery = "SELECT * FROM lec";
             preparedStmt = connection.prepareStatement(bcomboquery);
             ResultSet rst = preparedStmt.executeQuery();
             
             while(rst.next()){
-                String lnames = rst.getString("lecturer_name");
+                String lnames = rst.getString("lname");
                 subjectRoomLecturerName.addItem(lnames);
             }
             

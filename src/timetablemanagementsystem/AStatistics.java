@@ -84,9 +84,9 @@ public class AStatistics extends javax.swing.JFrame {
     private void showActionPerformed() {
         try {
 
-            String sq1 = "SELECT COUNT(*) FROM lecturers";
-            String sq2 = "SELECT COUNT(*) FROM groups";
-            String sq3 = "SELECT COUNT(*) FROM subjects";
+            String sq1 = "SELECT COUNT(*) FROM lec";
+            String sq2 = "SELECT COUNT(*) FROM sgroups";
+            String sq3 = "SELECT COUNT(*) FROM subject";
             String sq4 = "SELECT COUNT(*) FROM buildings";
             String sq5 = "SELECT COUNT(*) FROM rooms";
 
@@ -143,9 +143,9 @@ public class AStatistics extends javax.swing.JFrame {
 
         try {
             
-            String sq6 = "SELECT LECTURER_NAME FROM LECTURERS WHERE LECTURER_ID = (SELECT max(LECTURER_ID) FROM LECTURERS)";
-            String sq7 = "SELECT GROUP_ID FROM GROUPS WHERE ID = (SELECT max(ID) FROM GROUPS)";
-            String sq8 = "SELECT SUBJECT_NAME FROM SUBJECTS WHERE SUBJECT_CODE = (SELECT max(SUBJECT_CODE) FROM SUBJECTS)";
+            String sq6 = "SELECT LNAME FROM Lec WHERE LECID = (SELECT max(LECID) FROM LEC)";
+            String sq7 = "SELECT GROUPID FROM SGROUPS WHERE ID = (SELECT max(ID) FROM SGROUPS)";
+            String sq8 = "SELECT SNAME FROM SUBJECT WHERE SUBJECT_ID = (SELECT max(SUBJECT_ID) FROM SUBJECT)";
             String sq9 = "SELECT ROOM_NAME FROM ROOMS WHERE ID = (SELECT max(ID) FROM ROOMS)";
             
             statements6 = connection.createStatement();
@@ -853,10 +853,10 @@ public class AStatistics extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
 
-            String query1 = "SELECT COUNT(*) FROM lecturers WHERE lecturer_faculty='faculty of computing'";
-            String query2 = "SELECT COUNT(*) FROM lecturers WHERE lecturer_faculty='faculty of business'";
-            String query3 = "SELECT COUNT(*) FROM lecturers WHERE lecturer_faculty='faculty of engineering'";
-            String query4 = "SELECT COUNT(*) FROM lecturers WHERE lecturer_faculty='faculty of humanities & sciences'";
+            String query1 = "SELECT COUNT(*) FROM lec WHERE faculty='faculty of computing'";
+            String query2 = "SELECT COUNT(*) FROM lec WHERE faculty='faculty of business'";
+            String query3 = "SELECT COUNT(*) FROM lec WHERE faculty='faculty of engineering'";
+            String query4 = "SELECT COUNT(*) FROM lec WHERE faculty='faculty of humanities & sciences'";
             
             int fcomputing = 0, fengineering = 0, fbusiness = 0, fhumanities = 0;
 
@@ -921,10 +921,10 @@ public class AStatistics extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
 
-            String query1 = "SELECT COUNT(*) FROM groups WHERE faculty='faculty of computing'";
-            String query2 = "SELECT COUNT(*) FROM groups WHERE faculty='faculty of business'";
-            String query3 = "SELECT COUNT(*) FROM groups WHERE faculty='faculty of engineering'";
-            String query4 = "SELECT COUNT(*) FROM groups WHERE faculty='faculty of humanities & sciences'";
+            String query1 = "SELECT COUNT(*) FROM sgroups WHERE PROGRAM='IT'";
+            String query2 = "SELECT COUNT(*) FROM sgroups WHERE PROGRAM='ENG'";
+            String query3 = "SELECT COUNT(*) FROM sgroups WHERE PROGRAM='BM'";
+            String query4 = "SELECT COUNT(*) FROM sgroups WHERE PROGRAM='HRM'";
             
             int gfcomputing = 0, gfengineering = 0, gfbusiness = 0, gfhumanities = 0;
 
@@ -989,10 +989,10 @@ public class AStatistics extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
 
-            String query1 = "SELECT COUNT(*) FROM subjects WHERE subject_offered_year='Year 01'";
-            String query2 = "SELECT COUNT(*) FROM subjects WHERE subject_offered_year='Year 02'";
-            String query3 = "SELECT COUNT(*) FROM subjects WHERE subject_offered_year='Year 03'";
-            String query4 = "SELECT COUNT(*) FROM subjects WHERE subject_offered_year='Year 04'";
+            String query1 = "SELECT COUNT(*) FROM subject WHERE OYEAR='Year 01'";
+            String query2 = "SELECT COUNT(*) FROM subject WHERE OYEAR='Year 02'";
+            String query3 = "SELECT COUNT(*) FROM subject WHERE OYEAR='Year 03'";
+            String query4 = "SELECT COUNT(*) FROM subject WHERE OYEAR='Year 04'";
             
             int year1 = 0, year2 = 0, year3 = 0, year4 = 0;
 

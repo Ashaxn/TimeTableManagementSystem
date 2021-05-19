@@ -115,12 +115,12 @@ public class ARoomForGroup extends javax.swing.JFrame {
 
     private void FillComboGroups(){
         try {
-            String bcomboquery = "SELECT * FROM stgroups";
+            String bcomboquery = "SELECT * FROM sgroups";
             preparedStmt = connection.prepareStatement(bcomboquery);
             ResultSet rst = preparedStmt.executeQuery();
             
             while(rst.next()){
-                String grpnames = rst.getString("group_id");
+                String grpnames = rst.getString("groupid");
                 roomGroupName.addItem(grpnames);
             }
             
@@ -131,12 +131,12 @@ public class ARoomForGroup extends javax.swing.JFrame {
     
     private void FillComboSubGroups(){
         try {
-            String bcomboquery = "SELECT * FROM stsubgroups";
+            String bcomboquery = "SELECT * FROM sgroups";
             preparedStmt = connection.prepareStatement(bcomboquery);
             ResultSet rst = preparedStmt.executeQuery();
             
             while(rst.next()){
-                String subgrpnames = rst.getString("subgroup_id");
+                String subgrpnames = rst.getString("subgroupid");
                 roomSubGroupName.addItem(subgrpnames);
             }
             
