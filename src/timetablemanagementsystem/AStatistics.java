@@ -856,7 +856,7 @@ public class AStatistics extends javax.swing.JFrame {
             String query1 = "SELECT COUNT(*) FROM lec WHERE faculty='faculty of computing'";
             String query2 = "SELECT COUNT(*) FROM lec WHERE faculty='faculty of business'";
             String query3 = "SELECT COUNT(*) FROM lec WHERE faculty='faculty of engineering'";
-            String query4 = "SELECT COUNT(*) FROM lec WHERE faculty='faculty of humanities & sciences'";
+            String query4 = "SELECT COUNT(*) FROM lec WHERE faculty='School of Architecture'";
             
             int fcomputing = 0, fengineering = 0, fbusiness = 0, fhumanities = 0;
 
@@ -896,7 +896,7 @@ public class AStatistics extends javax.swing.JFrame {
             dataset.addValue(fcomputing, "Lecturers", "Faculty Of Computing");
             dataset.addValue(fbusiness, "Lecturers", "Faculty Of Business");
             dataset.addValue(fengineering, "Lecturers", "Faculty Of Engineering");
-            dataset.addValue(fhumanities, "Lecturers", "Faculty Of Humanities & Sciences");            
+            dataset.addValue(fhumanities, "Lecturers", "School of Architecture");            
 
             JFreeChart chart = ChartFactory.createBarChart3D("Total Lecturers In Faculties", "Faculties", "Lecturers", dataset, PlotOrientation.VERTICAL, false, true, false);
             CategoryPlot p = chart.getCategoryPlot();
@@ -924,7 +924,7 @@ public class AStatistics extends javax.swing.JFrame {
             String query1 = "SELECT COUNT(*) FROM sgroups WHERE PROGRAM='IT'";
             String query2 = "SELECT COUNT(*) FROM sgroups WHERE PROGRAM='ENG'";
             String query3 = "SELECT COUNT(*) FROM sgroups WHERE PROGRAM='BM'";
-            String query4 = "SELECT COUNT(*) FROM sgroups WHERE PROGRAM='HRM'";
+            String query4 = "SELECT COUNT(*) FROM sgroups WHERE PROGRAM='ARC'";
             
             int gfcomputing = 0, gfengineering = 0, gfbusiness = 0, gfhumanities = 0;
 
@@ -964,7 +964,7 @@ public class AStatistics extends javax.swing.JFrame {
             dataset.addValue(gfcomputing, "Groups", "Faculty Of Computing");
             dataset.addValue(gfbusiness, "Groups", "Faculty Of Business");
             dataset.addValue(gfengineering, "Groups", "Faculty Of Engineering");
-            dataset.addValue(gfhumanities, "Groups", "Faculty Of Humanities & Sciences");            
+            dataset.addValue(gfhumanities, "Groups", "School of Architecture");            
 
             JFreeChart chart = ChartFactory.createBarChart3D("Total Student Groups In Faculties", "Faculties", "Groups", dataset, PlotOrientation.VERTICAL, false, true, false);
             CategoryPlot p = chart.getCategoryPlot();
@@ -989,10 +989,10 @@ public class AStatistics extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
 
-            String query1 = "SELECT COUNT(*) FROM subject WHERE OYEAR='Year 01'";
-            String query2 = "SELECT COUNT(*) FROM subject WHERE OYEAR='Year 02'";
-            String query3 = "SELECT COUNT(*) FROM subject WHERE OYEAR='Year 03'";
-            String query4 = "SELECT COUNT(*) FROM subject WHERE OYEAR='Year 04'";
+            String query1 = "SELECT COUNT(*) FROM subject WHERE OYEAR='Year 1'";
+            String query2 = "SELECT COUNT(*) FROM subject WHERE OYEAR='Year 2'";
+            String query3 = "SELECT COUNT(*) FROM subject WHERE OYEAR='Year 3'";
+            String query4 = "SELECT COUNT(*) FROM subject WHERE OYEAR='Year 4'";
             
             int year1 = 0, year2 = 0, year3 = 0, year4 = 0;
 
@@ -1029,10 +1029,10 @@ public class AStatistics extends javax.swing.JFrame {
 
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-            dataset.addValue(year1, "Subjects", "Year 01");
-            dataset.addValue(year2, "Subjects", "Year 02");
-            dataset.addValue(year3, "Subjects", "Year 03");
-            dataset.addValue(year4, "Subjects", "Year 04");            
+            dataset.addValue(year1, "Subjects", "Year 1");
+            dataset.addValue(year2, "Subjects", "Year 2");
+            dataset.addValue(year3, "Subjects", "Year 3");
+            dataset.addValue(year4, "Subjects", "Year 4");            
 
             JFreeChart chart = ChartFactory.createBarChart3D("Total Subjects and Years", "Years", "Subjects", dataset, PlotOrientation.VERTICAL, false, true, false);
             CategoryPlot p = chart.getCategoryPlot();
