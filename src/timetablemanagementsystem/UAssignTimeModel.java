@@ -11,7 +11,7 @@ package timetablemanagementsystem;
  */
 public class UAssignTimeModel {
     
-     private int assigntableID;
+    private int assigntableID;
     private int session_id; 
     private String session_name;
     private String lecturer_1;
@@ -23,10 +23,11 @@ public class UAssignTimeModel {
     private String tag;
     private int student_count;
     private String duration;
+    private String room;
     private String timeslot;
     private String day;
     
-    public UAssignTimeModel(int assigntableID,int session_id, String session_name, String lecturer_1, String lecturer_2, String lecturer_3, String subject_code, String subject_name, String group_id, String tag, int student_count, String duration, String timeslot, String day){
+    public UAssignTimeModel(int assigntableID,int session_id, String session_name, String lecturer_1, String lecturer_2, String lecturer_3, String subject_code, String subject_name, String group_id, String tag, int student_count, String duration,String room, String timeslot, String day){
         
         this.assigntableID = assigntableID;
         this.session_id = session_id;
@@ -38,7 +39,8 @@ public class UAssignTimeModel {
         this.subject_name = subject_name; 
         this.group_id = group_id; 
         this.tag = tag; 
-        this.student_count = student_count; 
+        this.student_count = student_count;
+        this.room = room;
         this.duration = duration;
         this.timeslot = timeslot;
         this.day = day;
@@ -142,12 +144,20 @@ public class UAssignTimeModel {
         this.duration = duration;
     }
     
-    public String gettimeslot() {
+       public String gettimeslot() {
         return timeslot;
     }
 
     public void settimeslot(String timeslot) {
         this.timeslot = timeslot;
+    }
+    
+    public String getroom() {
+        return room;
+    }
+
+    public void setroom(String room) {
+        this.room = room;
     }
     
     public String getday() {
