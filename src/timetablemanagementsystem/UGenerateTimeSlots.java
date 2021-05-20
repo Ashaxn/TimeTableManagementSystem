@@ -485,6 +485,7 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_GenerateTimeSlotsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_GenerateTimeSlotsMouseClicked

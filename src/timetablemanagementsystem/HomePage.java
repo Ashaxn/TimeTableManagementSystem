@@ -415,6 +415,9 @@ public class HomePage extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jPanel11MouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel11MousePressed(evt);
+            }
         });
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/timetable_main_btn_icon.png"))); // NOI18N
@@ -622,6 +625,12 @@ public class HomePage extends javax.swing.JFrame {
         new VLecHome().setVisible(true);
         this.setVisible(false); 
     }//GEN-LAST:event_jPanel1MousePressed
+
+    private void jPanel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MousePressed
+        // TODO add your handling code here:
+        new ATimeTablesHome().setVisible(true);
+        this.setVisible(false); 
+    }//GEN-LAST:event_jPanel11MousePressed
 
 public void setColor(JPanel panel){
     panel.setBackground(new java.awt.Color(181, 181, 181));
