@@ -817,7 +817,7 @@ public class HNonOverlap extends javax.swing.JFrame {
     private void addNon_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNon_backBtnActionPerformed
         // TODO add your handling code here:
 
-        new HCPNSessionsHome().setVisible(true);
+        new VsessionHome().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_addNon_backBtnActionPerformed
 

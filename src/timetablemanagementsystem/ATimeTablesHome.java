@@ -293,7 +293,7 @@ public class ATimeTablesHome extends javax.swing.JFrame {
 
     private void jPanel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MousePressed
         // TODO add your handling code here:
-        new AAddBuildings().setVisible(true);
+        new ATimeTableLecturer().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jPanel4MousePressed
 
@@ -309,7 +309,7 @@ public class ATimeTablesHome extends javax.swing.JFrame {
 
     private void jPanel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MousePressed
         // TODO add your handling code here:
-        new AAddRooms().setVisible(true);
+        new ATimeTableGroup().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jPanel5MousePressed
 
@@ -325,7 +325,7 @@ public class ATimeTablesHome extends javax.swing.JFrame {
 
     private void jPanel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MousePressed
         // TODO add your handling code here:
-        new AAssignRooms().setVisible(true);
+        new ATimeTableLocation().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jPanel6MousePressed
 

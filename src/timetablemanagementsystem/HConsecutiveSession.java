@@ -799,7 +799,7 @@ public class HConsecutiveSession extends javax.swing.JFrame {
     private void addConsec_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addConsec_backBtnActionPerformed
         // TODO add your handling code here:
 
-        new HCPNSessionsHome().setVisible(true);
+        new VsessionHome().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_addConsec_backBtnActionPerformed
 

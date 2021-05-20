@@ -262,6 +262,7 @@ public class ALoginPage extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void usernameTextBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTextBoxActionPerformed
