@@ -39,7 +39,7 @@ public class UAssignTime extends javax.swing.JFrame {
     private String lecturer_1,lecturer_2, lecturer_3;
     private String subject_code,subject_name;
     private String group_id,tag;
-    private String student_count, duration;
+    private String student_count, duration, room;
     private String assign_id ,timeslot ,day;
     /**
      * Creates new form UAssignTime
@@ -63,7 +63,7 @@ public class UAssignTime extends javax.swing.JFrame {
             UAssignTimeModel uAssignTimeModel ;
             
             while(rs.next()){
-                uAssignTimeModel = new UAssignTimeModel (rs.getInt("assigntime_id"), rs.getInt("session_id"), rs.getString("session_name"), rs.getString("lecturer_1"), rs.getString("lecturer_2"), rs.getString("lecturer_3"), rs.getString("subject_code"), rs.getString("subject_name"), rs.getString("group_id"), rs.getString("tag"),rs.getInt("student_count"),rs.getString("duration"), rs.getString("timeslot"), rs.getString("days"));
+                uAssignTimeModel = new UAssignTimeModel (rs.getInt("assigntime_id"), rs.getInt("session_id"), rs.getString("session_name"), rs.getString("lecturer_1"), rs.getString("lecturer_2"), rs.getString("lecturer_3"), rs.getString("subject_code"), rs.getString("subject_name"), rs.getString("group_id"), rs.getString("tag"),rs.getInt("student_count"),rs.getString("duration"), rs.getString("room"), rs.getString("timeslot"), rs.getString("days"));
                 NonList.add(uAssignTimeModel);
             }
             
@@ -78,7 +78,7 @@ public class UAssignTime extends javax.swing.JFrame {
         ArrayList<UAssignTimeModel> AssignTimeList = AssignTimeList();
         DefaultTableModel tableModel = (DefaultTableModel) display_managenon.getModel();
         
-        Object[] row = new Object[15];
+        Object[] row = new Object[16];
         for (int i = 0; i < AssignTimeList.size(); i++) {
             row[0] = AssignTimeList.get(i).getassigntableID();
             row[1] = AssignTimeList.get(i).getsession_id();
@@ -92,8 +92,9 @@ public class UAssignTime extends javax.swing.JFrame {
             row[9] = AssignTimeList.get(i).gettag();
             row[10] = AssignTimeList.get(i).getstudent_count();
             row[11] = AssignTimeList.get(i).getduration();
-            row[12] = AssignTimeList.get(i).gettimeslot();
-            row[13] = AssignTimeList.get(i).getday();
+            row[12] = AssignTimeList.get(i).getroom();
+            row[13] = AssignTimeList.get(i).gettimeslot();
+            row[14] = AssignTimeList.get(i).getday();
             
             tableModel.addRow(row);
         }
@@ -395,6 +396,7 @@ public class UAssignTime extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        display_sessionstable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         display_sessionstable.getTableHeader().setReorderingAllowed(false);
         display_sessionstable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -407,6 +409,19 @@ public class UAssignTime extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(display_sessionstable);
+        if (display_sessionstable.getColumnModel().getColumnCount() > 0) {
+            display_sessionstable.getColumnModel().getColumn(0).setMinWidth(100);
+            display_sessionstable.getColumnModel().getColumn(1).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(2).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(3).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(4).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(5).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(6).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(7).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(8).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(9).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(10).setMinWidth(180);
+        }
 
         jLabel8.setText("Lecturer 1");
 
@@ -465,7 +480,7 @@ public class UAssignTime extends javax.swing.JFrame {
         jLabel20.setText("TimeSlot");
 
         TimeSlot.setEditable(true);
-        TimeSlot.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Timeslot", "1", "2", "3", "4" }));
+        TimeSlot.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Timeslot", "8:00 - 9:00 am", "9:00 - 10:00 pm", "10:00 - 11:00 am", "11:00 - 12:00 pm" }));
         TimeSlot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TimeSlotActionPerformed(evt);
@@ -475,7 +490,7 @@ public class UAssignTime extends javax.swing.JFrame {
         jLabel21.setText("Day");
 
         Day.setEditable(true);
-        Day.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Day", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" }));
+        Day.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Day", "1. MONDAY", "2. TUESDAY", "3. WEDNESDAY", "4. THURSDAY", "5. FRIDAY", "6. SATURDAY", "7. SUNDAY" }));
         Day.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DayActionPerformed(evt);
@@ -486,60 +501,61 @@ public class UAssignTime extends javax.swing.JFrame {
         jp_addTags.setLayout(jp_addTagsLayout);
         jp_addTagsLayout.setHorizontalGroup(
             jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_addTagsLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addTagsLayout.createSequentialGroup()
                 .addContainerGap(33, Short.MAX_VALUE)
                 .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addTagsLayout.createSequentialGroup()
-                        .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addGroup(jp_addTagsLayout.createSequentialGroup()
-                                .addGap(93, 93, 93)
-                                .addComponent(btn_assignadd, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(64, 64, 64)
-                                .addComponent(btn_viewassign, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jp_addTagsLayout.createSequentialGroup()
-                                .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(Duration, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(Tag, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                        .addComponent(SubjectName, javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                .addComponent(Lecturer3, javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                    .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                        .addComponent(SessionID, javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(Lecturer1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
-                                                                    .addComponent(jLabel17)))
-                                                            .addComponent(jLabel19)))
-                                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addComponent(jLabel14)))
-                                    .addComponent(jLabel16))
-                                .addGap(74, 74, 74)
-                                .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jLabel18)
-                                    .addComponent(jLabel9)
-                                    .addComponent(Lecturer2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                                    .addComponent(SessionName)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel13)
-                                    .addComponent(GroupID)
-                                    .addComponent(SubjectCode)
-                                    .addComponent(jLabel15)
-                                    .addComponent(StudentCount)
-                                    .addComponent(TimeSlot, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(Day, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(113, 113, 113))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addTagsLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))))
+                    .addComponent(jLabel11)
+                    .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addTagsLayout.createSequentialGroup()
+                            .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jp_addTagsLayout.createSequentialGroup()
+                                    .addGap(93, 93, 93)
+                                    .addComponent(btn_assignadd, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(64, 64, 64)
+                                    .addComponent(btn_viewassign, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jp_addTagsLayout.createSequentialGroup()
+                                    .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(Duration, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(Tag, javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                            .addComponent(SubjectName, javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                    .addComponent(Lecturer3, javax.swing.GroupLayout.Alignment.LEADING)
+                                                                    .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                            .addComponent(SessionID, javax.swing.GroupLayout.Alignment.LEADING)
+                                                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                                                                            .addComponent(Lecturer1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
+                                                                        .addComponent(jLabel17)))
+                                                                .addComponent(jLabel19)))
+                                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(jLabel14)))
+                                        .addComponent(jLabel16))
+                                    .addGap(74, 74, 74)
+                                    .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel21)
+                                        .addComponent(jLabel20)
+                                        .addComponent(jLabel18)
+                                        .addComponent(jLabel9)
+                                        .addComponent(Lecturer2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                                        .addComponent(SessionName)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jLabel13)
+                                        .addComponent(GroupID)
+                                        .addComponent(SubjectCode)
+                                        .addComponent(jLabel15)
+                                        .addComponent(StudentCount)
+                                        .addComponent(TimeSlot, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(Day, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGap(113, 113, 113))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addTagsLayout.createSequentialGroup()
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(25, 25, 25)))))
         );
         jp_addTagsLayout.setVerticalGroup(
             jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -650,17 +666,18 @@ public class UAssignTime extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Assign_ID", "Session ID", "SessionName", "Lecturer 1", "Lecturer 2", "Lecturer 3", "Subject Code", "Subject Name", "Group ID", "Tag", "Student Count", "Duration", "Timeslot", "Day"
+                "Assign_ID", "Session ID", "SessionName", "Lecturer 1", "Lecturer 2", "Lecturer 3", "Subject Code", "Subject Name", "Group ID", "Tag", "Student Count", "Duration", "Room", "Timeslot", "Day"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        display_managenon.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         display_managenon.getTableHeader().setReorderingAllowed(false);
         display_managenon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -668,6 +685,23 @@ public class UAssignTime extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(display_managenon);
+        if (display_managenon.getColumnModel().getColumnCount() > 0) {
+            display_managenon.getColumnModel().getColumn(0).setMinWidth(100);
+            display_managenon.getColumnModel().getColumn(1).setMinWidth(100);
+            display_managenon.getColumnModel().getColumn(2).setMinWidth(180);
+            display_managenon.getColumnModel().getColumn(3).setMinWidth(180);
+            display_managenon.getColumnModel().getColumn(4).setMinWidth(180);
+            display_managenon.getColumnModel().getColumn(5).setMinWidth(180);
+            display_managenon.getColumnModel().getColumn(6).setMinWidth(180);
+            display_managenon.getColumnModel().getColumn(7).setMinWidth(180);
+            display_managenon.getColumnModel().getColumn(8).setMinWidth(180);
+            display_managenon.getColumnModel().getColumn(9).setMinWidth(180);
+            display_managenon.getColumnModel().getColumn(10).setMinWidth(180);
+            display_managenon.getColumnModel().getColumn(11).setMinWidth(180);
+            display_managenon.getColumnModel().getColumn(12).setMinWidth(180);
+            display_managenon.getColumnModel().getColumn(13).setMinWidth(180);
+            display_managenon.getColumnModel().getColumn(14).setMinWidth(180);
+        }
 
         javax.swing.GroupLayout jp_manageTagsLayout = new javax.swing.GroupLayout(jp_manageTags);
         jp_manageTags.setLayout(jp_manageTagsLayout);
@@ -728,7 +762,7 @@ public class UAssignTime extends javax.swing.JFrame {
             .addGroup(addTags_TopBarLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
@@ -769,7 +803,7 @@ public class UAssignTime extends javax.swing.JFrame {
             .addGroup(manageTags_TopbarLayout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
@@ -795,7 +829,7 @@ public class UAssignTime extends javax.swing.JFrame {
                     .addGroup(Background_pnlLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(JPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)))
         );
         Background_pnlLayout.setVerticalGroup(
             Background_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -923,13 +957,14 @@ public class UAssignTime extends javax.swing.JFrame {
                     Statement st_tag = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
                     ResultSet rs1 = st_tag.executeQuery(query_tagsexits);
+                    
                     if (rs1.first()) {
                         JOptionPane.showMessageDialog(null, "This assign Time Already Exist");
 
                     } else {
                         try {
-                            String query = "insert into ASSIGNTIME(session_id, session_name, lecturer_1, lecturer_2, lecturer_3, subject_code, subject_name, group_id, tag, student_count, duration, timeslot, days) "
-                            + "values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                            String query = "insert into ASSIGNTIME(session_id, session_name, lecturer_1, lecturer_2, lecturer_3, subject_code, subject_name, group_id, tag, student_count, duration, room ,timeslot, days) "
+                            + "values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,(SELECT session_room FROM sessionrooms WHERE sessionroom_id="+SessionID.getText()+"), ?,?)";
 
                             preparedStmt = connection.prepareStatement(query);
                             preparedStmt.setString(1, session_id);

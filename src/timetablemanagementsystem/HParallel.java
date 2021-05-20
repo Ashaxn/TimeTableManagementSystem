@@ -386,6 +386,7 @@ public class HParallel extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        display_sessionstable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         display_sessionstable.getTableHeader().setReorderingAllowed(false);
         display_sessionstable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -398,6 +399,18 @@ public class HParallel extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(display_sessionstable);
+        if (display_sessionstable.getColumnModel().getColumnCount() > 0) {
+            display_sessionstable.getColumnModel().getColumn(0).setMinWidth(80);
+            display_sessionstable.getColumnModel().getColumn(1).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(2).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(3).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(4).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(5).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(6).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(7).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(8).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(9).setMinWidth(180);
+        }
 
         jLabel8.setText("Session ID 1");
 
@@ -447,12 +460,12 @@ public class HParallel extends javax.swing.JFrame {
         jp_addTags.setLayout(jp_addTagsLayout);
         jp_addTagsLayout.setHorizontalGroup(
             jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addTagsLayout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
+            .addGroup(jp_addTagsLayout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addTagsLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel17)
+                        .addGroup(jp_addTagsLayout.createSequentialGroup()
                             .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel11)
                                 .addGroup(jp_addTagsLayout.createSequentialGroup()
@@ -461,36 +474,36 @@ public class HParallel extends javax.swing.JFrame {
                                     .addGap(64, 64, 64)
                                     .addComponent(btn_viewparadetails, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(158, 158, 158))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addTagsLayout.createSequentialGroup()
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(76, 76, 76)))
-                    .addGroup(jp_addTagsLayout.createSequentialGroup()
-                        .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(ParaName, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(Tag2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(SubjectName2, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addComponent(SubCode2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(SessionID2, javax.swing.GroupLayout.Alignment.LEADING))
-                                                .addComponent(jLabel10)))
-                                        .addComponent(jLabel13)))
-                                .addComponent(jLabel15)))
-                        .addGap(74, 74, 74)
-                        .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel9)
-                            .addComponent(SessionID1)
-                            .addComponent(SubCode1)
-                            .addComponent(SubjectName1)
-                            .addComponent(Tag1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)))))
+                        .addGroup(jp_addTagsLayout.createSequentialGroup()
+                            .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(ParaName, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(Tag2, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(SubjectName2, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                        .addComponent(SubCode2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(SessionID2, javax.swing.GroupLayout.Alignment.LEADING))
+                                                    .addComponent(jLabel10)))
+                                            .addComponent(jLabel13)))
+                                    .addComponent(jLabel15)))
+                            .addGap(74, 74, 74)
+                            .addGroup(jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel14)
+                                .addComponent(jLabel12)
+                                .addComponent(jLabel9)
+                                .addComponent(SessionID1)
+                                .addComponent(SubCode1)
+                                .addComponent(SubjectName1)
+                                .addComponent(Tag1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_addTagsLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
         );
         jp_addTagsLayout.setVerticalGroup(
             jp_addTagsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -590,6 +603,7 @@ public class HParallel extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        display_manageparal.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         display_manageparal.getTableHeader().setReorderingAllowed(false);
         display_manageparal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -597,6 +611,18 @@ public class HParallel extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(display_manageparal);
+        if (display_manageparal.getColumnModel().getColumnCount() > 0) {
+            display_manageparal.getColumnModel().getColumn(0).setMinWidth(100);
+            display_manageparal.getColumnModel().getColumn(1).setMinWidth(180);
+            display_manageparal.getColumnModel().getColumn(2).setMinWidth(180);
+            display_manageparal.getColumnModel().getColumn(3).setMinWidth(180);
+            display_manageparal.getColumnModel().getColumn(4).setMinWidth(180);
+            display_manageparal.getColumnModel().getColumn(5).setMinWidth(180);
+            display_manageparal.getColumnModel().getColumn(6).setMinWidth(180);
+            display_manageparal.getColumnModel().getColumn(7).setMinWidth(180);
+            display_manageparal.getColumnModel().getColumn(8).setMinWidth(180);
+            display_manageparal.getColumnModel().getColumn(9).setMinWidth(180);
+        }
 
         javax.swing.GroupLayout jp_manageTagsLayout = new javax.swing.GroupLayout(jp_manageTags);
         jp_manageTags.setLayout(jp_manageTagsLayout);

@@ -12,7 +12,8 @@ package timetablemanagementsystem;
 public class GenerateTimeModel {
     
     private String timeslot;
-    private String monday,tuesday,wednesday,thrusday,friday,saterday,sunday;
+    private String day;
+    private String sessiondetils;
     
     
     public String gettimeslot() {
@@ -23,60 +24,20 @@ public class GenerateTimeModel {
         this.timeslot = timeslot;
     }
     
-    public String getMonday() {
-        return monday;
+    public String getday() {
+        return day;
     }
 
-    public void setMonday(String monday) {
-        this.monday = monday;
-    }
-
-    public String getTuesday() {
-        return tuesday;
-    }
-
-    public void setTuesday(String tuesday) {
-        this.tuesday = tuesday;
-    }
-
-    public String getWednesday() {
-        return wednesday;
-    }
-
-    public void setWednesday(String wednesday) {
-        this.wednesday = wednesday;
-    }
-
-    public String getThrusday() {
-        return thrusday;
-    }
-
-    public void setThrusday(String thrusday) {
-        this.thrusday = thrusday;
-    }
-
-    public String getFriday() {
-        return friday;
-    }
-
-    public void setFriday(String friday) {
-        this.friday = friday;
-    }
-
-    public String getSaterday() {
-        return saterday;
-    }
-
-    public void setSaterday(String saterday) {
-        this.saterday = saterday;
-    }
-
-    public String getSunday() {
-        return sunday;
-    }
-
-    public void setSunday(String sunday) {
-        this.sunday = sunday;
+    public void setday(String day) {
+        this.day = day;
     }
     
+    public String getsessiondetils() {
+        return sessiondetils;
+    }
+
+    public void setsessiondetils(String sessiondetils) {
+        this.sessiondetils = sessiondetils;
+    }
+       
 }

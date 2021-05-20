@@ -234,7 +234,7 @@
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="jLabel2" min="-2" pref="98" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jComboBox2" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <Component id="LecCombo" min="-2" pref="165" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btn_GenerateLecturerTable" min="-2" pref="99" max="-2" attributes="0"/>
                               </Group>
@@ -257,7 +257,7 @@
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btn_GenerateLecturerTable" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jComboBox2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="LecCombo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -283,59 +283,28 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="table_displayLecturerTimetableDetails">
+                    <Component class="javax.swing.JTable" name="display_generatetablelec">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="8" rowCount="0">
+                          <Table columnCount="3" rowCount="0">
+                            <Column editable="false" title="Days" type="java.lang.Object"/>
                             <Column editable="false" title="Time Slots" type="java.lang.Object"/>
-                            <Column editable="false" title="Monday" type="java.lang.Object"/>
-                            <Column editable="false" title="Tuesday" type="java.lang.Object"/>
-                            <Column editable="false" title="Wednesday" type="java.lang.Object"/>
-                            <Column editable="false" title="Thursday" type="java.lang.Object"/>
-                            <Column editable="false" title="Friday" type="java.lang.Object"/>
-                            <Column editable="false" title="Saturaday" type="java.lang.Object"/>
-                            <Column editable="false" title="Sunday" type="java.lang.Object"/>
+                            <Column editable="false" title="Session Details" type="java.lang.Object"/>
                           </Table>
                         </Property>
-                        <Property name="autoResizeMode" type="int" value="0"/>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="80" minWidth="180" prefWidth="180" resizable="true">
+                            <Column maxWidth="-1" minWidth="80" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="80" minWidth="180" prefWidth="180" resizable="true">
+                            <Column maxWidth="-1" minWidth="80" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="80" minWidth="180" prefWidth="180" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="80" minWidth="180" prefWidth="180" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="80" minWidth="180" prefWidth="180" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="80" minWidth="180" prefWidth="180" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="80" minWidth="180" prefWidth="180" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="180" minWidth="180" prefWidth="180" resizable="true">
+                            <Column maxWidth="-1" minWidth="300" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -347,7 +316,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="table_displayLecturerTimetableDetailsMouseClicked"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="display_generatetablelecMouseClicked"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -420,7 +389,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_refreshLecturerTableActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox2">
+                <Component class="javax.swing.JComboBox" name="LecCombo">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="1">
@@ -428,6 +397,12 @@
                       </StringArray>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LecComboActionPerformed"/>
+                    <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="LecComboPropertyChange"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="LecComboKeyPressed"/>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="LecComboKeyReleased"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>

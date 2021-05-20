@@ -400,6 +400,7 @@ public class HAddTags extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        display_tagstable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         display_tagstable.getTableHeader().setReorderingAllowed(false);
         display_tagstable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -407,6 +408,12 @@ public class HAddTags extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(display_tagstable);
+        if (display_tagstable.getColumnModel().getColumnCount() > 0) {
+            display_tagstable.getColumnModel().getColumn(0).setMinWidth(180);
+            display_tagstable.getColumnModel().getColumn(1).setMinWidth(180);
+            display_tagstable.getColumnModel().getColumn(2).setMinWidth(180);
+            display_tagstable.getColumnModel().getColumn(3).setMinWidth(180);
+        }
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(51, 51, 51));

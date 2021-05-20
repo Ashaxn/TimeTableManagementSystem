@@ -388,6 +388,7 @@ public class HConsecutiveSession extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        display_sessionstable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         display_sessionstable.getTableHeader().setReorderingAllowed(false);
         display_sessionstable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -400,6 +401,20 @@ public class HConsecutiveSession extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(display_sessionstable);
+        if (display_sessionstable.getColumnModel().getColumnCount() > 0) {
+            display_sessionstable.getColumnModel().getColumn(0).setMinWidth(80);
+            display_sessionstable.getColumnModel().getColumn(1).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(2).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(3).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(4).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(5).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(6).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(7).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(8).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(9).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(10).setMinWidth(180);
+            display_sessionstable.getColumnModel().getColumn(11).setMinWidth(180);
+        }
 
         jLabel8.setText("Session ID 1");
 
@@ -603,6 +618,18 @@ public class HConsecutiveSession extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(display_manageconsec);
+        if (display_manageconsec.getColumnModel().getColumnCount() > 0) {
+            display_manageconsec.getColumnModel().getColumn(0).setMinWidth(100);
+            display_manageconsec.getColumnModel().getColumn(1).setMinWidth(180);
+            display_manageconsec.getColumnModel().getColumn(2).setMinWidth(180);
+            display_manageconsec.getColumnModel().getColumn(3).setMinWidth(180);
+            display_manageconsec.getColumnModel().getColumn(4).setMinWidth(180);
+            display_manageconsec.getColumnModel().getColumn(5).setMinWidth(180);
+            display_manageconsec.getColumnModel().getColumn(6).setMinWidth(180);
+            display_manageconsec.getColumnModel().getColumn(7).setMinWidth(180);
+            display_manageconsec.getColumnModel().getColumn(8).setMinWidth(180);
+            display_manageconsec.getColumnModel().getColumn(9).setMinWidth(180);
+        }
 
         javax.swing.GroupLayout jp_manageTagsLayout = new javax.swing.GroupLayout(jp_manageTags);
         jp_manageTags.setLayout(jp_manageTagsLayout);

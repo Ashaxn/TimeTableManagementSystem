@@ -482,6 +482,15 @@ public class HAddStudentGroups extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(display_sgroupstable);
+        if (display_sgroupstable.getColumnModel().getColumnCount() > 0) {
+            display_sgroupstable.getColumnModel().getColumn(0).setMinWidth(100);
+            display_sgroupstable.getColumnModel().getColumn(1).setMinWidth(180);
+            display_sgroupstable.getColumnModel().getColumn(2).setMinWidth(180);
+            display_sgroupstable.getColumnModel().getColumn(3).setMinWidth(180);
+            display_sgroupstable.getColumnModel().getColumn(4).setMinWidth(180);
+            display_sgroupstable.getColumnModel().getColumn(5).setMinWidth(180);
+            display_sgroupstable.getColumnModel().getColumn(6).setMinWidth(180);
+        }
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(51, 51, 51));

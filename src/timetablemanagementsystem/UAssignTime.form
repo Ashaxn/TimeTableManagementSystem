@@ -59,7 +59,7 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="JPanel7" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="JPanel7" alignment="0" pref="659" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -304,75 +304,77 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="33" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
-                                          <Component id="btn_assignadd" min="-2" pref="112" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                                          <Component id="btn_viewassign" min="-2" pref="112" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="Duration" alignment="0" max="32767" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                          <Component id="Tag" alignment="0" max="32767" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                                  <Component id="SubjectName" alignment="0" max="32767" attributes="0"/>
-                                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                                          <Component id="Lecturer3" alignment="0" max="32767" attributes="0"/>
-                                                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                                                  <Component id="SessionID" alignment="0" max="32767" attributes="0"/>
-                                                                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                                  <Component id="Lecturer1" alignment="0" pref="164" max="32767" attributes="0"/>
+                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                                              <Component id="btn_assignadd" min="-2" pref="112" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                                              <Component id="btn_viewassign" min="-2" pref="112" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                      <Component id="Duration" alignment="0" max="32767" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                              <Component id="Tag" alignment="0" max="32767" attributes="0"/>
+                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                                      <Component id="SubjectName" alignment="0" max="32767" attributes="0"/>
+                                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                                              <Component id="Lecturer3" alignment="0" max="32767" attributes="0"/>
+                                                                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                                                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                                                      <Component id="SessionID" alignment="0" max="32767" attributes="0"/>
+                                                                                      <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                                      <Component id="Lecturer1" alignment="0" pref="164" max="32767" attributes="0"/>
+                                                                                  </Group>
+                                                                                  <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                               </Group>
-                                                                              <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                           </Group>
+                                                                          <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                       </Group>
-                                                                      <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                   </Group>
+                                                                  <Component id="jLabel12" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                                                               </Group>
-                                                              <Component id="jLabel12" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                                                           </Group>
+                                                          <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       </Group>
-                                                      <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="Lecturer2" alignment="0" pref="188" max="32767" attributes="0"/>
-                                              <Component id="SessionName" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="GroupID" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="SubjectCode" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="StudentCount" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="TimeSlot" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="Day" alignment="0" max="32767" attributes="0"/>
+                                              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="Lecturer2" alignment="0" pref="188" max="32767" attributes="0"/>
+                                                  <Component id="SessionName" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="GroupID" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="SubjectCode" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="StudentCount" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="TimeSlot" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="Day" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
+                                      <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jScrollPane2" min="-2" pref="572" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jScrollPane2" min="-2" pref="572" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -543,59 +545,60 @@
                             <Column editable="false" title="Duration" type="java.lang.Object"/>
                           </Table>
                         </Property>
+                        <Property name="autoResizeMode" type="int" value="0"/>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="100" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -740,10 +743,10 @@
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="5">
                         <StringItem index="0" value="Select Timeslot"/>
-                        <StringItem index="1" value="1"/>
-                        <StringItem index="2" value="2"/>
-                        <StringItem index="3" value="3"/>
-                        <StringItem index="4" value="4"/>
+                        <StringItem index="1" value="8:00 - 9:00 am"/>
+                        <StringItem index="2" value="9:00 - 10:00 pm"/>
+                        <StringItem index="3" value="10:00 - 11:00 am"/>
+                        <StringItem index="4" value="11:00 - 12:00 pm"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -765,13 +768,13 @@
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="8">
                         <StringItem index="0" value="Select Day"/>
-                        <StringItem index="1" value="MONDAY"/>
-                        <StringItem index="2" value="TUESDAY"/>
-                        <StringItem index="3" value="WEDNESDAY"/>
-                        <StringItem index="4" value="THURSDAY"/>
-                        <StringItem index="5" value="FRIDAY"/>
-                        <StringItem index="6" value="SATURDAY"/>
-                        <StringItem index="7" value="SUNDAY"/>
+                        <StringItem index="1" value="1. MONDAY"/>
+                        <StringItem index="2" value="2. TUESDAY"/>
+                        <StringItem index="3" value="3. WEDNESDAY"/>
+                        <StringItem index="4" value="4. THURSDAY"/>
+                        <StringItem index="5" value="5. FRIDAY"/>
+                        <StringItem index="6" value="6. SATURDAY"/>
+                        <StringItem index="7" value="7. SUNDAY"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -892,7 +895,7 @@
                     <Component class="javax.swing.JTable" name="display_managenon">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="14" rowCount="0">
+                          <Table columnCount="15" rowCount="0">
                             <Column editable="false" title="Assign_ID" type="java.lang.Object"/>
                             <Column editable="false" title="Session ID" type="java.lang.Object"/>
                             <Column editable="false" title="SessionName" type="java.lang.Object"/>
@@ -905,78 +908,85 @@
                             <Column editable="false" title="Tag" type="java.lang.Object"/>
                             <Column editable="false" title="Student Count" type="java.lang.Object"/>
                             <Column editable="false" title="Duration" type="java.lang.Object"/>
+                            <Column editable="false" title="Room" type="java.lang.Object"/>
                             <Column editable="false" title="Timeslot" type="java.lang.Object"/>
                             <Column editable="false" title="Day" type="java.lang.Object"/>
                           </Table>
                         </Property>
+                        <Property name="autoResizeMode" type="int" value="0"/>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="100" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="100" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="180" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -1017,7 +1027,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="198" max="32767" attributes="0"/>
+                          <EmptySpace pref="227" max="32767" attributes="0"/>
                           <Component id="jButton3" min="-2" pref="92" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       </Group>
@@ -1085,7 +1095,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" pref="370" max="-2" attributes="0"/>
-                          <EmptySpace pref="72" max="32767" attributes="0"/>
+                          <EmptySpace pref="101" max="32767" attributes="0"/>
                           <Component id="jButton5" min="-2" pref="92" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       </Group>

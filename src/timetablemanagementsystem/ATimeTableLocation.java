@@ -4,6 +4,26 @@
  * and open the template in the editor.
  */
 package timetablemanagementsystem;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.ComboBoxEditor;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import static jdk.nashorn.internal.runtime.JSType.isNumber;
 
 /**
  *
@@ -11,14 +31,114 @@ package timetablemanagementsystem;
  */
 public class ATimeTableLocation extends javax.swing.JFrame {
 
+      private Connection connection;
+    private Statement statement;
+    private PreparedStatement preparedStmt;
+    private String Hnon_rowSelected;
+    private String Hmanagerow_rowSelected;
+    private String session_id, session_name;
+    private String lecturer_1,lecturer_2, lecturer_3;
+    private String subject_code,subject_name;
+    private String group_id,tag;
+    private String student_count, duration;
+    private String assign_id ,timeslot ,day;
+
     /**
      * Creates new form ATimeTableLecturer
      */
     public ATimeTableLocation() {
         initComponents();
+        dbconnect();
+        generatetimetble();
+        SelectLec();
         btn_LocationTimetableSide.setBackground(new java.awt.Color(8,142,88));
     }
 
+    private void dbconnect(){
+        final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+        final String JDBC_URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+        
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(JDBC_URL);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(HNonOverlap.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(HNonOverlap.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }  
+        
+     }
+    
+    public ArrayList<UAssignTimeModel> AssignTimeList() {
+        
+        ArrayList<UAssignTimeModel> NonList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM ASSIGNTIME order by days";
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            
+            UAssignTimeModel uAssignTimeModel ;
+            
+            while(rs.next()){
+                uAssignTimeModel = new UAssignTimeModel (rs.getInt("assigntime_id"), rs.getInt("session_id"), rs.getString("session_name"), rs.getString("lecturer_1"), rs.getString("lecturer_2"), rs.getString("lecturer_3"), rs.getString("subject_code"), rs.getString("subject_name"), rs.getString("group_id"), rs.getString("tag"),rs.getInt("student_count"),rs.getString("duration"),rs.getString("room"), rs.getString("timeslot"), rs.getString("days"));
+                NonList.add(uAssignTimeModel);
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex + "Exception occured in NonLists method");
+            Logger.getLogger(HParallel.class.getName()).log(Level.SEVERE, null, ex);         
+        }
+        return NonList;
+    }
+    
+     
+    
+        public void generatetimetble(){
+         ArrayList<UAssignTimeModel> AssignTimeList = AssignTimeList();
+        DefaultTableModel tableModel = (DefaultTableModel) display_generatetablelec.getModel();
+         
+         
+
+         Object[] row = new Object[15];
+          for (int i = 0; i < AssignTimeList.size(); i++) {
+
+             row[0] = AssignTimeList.get(i).getday(); 
+
+             String lecture = AssignTimeList.get(i).getlecturer_1();
+             String subcode = AssignTimeList.get(i).getsubject_code();
+             String tag = AssignTimeList.get(i).gettag();
+             String group_id = AssignTimeList.get(i).getgroup_id();
+             String room = AssignTimeList.get(i).getroom();
+             String rowdetails = ""+lecture+" , "+ subcode+" , "+tag +" ," +group_id +", " +room +" " ;
+           
+              
+             row[1] = AssignTimeList.get(i).gettimeslot();
+             row[2] = rowdetails;
+             
+             
+ 
+              tableModel.addRow(row);
+              
+          }
+        }
+        
+        private void SelectLec(){
+        try {
+            String bcomboquery = "SELECT * FROM ASSIGNTIME";
+            preparedStmt = connection.prepareStatement(bcomboquery);
+            ResultSet rst = preparedStmt.executeQuery();
+            
+            while(rst.next()){
+                String bnames = rst.getString("room");
+                LocCombo.addItem(bnames);
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,11 +159,11 @@ public class ATimeTableLocation extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jp_locationTimeTablePnl = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table_displayLocationsTimetableDetails = new javax.swing.JTable();
+        display_generatetablelec = new javax.swing.JTable();
         btn_printLocationTable = new javax.swing.JButton();
         btn_GenerateLocationTable = new javax.swing.JButton();
         btn_refreshLocationTable = new javax.swing.JButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        LocCombo = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         JPanel7 = new javax.swing.JPanel();
         locationTimeTable_Topbar = new javax.swing.JPanel();
@@ -123,55 +243,33 @@ public class ATimeTableLocation extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        table_displayLocationsTimetableDetails.setModel(new javax.swing.table.DefaultTableModel(
+        display_generatetablelec.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Time Slots", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturaday", "Sunday"
+                "Day", "Time Slots", "Session Details"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        table_displayLocationsTimetableDetails.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        table_displayLocationsTimetableDetails.getTableHeader().setReorderingAllowed(false);
-        table_displayLocationsTimetableDetails.addMouseListener(new java.awt.event.MouseAdapter() {
+        display_generatetablelec.getTableHeader().setReorderingAllowed(false);
+        display_generatetablelec.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                table_displayLocationsTimetableDetailsMouseClicked(evt);
+                display_generatetablelecMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(table_displayLocationsTimetableDetails);
-        if (table_displayLocationsTimetableDetails.getColumnModel().getColumnCount() > 0) {
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(0).setMinWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(0).setPreferredWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(0).setMaxWidth(80);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(1).setMinWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(1).setPreferredWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(1).setMaxWidth(80);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(2).setMinWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(2).setPreferredWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(2).setMaxWidth(80);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(3).setMinWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(3).setPreferredWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(3).setMaxWidth(80);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(4).setMinWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(4).setPreferredWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(4).setMaxWidth(80);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(5).setMinWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(5).setPreferredWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(5).setMaxWidth(80);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(6).setMinWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(6).setPreferredWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(6).setMaxWidth(80);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(7).setMinWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(7).setPreferredWidth(180);
-            table_displayLocationsTimetableDetails.getColumnModel().getColumn(7).setMaxWidth(80);
+        jScrollPane1.setViewportView(display_generatetablelec);
+        if (display_generatetablelec.getColumnModel().getColumnCount() > 0) {
+            display_generatetablelec.getColumnModel().getColumn(0).setMinWidth(80);
+            display_generatetablelec.getColumnModel().getColumn(1).setMinWidth(80);
+            display_generatetablelec.getColumnModel().getColumn(2).setMinWidth(300);
         }
 
         btn_printLocationTable.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -223,7 +321,7 @@ public class ATimeTableLocation extends javax.swing.JFrame {
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Location" }));
+        LocCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Location" }));
 
         jLabel2.setText("Select Location / Room :");
 
@@ -238,7 +336,7 @@ public class ATimeTableLocation extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(LocCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_GenerateLocationTable, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE))
@@ -256,7 +354,7 @@ public class ATimeTableLocation extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jp_locationTimeTablePnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_GenerateLocationTable, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LocCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -379,9 +477,9 @@ public class ATimeTableLocation extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_locationTimetable_backBtnActionPerformed
 
-    private void table_displayLocationsTimetableDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_displayLocationsTimetableDetailsMouseClicked
+    private void display_generatetablelecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_display_generatetablelecMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_table_displayLocationsTimetableDetailsMouseClicked
+    }//GEN-LAST:event_display_generatetablelecMouseClicked
 
     private void btn_printLocationTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_printLocationTableMouseClicked
         // TODO add your handling code here:
@@ -393,6 +491,12 @@ public class ATimeTableLocation extends javax.swing.JFrame {
 
     private void btn_GenerateLocationTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerateLocationTableActionPerformed
         // TODO add your handling code here:
+          DefaultTableModel table_model = (DefaultTableModel) display_generatetablelec.getModel();
+        String searchTxt = LocCombo.getSelectedItem().toString();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table_model);
+        display_generatetablelec.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(searchTxt)); 
+     
     }//GEN-LAST:event_btn_GenerateLocationTableActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -446,13 +550,14 @@ public class ATimeTableLocation extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background_pnl;
     private javax.swing.JPanel JPanel7;
+    private javax.swing.JComboBox<String> LocCombo;
     private javax.swing.JPanel SidePanel;
     private javax.swing.JButton btn_GenerateLocationTable;
     private javax.swing.JPanel btn_LocationTimetableSide;
     private javax.swing.JButton btn_printLocationTable;
     private javax.swing.JButton btn_refreshLocationTable;
+    private javax.swing.JTable display_generatetablelec;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -464,6 +569,5 @@ public class ATimeTableLocation extends javax.swing.JFrame {
     private javax.swing.JPanel jp_locationTimeTablePnl;
     private javax.swing.JPanel locationTimeTable_Topbar;
     private javax.swing.JButton locationTimetable_backBtn;
-    private javax.swing.JTable table_displayLocationsTimetableDetails;
     // End of variables declaration//GEN-END:variables
 }
