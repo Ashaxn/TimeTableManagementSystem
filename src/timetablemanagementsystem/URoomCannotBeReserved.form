@@ -334,22 +334,22 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
-                                  <Component id="addWorkingDays" min="-2" pref="112" max="-2" attributes="0"/>
+                                  <Component id="addRoomCannotDays" min="-2" pref="112" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                                   <Component id="btn_clearworkingdays" min="-2" pref="112" max="-2" attributes="0"/>
                                   <EmptySpace pref="194" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="NoOfWorkingDays" alignment="1" pref="256" max="32767" attributes="0"/>
+                                      <Component id="rmcnotSelectRoom" alignment="1" pref="256" max="32767" attributes="0"/>
                                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox1" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="emcntStart_Timetext" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="83" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="label1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox2" alignment="0" pref="229" max="32767" attributes="0"/>
-                                      <Component id="jComboBox3" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="rmcannotDay" alignment="0" pref="229" max="32767" attributes="0"/>
+                                      <Component id="emcntEnd_Timetext" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                               </Group>
@@ -373,27 +373,27 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="NoOfWorkingDays" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rmcnotSelectRoom" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rmcannotDay" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                                   <Component id="jLabel10" min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="emcntStart_Timetext" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="emcntEnd_Timetext" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace pref="39" max="32767" attributes="0"/>
                                   <Component id="label1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="71" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="addWorkingDays" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="addRoomCannotDays" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="btn_clearworkingdays" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
@@ -410,22 +410,16 @@
                     <Property name="text" type="java.lang.String" value="Select Room :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="NoOfWorkingDays">
+                <Component class="javax.swing.JComboBox" name="rmcnotSelectRoom">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="7">
-                        <StringItem index="0" value="1 Day"/>
-                        <StringItem index="1" value="2 Days"/>
-                        <StringItem index="2" value="3 Days"/>
-                        <StringItem index="3" value="4 Days"/>
-                        <StringItem index="4" value="5 Days"/>
-                        <StringItem index="5" value="6 Days"/>
-                        <StringItem index="6" value="7 Days"/>
+                      <StringArray count="1">
+                        <StringItem index="0" value="Select Room"/>
                       </StringArray>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NoOfWorkingDaysActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rmcnotSelectRoomActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -472,7 +466,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_clearworkingdaysActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="addWorkingDays">
+                <Component class="javax.swing.JButton" name="addRoomCannotDays">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="12" style="1"/>
@@ -491,7 +485,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addWorkingDaysActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addRoomCannotDaysActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="java.awt.Label" name="label1">
@@ -502,14 +496,18 @@
                     <Property name="text" type="java.lang.String" value="End Time :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox1">
+                <Component class="javax.swing.JComboBox" name="rmcannotDay">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
+                      <StringArray count="8">
+                        <StringItem index="0" value="Select Day"/>
+                        <StringItem index="1" value="Monday"/>
+                        <StringItem index="2" value="Tuesday"/>
+                        <StringItem index="3" value="Wednesday"/>
+                        <StringItem index="4" value="Thursday"/>
+                        <StringItem index="5" value="Friday"/>
+                        <StringItem index="6" value="Saturday"/>
+                        <StringItem index="7" value="Sunday"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -517,35 +515,9 @@
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox2">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
+                <Component class="javax.swing.JTextField" name="emcntStart_Timetext">
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox3">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
+                <Component class="javax.swing.JTextField" name="emcntEnd_Timetext">
                 </Component>
               </SubComponents>
             </Container>
@@ -575,7 +547,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                                  <Component id="btnupdate" min="-2" pref="112" max="-2" attributes="0"/>
+                                  <Component id="btnRefresh" min="-2" pref="112" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                                   <Component id="btndelete" min="-2" pref="112" max="-2" attributes="0"/>
                               </Group>
@@ -598,10 +570,10 @@
                           </Group>
                           <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                           <Component id="tableScrollPane" min="-2" pref="171" max="-2" attributes="0"/>
-                          <EmptySpace pref="53" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btndelete" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="btnupdate" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="btnRefresh" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
@@ -616,18 +588,24 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="display_table">
+                    <Component class="javax.swing.JTable" name="displayroomcannot_table">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="4" rowCount="9">
+                          <Table columnCount="5" rowCount="0">
                             <Column editable="false" title="         ID" type="java.lang.Object"/>
                             <Column editable="false" title="   Room" type="java.lang.Object"/>
                             <Column editable="false" title="   Day" type="java.lang.Object"/>
-                            <Column editable="true" title="  Duration" type="java.lang.Object"/>
+                            <Column editable="true" title="Start Time" type="java.lang.Object"/>
+                            <Column editable="true" title="End Time" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -655,12 +633,12 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="display_tableMouseClicked"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="displayroomcannot_tableMouseClicked"/>
                       </Events>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="btnupdate">
+                <Component class="javax.swing.JButton" name="btnRefresh">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="12" style="1"/>
@@ -679,7 +657,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnupdateActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btndelete">
@@ -879,7 +857,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="ROOM"/>
+                    <Property name="text" type="java.lang.String" value="MANAGE ROOM"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton5">

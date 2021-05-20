@@ -535,6 +535,7 @@ public class AAddRooms extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table_displayRoomDetails.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         table_displayRoomDetails.getTableHeader().setReorderingAllowed(false);
         table_displayRoomDetails.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -542,6 +543,14 @@ public class AAddRooms extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(table_displayRoomDetails);
+        if (table_displayRoomDetails.getColumnModel().getColumnCount() > 0) {
+            table_displayRoomDetails.getColumnModel().getColumn(0).setMinWidth(180);
+            table_displayRoomDetails.getColumnModel().getColumn(1).setMinWidth(180);
+            table_displayRoomDetails.getColumnModel().getColumn(2).setMinWidth(180);
+            table_displayRoomDetails.getColumnModel().getColumn(3).setMinWidth(180);
+            table_displayRoomDetails.getColumnModel().getColumn(4).setMinWidth(180);
+            table_displayRoomDetails.getColumnModel().getColumn(5).setMinWidth(180);
+        }
 
         buildingNoManageRoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Building Number" }));
 

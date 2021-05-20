@@ -798,7 +798,7 @@ public class ULecturersNotAvailableTime extends javax.swing.JFrame {
 
     private void addWorkingDays_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addWorkingDays_backBtnActionPerformed
         // TODO add your handling code here:
-        new UHome().setVisible(true);
+        new VLecHome().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_addWorkingDays_backBtnActionPerformed
 

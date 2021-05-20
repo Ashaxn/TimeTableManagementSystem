@@ -224,26 +224,17 @@ public class AViewSessionRoomTable extends javax.swing.JFrame {
         onlySessionRooms_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(onlySessionRooms_table);
         if (onlySessionRooms_table.getColumnModel().getColumnCount() > 0) {
-            onlySessionRooms_table.getColumnModel().getColumn(1).setMinWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(1).setPreferredWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(2).setMinWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(2).setPreferredWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(3).setMinWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(3).setPreferredWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(4).setMinWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(4).setPreferredWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(5).setMinWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(5).setPreferredWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(6).setMinWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(6).setPreferredWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(7).setMinWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(7).setPreferredWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(8).setMinWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(8).setPreferredWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(9).setMinWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(9).setPreferredWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(10).setMinWidth(100);
-            onlySessionRooms_table.getColumnModel().getColumn(10).setPreferredWidth(100);
+            onlySessionRooms_table.getColumnModel().getColumn(0).setMinWidth(80);
+            onlySessionRooms_table.getColumnModel().getColumn(1).setMinWidth(180);
+            onlySessionRooms_table.getColumnModel().getColumn(2).setMinWidth(180);
+            onlySessionRooms_table.getColumnModel().getColumn(3).setMinWidth(180);
+            onlySessionRooms_table.getColumnModel().getColumn(4).setMinWidth(180);
+            onlySessionRooms_table.getColumnModel().getColumn(5).setMinWidth(180);
+            onlySessionRooms_table.getColumnModel().getColumn(6).setMinWidth(180);
+            onlySessionRooms_table.getColumnModel().getColumn(7).setMinWidth(180);
+            onlySessionRooms_table.getColumnModel().getColumn(8).setMinWidth(180);
+            onlySessionRooms_table.getColumnModel().getColumn(9).setMinWidth(180);
+            onlySessionRooms_table.getColumnModel().getColumn(10).setMinWidth(180);
         }
 
         viewSessionRoomsTable_exitBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N

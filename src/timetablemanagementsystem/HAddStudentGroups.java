@@ -475,6 +475,7 @@ public class HAddStudentGroups extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        display_sgroupstable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         display_sgroupstable.getTableHeader().setReorderingAllowed(false);
         display_sgroupstable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

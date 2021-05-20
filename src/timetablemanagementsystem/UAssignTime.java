@@ -480,7 +480,7 @@ public class UAssignTime extends javax.swing.JFrame {
         jLabel20.setText("TimeSlot");
 
         TimeSlot.setEditable(true);
-        TimeSlot.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Timeslot", "8:00 - 9:00 am", "9:00 - 10:00 pm", "10:00 - 11:00 am", "11:00 - 12:00 pm" }));
+        TimeSlot.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Timeslot", "08.30 - 9.30", "9.30 - 10.30", "10.30 - 11.30", "11.30 - 12.30  Break", "12.30 - 1.00", "1.00 - 2.00", "2.00 - 3.00", "3.00 - 4.00", "4.00 - 5.00", " " }));
         TimeSlot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TimeSlotActionPerformed(evt);
@@ -829,7 +829,7 @@ public class UAssignTime extends javax.swing.JFrame {
                     .addGroup(Background_pnlLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)))
+                    .addComponent(JPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         Background_pnlLayout.setVerticalGroup(
             Background_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -853,6 +853,7 @@ public class UAssignTime extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_addAssignMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addAssignMouseClicked
@@ -897,8 +898,7 @@ public class UAssignTime extends javax.swing.JFrame {
 
     private void addNon_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNon_backBtnActionPerformed
         // TODO add your handling code here:
-
-        new VsessionHome().setVisible(true);
+        new UHome().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_addNon_backBtnActionPerformed
 
@@ -964,7 +964,7 @@ public class UAssignTime extends javax.swing.JFrame {
                     } else {
                         try {
                             String query = "insert into ASSIGNTIME(session_id, session_name, lecturer_1, lecturer_2, lecturer_3, subject_code, subject_name, group_id, tag, student_count, duration, room ,timeslot, days) "
-                            + "values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,(SELECT session_room FROM sessionrooms WHERE sessionroom_id="+SessionID.getText()+"), ?,?)";
+                            + "values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,(SELECT ROOMS FROM sessionrooms WHERE session_name='"+SessionName.getText()+"'), ?,?)";
 
                             preparedStmt = connection.prepareStatement(query);
                             preparedStmt.setString(1, session_id);

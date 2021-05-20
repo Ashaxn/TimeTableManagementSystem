@@ -548,6 +548,7 @@ public class ARoomForSubject extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table_displaySubjectRoomDetails.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         table_displaySubjectRoomDetails.getTableHeader().setReorderingAllowed(false);
         table_displaySubjectRoomDetails.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -555,6 +556,14 @@ public class ARoomForSubject extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(table_displaySubjectRoomDetails);
+        if (table_displaySubjectRoomDetails.getColumnModel().getColumnCount() > 0) {
+            table_displaySubjectRoomDetails.getColumnModel().getColumn(0).setMinWidth(180);
+            table_displaySubjectRoomDetails.getColumnModel().getColumn(1).setMinWidth(180);
+            table_displaySubjectRoomDetails.getColumnModel().getColumn(2).setMinWidth(180);
+            table_displaySubjectRoomDetails.getColumnModel().getColumn(3).setMinWidth(180);
+            table_displaySubjectRoomDetails.getColumnModel().getColumn(4).setMinWidth(180);
+            table_displaySubjectRoomDetails.getColumnModel().getColumn(5).setMinWidth(180);
+        }
 
         btn_deleteManageRoom.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_deleteManageRoom.setForeground(new java.awt.Color(255, 255, 255));

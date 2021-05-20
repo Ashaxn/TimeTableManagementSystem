@@ -58,7 +58,6 @@ public class UAddWorkingDays extends javax.swing.JFrame {
         try {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(JDBC_URL);
-            System.out.println("DB connected");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -146,8 +145,7 @@ public class UAddWorkingDays extends javax.swing.JFrame {
        hr_count = 0;
         
     }
-    
-    
+        
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1151,10 +1149,7 @@ public class UAddWorkingDays extends javax.swing.JFrame {
        int working_day_count = Integer.parseInt(numof_workingdays.split(" ")[0]);
        
        if(working_day_count==day_count) {
-          
-        System.out.println(numof_workingdays);
-        System.out.println(numof_miniutes);
-        System.out.println(mondayV);
+         
         
         workingDaysModel = new WorkingDaysModel(numof_workingdays, numof_miniutes, numof_hours, mondayV, tuesdayV, wednsdayV, thrusdayV, fridayV, saterdayV, sundayV);
         
@@ -1204,11 +1199,10 @@ public class UAddWorkingDays extends javax.swing.JFrame {
 
     private void display_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_display_tableMouseClicked
         // TODO add your handling code here:
-        System.out.println("jjerh");
         int i = display_table.getSelectedRow();
         TableModel model = display_table.getModel();
         
-        System.out.println(i);
+
        // System.out.println(model.getValueAt(i, 2).toString());
         
         update_workingdays.setSelectedItem(model.getValueAt(i, 1).toString());

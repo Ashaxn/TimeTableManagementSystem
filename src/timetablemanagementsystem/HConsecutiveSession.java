@@ -611,6 +611,7 @@ public class HConsecutiveSession extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        display_manageconsec.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         display_manageconsec.getTableHeader().setReorderingAllowed(false);
         display_manageconsec.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

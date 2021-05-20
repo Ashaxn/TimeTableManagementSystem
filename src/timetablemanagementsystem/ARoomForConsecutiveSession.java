@@ -473,28 +473,17 @@ public class ARoomForConsecutiveSession extends javax.swing.JFrame {
         if (table_displayConSessionRoomDetails.getColumnModel().getColumnCount() > 0) {
             table_displayConSessionRoomDetails.getColumnModel().getColumn(0).setMinWidth(100);
             table_displayConSessionRoomDetails.getColumnModel().getColumn(0).setPreferredWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(1).setMinWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(1).setPreferredWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(2).setMinWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(2).setPreferredWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(3).setMinWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(3).setPreferredWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(4).setMinWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(4).setPreferredWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(5).setMinWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(5).setPreferredWidth(100);
+            table_displayConSessionRoomDetails.getColumnModel().getColumn(1).setMinWidth(180);
+            table_displayConSessionRoomDetails.getColumnModel().getColumn(2).setMinWidth(180);
+            table_displayConSessionRoomDetails.getColumnModel().getColumn(3).setMinWidth(180);
+            table_displayConSessionRoomDetails.getColumnModel().getColumn(4).setMinWidth(180);
+            table_displayConSessionRoomDetails.getColumnModel().getColumn(5).setMinWidth(180);
             table_displayConSessionRoomDetails.getColumnModel().getColumn(6).setMinWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(6).setPreferredWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(7).setMinWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(7).setPreferredWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(8).setMinWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(8).setPreferredWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(9).setMinWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(9).setPreferredWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(10).setMinWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(10).setPreferredWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(11).setMinWidth(100);
-            table_displayConSessionRoomDetails.getColumnModel().getColumn(11).setPreferredWidth(100);
+            table_displayConSessionRoomDetails.getColumnModel().getColumn(7).setMinWidth(180);
+            table_displayConSessionRoomDetails.getColumnModel().getColumn(8).setMinWidth(180);
+            table_displayConSessionRoomDetails.getColumnModel().getColumn(9).setMinWidth(180);
+            table_displayConSessionRoomDetails.getColumnModel().getColumn(10).setMinWidth(180);
+            table_displayConSessionRoomDetails.getColumnModel().getColumn(11).setMinWidth(180);
         }
 
         btn_deleteManageConSessionRoom.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N

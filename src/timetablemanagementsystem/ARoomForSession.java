@@ -471,6 +471,19 @@ public class ARoomForSession extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(table_displaySessionRoomDetails);
+        if (table_displaySessionRoomDetails.getColumnModel().getColumnCount() > 0) {
+            table_displaySessionRoomDetails.getColumnModel().getColumn(0).setMinWidth(80);
+            table_displaySessionRoomDetails.getColumnModel().getColumn(1).setMinWidth(180);
+            table_displaySessionRoomDetails.getColumnModel().getColumn(2).setMinWidth(180);
+            table_displaySessionRoomDetails.getColumnModel().getColumn(3).setMinWidth(180);
+            table_displaySessionRoomDetails.getColumnModel().getColumn(4).setMinWidth(180);
+            table_displaySessionRoomDetails.getColumnModel().getColumn(5).setMinWidth(180);
+            table_displaySessionRoomDetails.getColumnModel().getColumn(6).setMinWidth(180);
+            table_displaySessionRoomDetails.getColumnModel().getColumn(7).setMinWidth(180);
+            table_displaySessionRoomDetails.getColumnModel().getColumn(8).setMinWidth(180);
+            table_displaySessionRoomDetails.getColumnModel().getColumn(9).setMinWidth(180);
+            table_displaySessionRoomDetails.getColumnModel().getColumn(10).setMinWidth(180);
+        }
 
         btn_deleteManageSessionRoom.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_deleteManageSessionRoom.setForeground(new java.awt.Color(255, 255, 255));

@@ -217,8 +217,17 @@ public class AViewSubjectRoomTable extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        onlySubjectRooms_table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         onlySubjectRooms_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(onlySubjectRooms_table);
+        if (onlySubjectRooms_table.getColumnModel().getColumnCount() > 0) {
+            onlySubjectRooms_table.getColumnModel().getColumn(0).setMinWidth(180);
+            onlySubjectRooms_table.getColumnModel().getColumn(1).setMinWidth(180);
+            onlySubjectRooms_table.getColumnModel().getColumn(2).setMinWidth(180);
+            onlySubjectRooms_table.getColumnModel().getColumn(3).setMinWidth(180);
+            onlySubjectRooms_table.getColumnModel().getColumn(4).setMinWidth(180);
+            onlySubjectRooms_table.getColumnModel().getColumn(5).setMinWidth(180);
+        }
 
         viewSubjectRoomsTable_exitBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         viewSubjectRoomsTable_exitBtn.setForeground(new java.awt.Color(255, 255, 255));

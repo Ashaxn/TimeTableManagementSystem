@@ -172,6 +172,7 @@ public class ALoginPage extends javax.swing.JFrame {
         btn_login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
         btn_login.setText("LOGIN");
         btn_login.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_login.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/AImages/add btn hover.png"))); // NOI18N
         btn_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_loginActionPerformed(evt);

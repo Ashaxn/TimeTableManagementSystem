@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -22,26 +24,69 @@ import javax.swing.JOptionPane;
  */
 public class URoomCannotBeReserved extends javax.swing.JFrame {
     
-    
-    
- 
-
+    private Connection connection;
+    private Statement statement;
+    private PreparedStatement preparedStmt;
+    private String roomCnNot_rowSelected;  
+    private String  roomname, roomday, start_time, end_time;
+    private int roomcannot_id;
     /**
      * Creates new form URoomCannotBeReserved
      */
     public URoomCannotBeReserved() {
         initComponents();
-      
+        dbconnect();
+        show_RoomCannotReceiveDetails();
+        FillComboRooms();
+        btn_addWorkingDays.setBackground(new java.awt.Color(8,142,88));
     }
     
+    public ArrayList<URoomCannotModel> roomcannotList() {
+        
+        ArrayList<URoomCannotModel> roomcannotList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM rmcnnot";
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            
+            URoomCannotModel roomcannotmodel ;
+
+            while(rs.next()){
+                roomcannotmodel = new URoomCannotModel (rs.getInt("rmcannot_id"), rs.getString("room_name"), rs.getString("day"), rs.getString("start_time"), rs.getString("end_time"));
+                roomcannotList.add(roomcannotmodel);            
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex + "Exception occured in Room Cannot Received List method");
+            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);         
+        }
+        return roomcannotList;            
+    }
     
-     private void dbconnection() {
+    public void show_RoomCannotReceiveDetails(){
+        
+        ArrayList<URoomCannotModel> roomcannotList = roomcannotList();
+        DefaultTableModel tableModel = (DefaultTableModel) displayroomcannot_table.getModel();
+        
+        Object[] row = new Object[6];
+        for (int i = 0; i < roomcannotList.size(); i++) {
+            
+            row[0] = roomcannotList.get(i).getId();
+            row[1] = roomcannotList.get(i).getRoomName();
+            row[2] = roomcannotList.get(i).getRoomday();
+            row[3] = roomcannotList.get(i).getStart_time();
+            row[4] = roomcannotList.get(i).getEnd_time();
+            
+            tableModel.addRow(row);                       
+        } 
+    }    
+    
+    private void dbconnect(){
         final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
         final String JDBC_URL = "jdbc:derby:C:/Derby/TTMS;create=true";
         
         try {
             Class.forName(DRIVER);
-            Connection connection = DriverManager.getConnection(JDBC_URL);
+            connection = DriverManager.getConnection(JDBC_URL);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -49,11 +94,31 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }  
-    }
-    
         
-     
-      
+    } 
+    
+    private void clearFieldsAdd(){
+        rmcnotSelectRoom.setSelectedItem("Select Room");
+        rmcannotDay.setSelectedItem("Select Day");
+        emcntStart_Timetext.setText(null);
+        emcntEnd_Timetext.setText(null);
+    }   
+    
+    private void FillComboRooms(){
+        try {
+            String bcomboquery = "SELECT * FROM ROOMS";
+            preparedStmt = connection.prepareStatement(bcomboquery);
+            ResultSet rst = preparedStmt.executeQuery();
+            
+            while(rst.next()){
+                String roomnames = rst.getString("ROOM_NAME");
+                rmcnotSelectRoom.addItem(roomnames);
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
      
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,19 +144,19 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jp_RoomCannotbeReserved = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        NoOfWorkingDays = new javax.swing.JComboBox<>();
+        rmcnotSelectRoom = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         btn_clearworkingdays = new javax.swing.JButton();
-        addWorkingDays = new javax.swing.JButton();
+        addRoomCannotDays = new javax.swing.JButton();
         label1 = new java.awt.Label();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        rmcannotDay = new javax.swing.JComboBox<>();
+        emcntStart_Timetext = new javax.swing.JTextField();
+        emcntEnd_Timetext = new javax.swing.JTextField();
         jp_manageRoomCannotbereserved = new javax.swing.JPanel();
         tableScrollPane = new javax.swing.JScrollPane();
-        display_table = new javax.swing.JTable();
-        btnupdate = new javax.swing.JButton();
+        displayroomcannot_table = new javax.swing.JTable();
+        btnRefresh = new javax.swing.JButton();
         btndelete = new javax.swing.JButton();
         btnsearch = new javax.swing.JButton();
         jComboBox6 = new javax.swing.JComboBox<>();
@@ -260,10 +325,10 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel8.setText("Select Room :");
 
-        NoOfWorkingDays.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Day", "2 Days", "3 Days", "4 Days", "5 Days", "6 Days", "7 Days" }));
-        NoOfWorkingDays.addActionListener(new java.awt.event.ActionListener() {
+        rmcnotSelectRoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Room" }));
+        rmcnotSelectRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NoOfWorkingDaysActionPerformed(evt);
+                rmcnotSelectRoomActionPerformed(evt);
             }
         });
 
@@ -287,27 +352,23 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
             }
         });
 
-        addWorkingDays.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        addWorkingDays.setForeground(new java.awt.Color(255, 255, 255));
-        addWorkingDays.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
-        addWorkingDays.setText("ADD");
-        addWorkingDays.setToolTipText("Click The Add Button To Add The Data");
-        addWorkingDays.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        addWorkingDays.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn hover.png"))); // NOI18N
-        addWorkingDays.addActionListener(new java.awt.event.ActionListener() {
+        addRoomCannotDays.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addRoomCannotDays.setForeground(new java.awt.Color(255, 255, 255));
+        addRoomCannotDays.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
+        addRoomCannotDays.setText("ADD");
+        addRoomCannotDays.setToolTipText("Click The Add Button To Add The Data");
+        addRoomCannotDays.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        addRoomCannotDays.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn hover.png"))); // NOI18N
+        addRoomCannotDays.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addWorkingDaysActionPerformed(evt);
+                addRoomCannotDaysActionPerformed(evt);
             }
         });
 
         label1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         label1.setText("End Time :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        rmcannotDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Day", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }));
 
         javax.swing.GroupLayout jp_RoomCannotbeReservedLayout = new javax.swing.GroupLayout(jp_RoomCannotbeReserved);
         jp_RoomCannotbeReserved.setLayout(jp_RoomCannotbeReservedLayout);
@@ -318,20 +379,20 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
                 .addGroup(jp_RoomCannotbeReservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jp_RoomCannotbeReservedLayout.createSequentialGroup()
                         .addGap(119, 119, 119)
-                        .addComponent(addWorkingDays, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addRoomCannotDays, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78)
                         .addComponent(btn_clearworkingdays, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(194, Short.MAX_VALUE))
                     .addGroup(jp_RoomCannotbeReservedLayout.createSequentialGroup()
                         .addGroup(jp_RoomCannotbeReservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(NoOfWorkingDays, 0, 256, Short.MAX_VALUE)
+                            .addComponent(rmcnotSelectRoom, 0, 256, Short.MAX_VALUE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(emcntStart_Timetext))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jp_RoomCannotbeReservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, 0, 229, Short.MAX_VALUE)
-                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(rmcannotDay, 0, 229, Short.MAX_VALUE)
+                            .addComponent(emcntEnd_Timetext))
                         .addGap(47, 47, 47))
                     .addGroup(jp_RoomCannotbeReservedLayout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,22 +409,22 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jp_RoomCannotbeReservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NoOfWorkingDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jp_RoomCannotbeReservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rmcnotSelectRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rmcannotDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jp_RoomCannotbeReservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jp_RoomCannotbeReservedLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_RoomCannotbeReservedLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jp_RoomCannotbeReservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(emcntStart_Timetext, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emcntEnd_Timetext, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jp_RoomCannotbeReservedLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)))
+                        .addGap(108, 108, 108)))
                 .addGroup(jp_RoomCannotbeReservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addGroup(jp_RoomCannotbeReservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addWorkingDays, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addRoomCannotDays, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_clearworkingdays, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54))
         );
@@ -372,47 +433,39 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
 
         jp_manageRoomCannotbereserved.setBackground(new java.awt.Color(247, 247, 247));
 
-        display_table.setModel(new javax.swing.table.DefaultTableModel(
+        displayroomcannot_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "         ID", "   Room", "   Day", "  Duration"
+                "         ID", "   Room", "   Day", "Start Time", "End Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        display_table.addMouseListener(new java.awt.event.MouseAdapter() {
+        displayroomcannot_table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                display_tableMouseClicked(evt);
+                displayroomcannot_tableMouseClicked(evt);
             }
         });
-        tableScrollPane.setViewportView(display_table);
+        tableScrollPane.setViewportView(displayroomcannot_table);
 
-        btnupdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnupdate.setForeground(new java.awt.Color(255, 255, 255));
-        btnupdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
-        btnupdate.setText("REFRESH");
-        btnupdate.setToolTipText("Click Update Button To Update Details");
-        btnupdate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnupdate.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn hover.png"))); // NOI18N
-        btnupdate.addActionListener(new java.awt.event.ActionListener() {
+        btnRefresh.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn.png"))); // NOI18N
+        btnRefresh.setText("REFRESH");
+        btnRefresh.setToolTipText("Click Update Button To Update Details");
+        btnRefresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRefresh.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/timetablemanagementsystem/UImages/add btn hover.png"))); // NOI18N
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnupdateActionPerformed(evt);
+                btnRefreshActionPerformed(evt);
             }
         });
 
@@ -457,7 +510,7 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
                 .addGroup(jp_manageRoomCannotbereservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jp_manageRoomCannotbereservedLayout.createSequentialGroup()
                         .addGap(105, 105, 105)
-                        .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58)
                         .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jp_manageRoomCannotbereservedLayout.createSequentialGroup()
@@ -474,10 +527,10 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
                     .addComponent(btnsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jp_manageRoomCannotbereservedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
 
@@ -532,7 +585,7 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("ROOM");
+        jLabel4.setText("MANAGE ROOM");
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
@@ -619,7 +672,7 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
 
     private void btn_addWorkingDaysMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addWorkingDaysMouseClicked
         // TODO add your handling code here:
-        jp_manageRoomCannotbereserved.setVisible(true);
+        jp_RoomCannotbeReserved.setVisible(true);
         jp_manageRoomCannotbereserved.setVisible(false);
         addWorkingDays_TopBar.setVisible(true);
         manageWorkingDays_Topbar.setVisible(false);
@@ -649,18 +702,12 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
 
     private void jPanel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MousePressed
         // TODO add your handling code here:
-        jp_manageRoomCannotbereserved.setVisible(true);
-        jp_manageRoomCannotbereserved.setVisible(false);
-        addWorkingDays_TopBar.setVisible(false);
-        manageWorkingDays_Topbar.setVisible(true);
-        jPanel3.setBackground(new java.awt.Color(8,142,88));
-        btn_addWorkingDays.setBackground(new java.awt.Color(39,156,109));
     }//GEN-LAST:event_jPanel3MousePressed
 
     private void btn_ManageWorkingDaysMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ManageWorkingDaysMouseClicked
         // TODO add your handling code here:
         jp_manageRoomCannotbereserved.setVisible(true);
-        jp_manageRoomCannotbereserved.setVisible(false);
+        jp_RoomCannotbeReserved.setVisible(false);
         addWorkingDays_TopBar.setVisible(false);
         manageWorkingDays_Topbar.setVisible(true);
         btn_ManageWorkingDays.setBackground(new java.awt.Color(8,142,88));
@@ -677,43 +724,128 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
 
     private void addWorkingDays_backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addWorkingDays_backBtnActionPerformed
         // TODO add your handling code here:
-        new UHome().setVisible(true);
+        new ALocationHome().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_addWorkingDays_backBtnActionPerformed
 
-    private void NoOfWorkingDaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoOfWorkingDaysActionPerformed
+    private void rmcnotSelectRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rmcnotSelectRoomActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NoOfWorkingDaysActionPerformed
+    }//GEN-LAST:event_rmcnotSelectRoomActionPerformed
 
     private void btn_clearworkingdaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearworkingdaysActionPerformed
         // TODO add your handling code here:
-       
+       clearFieldsAdd();
     }//GEN-LAST:event_btn_clearworkingdaysActionPerformed
 
-    private void addWorkingDaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addWorkingDaysActionPerformed
+    private void addRoomCannotDaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRoomCannotDaysActionPerformed
 
-      
+        this.roomname = rmcnotSelectRoom.getSelectedItem().toString();
+        this.roomday = rmcannotDay.getSelectedItem().toString();
+        this.start_time = emcntStart_Timetext.getText();
+        this.end_time = emcntEnd_Timetext.getText();
+
+        if (rmcnotSelectRoom.getSelectedItem().toString().equals("Select Room") || rmcannotDay.getSelectedItem().toString().equals("Select Day") || emcntStart_Timetext.getText().equals("") || emcntEnd_Timetext.getText().equals("") ) {
+            JOptionPane.showMessageDialog(null, "Please Fill All Fields.");
+
+        } else {
+            if ("" != rmcnotSelectRoom.getSelectedItem().toString()) {
+
+                try {
+                    String query_roomexits = "select room_name from rmcnnot where room_name like '"+'%'+rmcnotSelectRoom.getSelectedItem().toString()+'%'+"'";
+                    Statement st_rooms = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+                    ResultSet rs1 = st_rooms.executeQuery(query_roomexits);
+                    if (rs1.first()) {
+                        JOptionPane.showMessageDialog(null, "This Room Already Exist");
+
+                    } else {
+
+                        try {
+                            String query = "insert into rmcnnot(room_name, day, start_time, end_time) "
+                            + "values ( ?, ?, ?, ? )";
+
+                            preparedStmt = connection.prepareStatement(query);
+                            preparedStmt.setString(1, roomname);
+                            preparedStmt.setString(2, roomday);
+                            preparedStmt.setString(3, start_time);
+                            preparedStmt.setString(4, end_time);
+
+                            preparedStmt.execute();
+
+                            JOptionPane.showMessageDialog(null, "Cannot Received Room Added Successfully. \n Thank You!");
+                            DefaultTableModel model = (DefaultTableModel) displayroomcannot_table.getModel();
+                            model.setRowCount(0);
+                            show_RoomCannotReceiveDetails();
+
+                            //                    buildingNo.setText("");
+                            //                    buildingName.setText("");
+                            //                    noRooms.setValue("");
+
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+                            System.err.println("Got an exception!");
+                            System.err.println(e.getMessage());
+                            Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, e);
+                        }
+
+                    }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+                    System.err.println("Got an exception!");
+                    System.err.println(e.getMessage());
+                    Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, e);
+                }
+
+            }
+        }        
        
                 
-    }//GEN-LAST:event_addWorkingDaysActionPerformed
+    }//GEN-LAST:event_addRoomCannotDaysActionPerformed
 
-    private void display_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_display_tableMouseClicked
+    private void displayroomcannot_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayroomcannot_tableMouseClicked
 
+        int i = displayroomcannot_table.getSelectedRow();
+        TableModel model = displayroomcannot_table.getModel();
 
+        roomCnNot_rowSelected = model.getValueAt(i,0).toString();
+        roomname = model.getValueAt(i,1).toString();
        
-    }//GEN-LAST:event_display_tableMouseClicked
+    }//GEN-LAST:event_displayroomcannot_tableMouseClicked
 
-    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
-
-      
+        DefaultTableModel model = (DefaultTableModel) displayroomcannot_table.getModel();
+        model.setRowCount(0);
+        show_RoomCannotReceiveDetails(); 
        
         //  String query = "insert into workingdays(workinghours,workingminiutes,noofworkingdays, monday, tuesday, wednesday, thrusday, friday, saterday, sunday) values(?,?,?,?,?,?,?,?,?,?)";
-    }//GEN-LAST:event_btnupdateActionPerformed
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         // TODO add your handling code here:
+        int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to Delete " + roomCnNot_rowSelected + " - "
+            + roomname + "Room details ?", "Delete", JOptionPane.YES_NO_OPTION);
 
+        if (opt == 0) {
+            try {
+                String query = "DELETE FROM rmcnnot WHERE rmcannot_id = ?";
+                preparedStmt = connection.prepareStatement(query);
+                preparedStmt.setString(1, roomCnNot_rowSelected);
+
+                preparedStmt.execute();
+
+                JOptionPane.showMessageDialog(null, "Room removed successfully from the Database");
+                DefaultTableModel model = (DefaultTableModel) displayroomcannot_table.getModel();
+                model.setRowCount(0);
+                show_RoomCannotReceiveDetails();
+
+            }catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Something went wrong! Please try again.");
+                System.err.println("Exception in delete operation : " + ex);
+                System.err.println(ex.getMessage());
+                Logger.getLogger(AAddBuildings.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
        
     }//GEN-LAST:event_btndeleteActionPerformed
 
@@ -770,23 +902,21 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background_pnl;
     private javax.swing.JPanel JPanel7;
-    private javax.swing.JComboBox<String> NoOfWorkingDays;
     private javax.swing.JPanel SidePanel;
-    private javax.swing.JButton addWorkingDays;
+    private javax.swing.JButton addRoomCannotDays;
     private javax.swing.JPanel addWorkingDays_TopBar;
     private javax.swing.JButton addWorkingDays_backBtn;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JPanel btn_ManageWorkingDays;
     private javax.swing.JPanel btn_addWorkingDays;
     private javax.swing.JButton btn_clearworkingdays;
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btnsearch;
-    private javax.swing.JButton btnupdate;
-    private javax.swing.JTable display_table;
+    private javax.swing.JTable displayroomcannot_table;
+    private javax.swing.JTextField emcntEnd_Timetext;
+    private javax.swing.JTextField emcntStart_Timetext;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -806,6 +936,8 @@ public class URoomCannotBeReserved extends javax.swing.JFrame {
     private javax.swing.JPanel jp_manageRoomCannotbereserved;
     private java.awt.Label label1;
     private javax.swing.JPanel manageWorkingDays_Topbar;
+    private javax.swing.JComboBox<String> rmcannotDay;
+    private javax.swing.JComboBox<String> rmcnotSelectRoom;
     private javax.swing.JScrollPane tableScrollPane;
     // End of variables declaration//GEN-END:variables
 }
