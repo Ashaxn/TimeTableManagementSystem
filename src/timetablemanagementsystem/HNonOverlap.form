@@ -505,8 +505,8 @@
                             <Column editable="false" title="Subject Name" type="java.lang.Object"/>
                             <Column editable="false" title="Group ID" type="java.lang.Object"/>
                             <Column editable="false" title="Tag" type="java.lang.Object"/>
-                            <Column editable="false" title="Duration" type="java.lang.Object"/>
                             <Column editable="false" title="Student Count" type="java.lang.Object"/>
+                            <Column editable="false" title="Duration" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

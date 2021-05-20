@@ -375,7 +375,7 @@ public class HNonOverlap extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Session Name", "FirstLec", "SecondLec", "ThirdLec", "Subject Code", "Subject Name", "Group ID", "Tag", "Duration", "Student Count"
+                "ID", "Session Name", "FirstLec", "SecondLec", "ThirdLec", "Subject Code", "Subject Name", "Group ID", "Tag", "Student Count", "Duration"
             }
         ) {
             boolean[] canEdit = new boolean [] {

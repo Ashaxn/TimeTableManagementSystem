@@ -334,25 +334,25 @@
                                   <Component id="addWorkingDays" min="-2" pref="112" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                                   <Component id="btn_clearworkingdays" min="-2" pref="112" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="227" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel8" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
-                                      <Component id="NoOfWorkingDays" alignment="0" min="-2" pref="226" max="-2" attributes="0"/>
+                                      <Component id="NoOfWorkingDayslec" alignment="0" pref="226" max="32767" attributes="0"/>
                                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox1" alignment="0" min="-2" pref="226" max="-2" attributes="0"/>
+                                      <Component id="jComboBox1" alignment="0" pref="226" max="32767" attributes="0"/>
                                       <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox3" alignment="0" min="-2" pref="228" max="-2" attributes="0"/>
+                                      <Component id="startTimeTextBox" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="76" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox5" pref="237" max="32767" attributes="0"/>
-                                      <Component id="jComboBox4" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jComboBox4" alignment="0" pref="237" max="32767" attributes="0"/>
                                       <Component id="jComboBox2" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="endTimeTextBox" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                               </Group>
@@ -370,7 +370,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="NoOfWorkingDays" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="NoOfWorkingDayslec" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
@@ -388,24 +388,17 @@
                               <Component id="jLabel9" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
                               <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jComboBox3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="66" pref="163" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="addWorkingDays" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                      <Component id="btn_clearworkingdays" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                              </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="startTimeTextBox" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="endTimeTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="addWorkingDays" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="btn_clearworkingdays" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -419,7 +412,7 @@
                     <Property name="text" type="java.lang.String" value="Select Lecturer :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="NoOfWorkingDays">
+                <Component class="javax.swing.JComboBox" name="NoOfWorkingDayslec">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="1">
@@ -428,7 +421,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NoOfWorkingDaysActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NoOfWorkingDayslecActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -506,18 +499,6 @@
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox3">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
-                        <StringItem index="0" value="StartTime"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -569,17 +550,9 @@
                     <Property name="text" type="java.lang.String" value="End Time :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox5">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
-                        <StringItem index="0" value="EndTime"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
+                <Component class="javax.swing.JTextField" name="startTimeTextBox">
+                </Component>
+                <Component class="javax.swing.JTextField" name="endTimeTextBox">
                 </Component>
               </SubComponents>
             </Container>
@@ -653,17 +626,23 @@
                     <Component class="javax.swing.JTable" name="display_table">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="6" rowCount="11">
+                          <Table columnCount="7" rowCount="0">
                             <Column editable="false" title="  ID" type="java.lang.Object"/>
-                            <Column editable="false" title=" Duration" type="java.lang.Object"/>
-                            <Column editable="false" title=" Lectuer" type="java.lang.Object"/>
+                            <Column editable="false" title="Session ID" type="java.lang.Object"/>
+                            <Column editable="false" title=" Lectuer Name" type="java.lang.Object"/>
                             <Column editable="true" title="  Group ID" type="java.lang.Object"/>
                             <Column editable="true" title="Sub Group ID" type="java.lang.Object"/>
-                            <Column editable="true" title="Session ID" type="java.lang.Object"/>
+                            <Column editable="true" title="Start Time" type="java.lang.Object"/>
+                            <Column editable="true" title="End Time" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -739,7 +718,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/timetablemanagementsystem/UImages/add btn.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="CLEAR"/>
+                    <Property name="text" type="java.lang.String" value="Search"/>
                     <Property name="toolTipText" type="java.lang.String" value="Click Clear Button To Clear the Details"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -775,11 +754,8 @@
                 <Component class="javax.swing.JComboBox" name="jComboBox6">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
+                      <StringArray count="1">
+                        <StringItem index="0" value="Select To Search"/>
                       </StringArray>
                     </Property>
                   </Properties>
