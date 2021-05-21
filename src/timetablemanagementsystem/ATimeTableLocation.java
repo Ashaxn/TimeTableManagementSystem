@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.ComboBoxEditor;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -488,6 +490,12 @@ public class ATimeTableLocation extends javax.swing.JFrame {
 
     private void btn_printLocationTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_printLocationTableActionPerformed
         // TODO add your handling code here:
+        MessageFormat header = new MessageFormat("Timetable Report");
+        try {
+            display_generatetablelec.print(JTable.PrintMode.NORMAL, header, null);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }        
     }//GEN-LAST:event_btn_printLocationTableActionPerformed
 
     private void btn_GenerateLocationTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerateLocationTableActionPerformed
