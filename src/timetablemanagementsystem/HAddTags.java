@@ -488,6 +488,8 @@ public class HAddTags extends javax.swing.JFrame {
             }
         });
 
+        tagName2.setEditable(false);
+
         relatedTag2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecture", "Tutorial", "Lab Session" }));
         relatedTag2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

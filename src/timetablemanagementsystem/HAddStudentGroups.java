@@ -865,8 +865,12 @@ public class HAddStudentGroups extends javax.swing.JFrame {
         
         if(AcademicYear.getText().equals("") ||  btn_program.getSelectedItem().equals("") || spin_groupNo.getValue().equals("0") || spin_subgroupNo.getValue().equals("0")) {
                     JOptionPane.showMessageDialog(null, "Please Fill All Fields.");
-                
         } else {
+            if (field_groupID.getText().equals("") || field_subgroupID.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Please Click On Generate IDS");
+            }        
+                
+        else {
             if ("" != field_subgroupID.getText()) {
 
                 try {
@@ -914,7 +918,7 @@ public class HAddStudentGroups extends javax.swing.JFrame {
                 }
 
             }
-
+        }
         }
         
     }//GEN-LAST:event_btn_addsgroupsActionPerformed

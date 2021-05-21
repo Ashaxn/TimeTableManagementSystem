@@ -756,6 +756,9 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="tagName2">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="relatedTag2">
                   <Properties>
