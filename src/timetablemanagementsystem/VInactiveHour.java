@@ -44,9 +44,9 @@ public class VInactiveHour extends javax.swing.JFrame {
     
     public void setLecId(){
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
-            
+            String currentDir = System.getProperty("user.dir");
+             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
             Connection conn = DriverManager.getConnection(URL);
            
             
@@ -82,8 +82,9 @@ public class VInactiveHour extends javax.swing.JFrame {
         
         try {
             
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+            String currentDir = System.getProperty("user.dir");
+             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
             Connection conn = DriverManager.getConnection(URL);
             
             Statement stmt = conn.createStatement();
@@ -536,8 +537,9 @@ public class VInactiveHour extends javax.swing.JFrame {
        lecIDtxt.setText(lid2);
         try{
 
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+            String currentDir = System.getProperty("user.dir");
+             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
             Connection conn = DriverManager.getConnection(URL);
 
             Statement stmt = conn.createStatement();
@@ -598,9 +600,10 @@ public class VInactiveHour extends javax.swing.JFrame {
          int val = Integer.parseInt(lecIDtxt.getText());
         try{
 
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-           String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
-           Connection conn = DriverManager.getConnection(URL);
+            String currentDir = System.getProperty("user.dir");
+             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
+            Connection conn = DriverManager.getConnection(URL);
           
             Statement stmt = conn.createStatement();
 
@@ -627,7 +630,8 @@ public class VInactiveHour extends javax.swing.JFrame {
         }
 
         try{
-      DriverManager.getConnection("jdbc:derby:C:/Derby/TTMS;create=true");
+      String currentDir = System.getProperty("user.dir");
+      DriverManager.getConnection("jdbc:derby:"+currentDir+"\\TTMS");
         }  catch(SQLException ex){
             Logger.getLogger(VInactiveHour.class.getName()).log(Level.SEVERE,null,ex);
         }
@@ -651,8 +655,9 @@ public class VInactiveHour extends javax.swing.JFrame {
         
          try{
 
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+            String currentDir = System.getProperty("user.dir");
+             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
             Connection conn = DriverManager.getConnection(URL);
 
             Statement stmt = conn.createStatement();
@@ -693,9 +698,10 @@ public class VInactiveHour extends javax.swing.JFrame {
 
             if(dialogrsult == JOptionPane.YES_OPTION){
 
-                    Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                    String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
-                    Connection conn = DriverManager.getConnection(URL);
+            String currentDir = System.getProperty("user.dir");
+             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
+            Connection conn = DriverManager.getConnection(URL);
 
                     Statement stmt = conn.createStatement();
 

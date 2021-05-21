@@ -21,10 +21,10 @@ public class dbConnect {
 
     dbConnect() throws ClassNotFoundException, SQLException {
         //DB Driver
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-        
-        String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
-        con = DriverManager.getConnection(URL);
+            String currentDir = System.getProperty("user.dir");
+             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
+            Connection conn = DriverManager.getConnection(URL);
         Statement stmt = con.createStatement();
         System.out.println("Connection Created");
         

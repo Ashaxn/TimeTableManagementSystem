@@ -45,8 +45,9 @@ public class UGenerateTimeSlots extends javax.swing.JFrame {
     }
 
       private void dbconnection() {
-       final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-        final String JDBC_URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+        String currentDir = System.getProperty("user.dir");
+        final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+        final String JDBC_URL = "jdbc:derby:"+currentDir+"\\TTMS";
        
         try {
             Class.forName(DRIVER);

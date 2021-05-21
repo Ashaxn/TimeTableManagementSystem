@@ -393,8 +393,9 @@ public class VAddSubjects extends javax.swing.JFrame {
                
          try{
 
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+            String currentDir = System.getProperty("user.dir");
+             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
             Connection conn = DriverManager.getConnection(URL);
 
             Statement stmt = conn.createStatement();

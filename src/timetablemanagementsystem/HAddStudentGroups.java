@@ -90,8 +90,9 @@ public class HAddStudentGroups extends javax.swing.JFrame {
     }
    
      private void dbconnect(){
+        String currentDir = System.getProperty("user.dir");
         final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-        final String JDBC_URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+        final String JDBC_URL = "jdbc:derby:"+currentDir+"\\TTMS";
         
         try {
             Class.forName(DRIVER);

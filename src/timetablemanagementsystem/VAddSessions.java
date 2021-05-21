@@ -43,8 +43,9 @@ public class VAddSessions extends javax.swing.JFrame {
     
     public void loadLecturers(){
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+            String currentDir = System.getProperty("user.dir");
+             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
             Connection conn = DriverManager.getConnection(URL);
 
             
@@ -75,8 +76,9 @@ public class VAddSessions extends javax.swing.JFrame {
         
         try {
             
+            String currentDir = System.getProperty("user.dir");
              Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
             Connection conn = DriverManager.getConnection(URL);
 
             
@@ -102,8 +104,9 @@ public class VAddSessions extends javax.swing.JFrame {
     
         try {
             
+            String currentDir = System.getProperty("user.dir");
              Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
             Connection conn = DriverManager.getConnection(URL);
 
             
@@ -128,8 +131,9 @@ public class VAddSessions extends javax.swing.JFrame {
     public void loadMainGroupIDs(){
     
         try {
+            String currentDir = System.getProperty("user.dir");
              Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
             Connection conn = DriverManager.getConnection(URL);
 
             
@@ -153,8 +157,9 @@ public class VAddSessions extends javax.swing.JFrame {
      public void loadSubGroupIDs(){
     
         try {
+            String currentDir = System.getProperty("user.dir");
              Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
             Connection conn = DriverManager.getConnection(URL);
 
             
@@ -757,8 +762,9 @@ public class VAddSessions extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
             
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
+            String currentDir = System.getProperty("user.dir");
+             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
             Connection conn = DriverManager.getConnection(URL);
 
             
@@ -856,9 +862,10 @@ public class VAddSessions extends javax.swing.JFrame {
                     else {
                     
                         try {
-                             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                             String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
-                             Connection conn = DriverManager.getConnection(URL);
+                                       String currentDir = System.getProperty("user.dir");
+             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
+            Connection conn = DriverManager.getConnection(URL);
 
                              Statement stmt = conn.createStatement();
 
@@ -915,9 +922,10 @@ public class VAddSessions extends javax.swing.JFrame {
                     else {
                     
                         try {
-                             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                             String URL = "jdbc:derby:C:/Derby/TTMS;create=true";
-                             Connection conn = DriverManager.getConnection(URL);
+            String currentDir = System.getProperty("user.dir");
+             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String URL = "jdbc:derby:"+currentDir+"\\TTMS";
+            Connection conn = DriverManager.getConnection(URL);
 
                              Statement stmt = conn.createStatement();
 

@@ -297,56 +297,54 @@
                       <Group type="102" attributes="0">
                           <EmptySpace pref="29" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
-                                              <Component id="btn_paraladd" min="-2" pref="112" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                                              <Component id="btn_viewparadetails" min="-2" pref="112" max="-2" attributes="0"/>
-                                          </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                                          <Component id="btn_paraladd" min="-2" pref="112" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                                          <Component id="btn_viewparadetails" min="-2" pref="112" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="ParaName" alignment="0" max="32767" attributes="0"/>
-                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="Tag2" alignment="0" max="32767" attributes="0"/>
-                                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                          <Component id="SubjectName2" alignment="0" max="32767" attributes="0"/>
-                                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                                  <Component id="SubCode2" alignment="0" pref="164" max="32767" attributes="0"/>
-                                                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="SessionID2" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="ParaName" alignment="0" max="32767" attributes="0"/>
+                                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                      <Component id="Tag2" alignment="0" max="32767" attributes="0"/>
+                                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                              <Component id="SubjectName2" alignment="0" max="32767" attributes="0"/>
+                                                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                                      <Component id="SubCode2" alignment="0" pref="164" max="32767" attributes="0"/>
+                                                                      <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="SessionID2" alignment="0" max="32767" attributes="0"/>
+                                                                  </Group>
+                                                                  <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                                                               </Group>
-                                                              <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                                                           </Group>
+                                                          <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       </Group>
-                                                      <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="SessionID1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="SubCode1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="SubjectName1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="Tag1" alignment="0" pref="188" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="SessionID1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="SubCode1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="SubjectName1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="Tag1" alignment="0" pref="188" max="32767" attributes="0"/>
-                                      </Group>
                                   </Group>
+                                  <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jScrollPane2" min="-2" pref="573" max="-2" attributes="0"/>
