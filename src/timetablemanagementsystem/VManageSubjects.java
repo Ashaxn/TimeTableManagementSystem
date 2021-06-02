@@ -550,6 +550,7 @@ public class VManageSubjects extends javax.swing.JFrame {
             Statement stmt = conn.createStatement();
 
             insert =  (PreparedStatement) conn.prepareStatement("select * from Subject where oyear = ? and osem = ?");
+           
             insert.setString(1, jComboBox1.getSelectedItem().toString());
             insert.setString(2, jComboBox2.getSelectedItem().toString());
             ResultSet rs2 =  insert.executeQuery();
@@ -563,7 +564,7 @@ public class VManageSubjects extends javax.swing.JFrame {
 
             while(rs2.next()){
 
-                Vector v2 = new Vector();
+              Vector v2 = new Vector();
 
                 for(int a=1; a<=c ; a++){
 
