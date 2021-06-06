@@ -1,6 +1,10 @@
-# Ant
-- task: ManualValidation@0
+
+- task: JavaToolInstaller@0
   inputs:
+    versionSpec: '14'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'LocalDirectory'
+    cleanDestinationDirectory: true
 # Build your Java projects and run tests with Apache Ant.
 # Add steps that save build artifacts and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
